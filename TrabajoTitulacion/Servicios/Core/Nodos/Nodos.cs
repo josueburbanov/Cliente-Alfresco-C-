@@ -1,6 +1,7 @@
 ﻿using RestSharp;
 using System;
 using RestSharp.Extensions;
+using System.Threading.Tasks;
 
 namespace TrabajoTitulacion.Servicios.Core.Nodos
 {
@@ -13,27 +14,27 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
         {
             var solicitud = new RestRequest(Method.GET);
             solicitud.Resource = "nodes/" + idNodo + "/content";
-            solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);            
-            (cliente.DownloadData(solicitud)).SaveAs(path);            
+            solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
+            (cliente.DownloadData(solicitud)).SaveAs(path);
         }
 
-        public string ObtenerListaNodosHijos(string nodoPadre)
+        public async Task<string> ObtenerListaNodosHijos(string nodoPadre)
         {
             var solicitud = new RestRequest(Method.GET);
             solicitud.Resource = "nodes/"+nodoPadre+"/children";
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
-            IRestResponse respuesta = cliente.Execute(solicitud);
+            IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
             var contenidoRespuesta = respuesta.Content;
             if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
             return contenidoRespuesta;
         }
 
-        public string ObtenerNodo(string idNodo)
+        public async Task<string> ObtenerNodo(string idNodo)
         {
             var solicitud = new RestRequest(Method.GET);
             solicitud.Resource = "nodes/" + idNodo;
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
-            IRestResponse respuesta = cliente.Execute(solicitud);
+            IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
             var contenidoRespuesta = respuesta.Content;
             if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
             return contenidoRespuesta;

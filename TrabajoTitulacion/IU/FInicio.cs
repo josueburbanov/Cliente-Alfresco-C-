@@ -26,7 +26,6 @@ namespace TrabajoTitulacion.IU
         {
             var mdiParent = MdiParent as FDashboard;
             mdiParent.AbrirRepositorio();
-            
         }
 
         private void btnGestorModelos_Click(object sender, EventArgs e)

@@ -144,14 +144,14 @@
             this.toolStripMenuRepositorio.Name = "toolStripMenuRepositorio";
             this.toolStripMenuRepositorio.Size = new System.Drawing.Size(100, 21);
             this.toolStripMenuRepositorio.Text = "Repositorio";
-            this.toolStripMenuRepositorio.Click += new System.EventHandler(this.toolStripMenuRepositorio_Click);            
+            this.toolStripMenuRepositorio.Click += new System.EventHandler(this.toolStripMenuRepositorio_Click);
             // 
             // toolStripMenuGestorDeModelos
             // 
             this.toolStripMenuGestorDeModelos.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripMenuGestorDeModelos.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuGestorDeModelos.Image")));
             this.toolStripMenuGestorDeModelos.Name = "toolStripMenuGestorDeModelos";
-            this.toolStripMenuGestorDeModelos.Size = new System.Drawing.Size(143, 15);
+            this.toolStripMenuGestorDeModelos.Size = new System.Drawing.Size(143, 21);
             this.toolStripMenuGestorDeModelos.Text = "Gestor de Modelos";
             // 
             // toolStripMenuBusqueda
@@ -159,7 +159,7 @@
             this.toolStripMenuBusqueda.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripMenuBusqueda.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuBusqueda.Image")));
             this.toolStripMenuBusqueda.Name = "toolStripMenuBusqueda";
-            this.toolStripMenuBusqueda.Size = new System.Drawing.Size(93, 15);
+            this.toolStripMenuBusqueda.Size = new System.Drawing.Size(93, 21);
             this.toolStripMenuBusqueda.Text = "Búsqueda";
             // 
             // FDashboard

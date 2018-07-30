@@ -60,11 +60,11 @@
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 72);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 76);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(682, 393);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(682, 389);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -77,7 +77,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(171, 387);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(171, 383);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // treeViewRepositorio
@@ -91,10 +91,7 @@
             this.treeViewRepositorio.Margin = new System.Windows.Forms.Padding(10);
             this.treeViewRepositorio.Name = "treeViewRepositorio";
             this.treeViewRepositorio.SelectedImageIndex = 0;
-            this.treeViewRepositorio.ShowLines = false;
-            this.treeViewRepositorio.ShowPlusMinus = false;
-            this.treeViewRepositorio.ShowRootLines = false;
-            this.treeViewRepositorio.Size = new System.Drawing.Size(151, 367);
+            this.treeViewRepositorio.Size = new System.Drawing.Size(151, 363);
             this.treeViewRepositorio.TabIndex = 1;
             this.treeViewRepositorio.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewRepositorio_AfterSelect);
             this.treeViewRepositorio.Click += new System.EventHandler(this.treeViewRepositorio_Click);
@@ -118,7 +115,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 387F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 387F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 387F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(499, 387);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(499, 383);
             this.tableLayoutPanel3.TabIndex = 2;
             // 
             // tableLayoutPanel5
@@ -134,7 +131,7 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(493, 381);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(493, 377);
             this.tableLayoutPanel5.TabIndex = 2;
             // 
             // flwlypanelNodosHijos
@@ -146,7 +143,7 @@
             this.flwlypanelNodosHijos.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flwlypanelNodosHijos.Location = new System.Drawing.Point(3, 47);
             this.flwlypanelNodosHijos.Name = "flwlypanelNodosHijos";
-            this.flwlypanelNodosHijos.Size = new System.Drawing.Size(487, 331);
+            this.flwlypanelNodosHijos.Size = new System.Drawing.Size(487, 327);
             this.flwlypanelNodosHijos.TabIndex = 0;
             this.flwlypanelNodosHijos.WrapContents = false;
             // 
@@ -194,13 +191,12 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.GhostWhite;
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(3, 33);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.pictureBox1.Size = new System.Drawing.Size(682, 33);
+            this.pictureBox1.Size = new System.Drawing.Size(682, 37);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
@@ -216,8 +212,8 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.Padding = new System.Windows.Forms.Padding(0, 30, 0, 0);
             this.tableLayoutPanel4.RowCount = 2;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 91F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(688, 468);
             this.tableLayoutPanel4.TabIndex = 1;
             // 
@@ -237,6 +233,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FRepositorio";
             this.Load += new System.EventHandler(this.FRepositorio_Load);
+            this.Shown += new System.EventHandler(this.FRepositorio_Shown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TrabajoTitulacion.Modelos
 {
-    class Node
+    public class Node
     {
         public Node() { }
 

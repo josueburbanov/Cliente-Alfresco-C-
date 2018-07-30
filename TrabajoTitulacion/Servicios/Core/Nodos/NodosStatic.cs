@@ -18,21 +18,21 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
             servicioNodos.ObtenerContenido(idNodo, path);
         }
 
-        public static Node ObtenerNodo(string idNodo)
+        public async static Task<Node> ObtenerNodo(string idNodo)
         {
             Nodos servicioNodos = new Nodos();
-            string respuestaJson = servicioNodos.ObtenerNodo(idNodo);
+            string respuestaJson = await servicioNodos.ObtenerNodo(idNodo);
             //Se deserializa y luego serializa para obtener una lista de nodos (Elimina metadatos de descarga)
             dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
-            string nodoJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);
+            string nodoJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);            
             return JsonConvert.DeserializeObject<Node>(nodoJson);
         }
 
-        public static List<Node> ObtenerListaNodosHijos(string nodoPadreId)
+        public async static Task<List<Node>> ObtenerListaNodosHijos(string nodoPadreId)
         {
             List<Node> nodosHijos = new List<Node>();
             Nodos servicioNodos = new Nodos();
-            string respuestaJson = servicioNodos.ObtenerListaNodosHijos(nodoPadreId);
+            string respuestaJson = await servicioNodos.ObtenerListaNodosHijos(nodoPadreId);
             
             //Se deserializa y luego serializa para obtener una lista de nodos (Elimina metadatos de descarga)
             dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
@@ -53,52 +53,18 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
         /// Pobla los nodos hijos de una lista de nodos padres de un mismo nivel
         /// </summary>
         /// <param name="nodosPadres">Nodos padres de un mismo nivel</param>
-        public static void PoblarNodosHijos(List<Node> nodosPadres)
+        public async static Task PoblarNodosHijos(List<Node> nodosPadres)
         {
             foreach (var nodoPadre in nodosPadres)
             {
-                nodoPadre.NodosHijos = ObtenerListaNodosHijos(nodoPadre.Id);
+                nodoPadre.NodosHijos = await ObtenerListaNodosHijos(nodoPadre.Id);
 
                 //Si el nodo tiene hijos
                 if (nodoPadre.NodosHijos.Count()!=0 && nodoPadre.IsFolder)
                 {
-                    PoblarNodosHijos(nodoPadre.NodosHijos);
+                    await PoblarNodosHijos(nodoPadre.NodosHijos);
                 }
             }
         }
-
-        //public static Node BuscarPadre(List<Node> nodosBuscar,Node nodoHijo)
-        //{
-        //    Node nodoPadre = null;
-        //    foreach(var nodo in nodosBuscar)
-        //    {
-        //        //Si el padre está en la lista nodosBuscar entonces lo devuelve
-        //        if (nodo.Id == nodoHijo.ParentId)
-        //        {
-        //            nodoPadre = nodo;
-        //            break;
-        //        }
-        //        else
-        //        {
-        //            //Si el padre no está en la lista nodosBuscar entonces busca en los hijos de de nodosBuscar
-        //            if(nodo.NodosHijos != null)
-        //            {
-        //                nodoPadre = BuscarPadre(nodo.NodosHijos, nodoHijo);
-        //                if(nodoPadre != null)
-        //                {
-        //                    break;
-        //                }
-        //            }
-        //        }
-        //    }            
-        //    Node nodoRoot = ObtenerNodo("-root-");
-        //    if (nodoRoot.Id.Equals(nodoHijo.ParentId))
-        //    {
-        //        nodoPadre = nodoRoot;
-        //    }
-
-        //    return nodoPadre;
-        //}
-
     }
 }

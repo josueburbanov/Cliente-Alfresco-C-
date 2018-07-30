@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Alfresco_Icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Rest.ClientRuntime">
       <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.11\lib\net452\Microsoft.Rest.ClientRuntime.dll</HintPath>
@@ -73,6 +76,12 @@
     <Compile Include="IU\FDashboard.Designer.cs">
       <DependentUpon>FDashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="IU\FDetallesContenido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IU\FDetallesContenido.Designer.cs">
+      <DependentUpon>FDetallesContenido.cs</DependentUpon>
+    </Compile>
     <Compile Include="IU\FInicio.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +93,12 @@
     </Compile>
     <Compile Include="IU\FPrincipal.Designer.cs">
       <DependentUpon>FPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IU\FPrincipalLoading.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IU\FPrincipalLoading.Designer.cs">
+      <DependentUpon>FPrincipalLoading.cs</DependentUpon>
     </Compile>
     <Compile Include="IU\FRepositorio.cs">
       <SubType>Form</SubType>
@@ -120,11 +135,17 @@
     <EmbeddedResource Include="IU\FDashboard.resx">
       <DependentUpon>FDashboard.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="IU\FDetallesContenido.resx">
+      <DependentUpon>FDetallesContenido.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IU\FInicio.resx">
       <DependentUpon>FInicio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IU\FPrincipal.resx">
       <DependentUpon>FPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IU\FPrincipalLoading.resx">
+      <DependentUpon>FPrincipalLoading.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IU\FRepositorio.resx">
       <DependentUpon>FRepositorio.cs</DependentUpon>
@@ -153,6 +174,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Alfresco_Icon.ico" />
     <Content Include="Recursos\alfresco.png" />
     <Content Include="Recursos\archivo_default.png" />
     <Content Include="Recursos\arrow-down.png" />

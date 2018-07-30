@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrabajoTitulacion.IU;
 using TrabajoTitulacion.Servicios;
@@ -7,34 +8,47 @@ namespace TrabajoTitulacion.UI
 {
     public partial class FPrincipal : Form
     {
+        FPrincipalLoading fPrincipalLoading = new FPrincipalLoading();
         public FPrincipal()
         {
             InitializeComponent();
         }
 
-        private void btnIngresar_Click(object sender, EventArgs e)
+        private async void btnIngresar_Click(object sender, EventArgs e)
         {
-            Login();
+            //Muestra la ventana de loading...
+            fPrincipalLoading.Show();
+
+            //Llamada asíncrona a Login
+            await Login();
+
+            //Una vez logueado elimina la ventana de carga e ingresa al dashboard
+            fPrincipalLoading.Close();
+            IngresarDashboard();
         }
 
-        private void txtNombreUsuario_KeyDown(object sender, KeyEventArgs e)
+        private async void txtNombreUsuario_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Login();
+                //Muestra la ventana de loading...
+                fPrincipalLoading.Show();
+
+                //Llamada asíncrona a Login
+                await Login();
+
+                //Una vez logueado elimina la ventana de carga e ingresa al dashboard
+                fPrincipalLoading.Close();
+                IngresarDashboard();
+
             }
         }
 
-        private void Login()
+        private async Task Login()
         {
             try
             {
-                lblErrorAutenticacion.Visible = false;
-                AutenticacionStatic.Login(txtNombreUsuario.Text, txtContraseña.Text);
-                FDashboard fdashborad = new FDashboard(txtNombreUsuario.Text);
-                Hide();
-                fdashborad.ShowDialog();
-                Close();
+                await AutenticacionStatic.Login(txtNombreUsuario.Text, txtContraseña.Text);
             }
             catch (UnauthorizedAccessException)
             {
@@ -44,9 +58,40 @@ namespace TrabajoTitulacion.UI
             }
         }
 
-        private void txtContraseña_KeyDown(object sender, KeyEventArgs e)
+        private void IngresarDashboard()
         {
-            Login();
+            lblErrorAutenticacion.Visible = false;
+            FDashboard fDashborad = new FDashboard(txtNombreUsuario.Text);
+            Hide();
+            fDashborad.ShowDialog();
+            Close();
+        }
+
+        private async void txtContraseña_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                //Muestra la ventana de loading...
+                fPrincipalLoading.Show();
+
+                //Llamada asíncrona a Login
+                await Login();
+
+                //Una vez logueado elimina la ventana de carga e ingresa al dashboard
+                fPrincipalLoading.Close();
+                IngresarDashboard();
+
+            }
+        }
+
+        private void FPrincipal_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void FPrincipal_Shown(object sender, EventArgs e)
+        {
+            
         }
     }
 }

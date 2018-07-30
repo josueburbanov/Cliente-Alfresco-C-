@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrabajoTitulacion.Modelos;
 using TrabajoTitulacion.Servicios.Core.Nodos;
@@ -10,34 +12,44 @@ namespace TrabajoTitulacion.IU
     {
         private Node nodoRoot;
         private List<Node> nodosDeRoot;
+        
 
         public FRepositorio()
         {
             InitializeComponent();
         }
 
-        private void FRepositorio_Load(object sender, EventArgs e)
+        private async void FRepositorio_Load(object sender, EventArgs e)
         {
+                       
             try
             {
+                FPrincipalLoading fPrincipalLoading = new FPrincipalLoading();
+                //fPrincipalLoading.Show();
                 //Se obtiene la lista de los nodos hijos de root (1er nivel) y el nodo root
-                nodosDeRoot = NodosStatic.ObtenerListaNodosHijos("-root-");
-                nodoRoot = NodosStatic.ObtenerNodo("-root-");
+                nodosDeRoot = await NodosStatic.ObtenerListaNodosHijos("-root-");
+                nodoRoot = await NodosStatic.ObtenerNodo("-root-");
                 nodoRoot.NodosHijos = nodosDeRoot;
 
                 //Se pobla recursivamente todos los nodos
-                NodosStatic.PoblarNodosHijos(nodosDeRoot);
+                fPrincipalLoading.Show();
+                await NodosStatic.PoblarNodosHijos(nodosDeRoot);
 
                 //Se agrega los nodos al treeview                
                 treeViewRepositorio.Nodes.Add(nodoRoot.Id, "Mis archivos");
                 treeViewRepositorio.Nodes[nodoRoot.Id].Tag = nodoRoot;
-                AñadirNodosTV(nodosDeRoot, treeViewRepositorio.Nodes[nodoRoot.Id]);
+                AñadirNodosTV(nodosDeRoot, treeViewRepositorio.Nodes[nodoRoot.Id]);                
+                fPrincipalLoading.Close();
+                treeViewRepositorio.Refresh();
+                
             }
             catch (UnauthorizedAccessException)
-            {
+            {                
                 MessageBox.Show("Hubo un problema cargando sus archivos.");
             }
+
         }
+
 
         private void AñadirNodosTV(List<Node> nodosPadres, TreeNode nodoTvAbuelo)
         {
@@ -48,7 +60,7 @@ namespace TrabajoTitulacion.IU
                     nodoTvAbuelo.Nodes.Add(nodoPadre.Id, nodoPadre.Name);
                     TreeNode nodoTvPadre = nodoTvAbuelo.Nodes[nodoPadre.Id];
                     nodoTvPadre.Tag = nodoPadre;
-                    if (!(nodoPadre.NodosHijos is null) && nodoPadre.IsFolder)
+                    if (!(nodoPadre.NodosHijos is null))
                         AñadirNodosTV(nodoPadre.NodosHijos, nodoTvPadre);
                 }
             }
@@ -137,6 +149,14 @@ namespace TrabajoTitulacion.IU
             flwlypanelNodosHijos.Controls.Add(ctrluContenido);
             ctrluContenido.LnklblDescargar.MouseClick += LnklblDescargar_MouseClick;
             ctrluContenido.LnklblNombre.MouseClick += LnklblNombre_MouseClick;
+            ctrluContenido.LnklblPropiedades.MouseClick += LnklblPropiedades_MouseClick;
+        }
+
+        private void LnklblPropiedades_MouseClick(object sender, MouseEventArgs e)
+        {
+            Node nodoSeleccionado = (Node)(((LinkLabel)sender).Parent).Tag;
+            FDetallesContenido fDetallesContenido = new FDetallesContenido(nodoSeleccionado);
+            fDetallesContenido.ShowDialog();
         }
 
         private void DibujarSeparador()
@@ -152,9 +172,14 @@ namespace TrabajoTitulacion.IU
 
         private void LnklblNombre_MouseClick(object sender, MouseEventArgs e)
         {
+            FDetallesContenido fDetallesContenido = new FDetallesContenido();
+            fDetallesContenido.ShowDialog();
 
         }
 
-
+        private void FRepositorio_Shown(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace TrabajoTitulacion.Servicios
 {
     interface IAutenticacion
     {
-        string Login(string userId, string password);
-        void Logout();
+        Task<string> Login(string userId, string password);
+        Task Logout(string userId);
     }
 }

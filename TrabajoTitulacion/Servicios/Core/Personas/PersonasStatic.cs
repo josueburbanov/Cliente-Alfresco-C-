@@ -9,19 +9,16 @@ using TrabajoTitulacion.Modelos;
 namespace TrabajoTitulacion.Servicios.Core.Personas
 {
     class PersonasStatic
-    {
-        private static Person personaActual;
+    {        
 
-        public static Person PersonaActual { get => personaActual; set => personaActual = value; }
-
-        public static void ObtenerPersona(string idPersona)
+        public async static Task<Person> ObtenerPersona(string idPersona)
         {
             Personas servicioPersonas = new Personas();
             //Se serializa y deserializa con el fin de mapear correctamente los campos de Persona
-            string respuestaJson = servicioPersonas.ObtenerPersona(idPersona);
+            string respuestaJson = await servicioPersonas.ObtenerPersona(idPersona);
             dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
             string personaJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);
-            personaActual = JsonConvert.DeserializeObject<Person>(personaJson);
+            return JsonConvert.DeserializeObject<Person>(personaJson);
         }
     }
 }

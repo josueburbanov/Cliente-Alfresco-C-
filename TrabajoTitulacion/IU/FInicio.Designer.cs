@@ -92,9 +92,9 @@
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 3;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.5F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.25F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.31372F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.35294F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel3.Controls.Add(this.btnBusqueda, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.btnGestorModelos, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.btnRepositorio, 0, 0);
@@ -119,9 +119,9 @@
             this.btnBusqueda.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnBusqueda.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBusqueda.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.btnBusqueda.Location = new System.Drawing.Point(283, 3);
+            this.btnBusqueda.Location = new System.Drawing.Point(275, 3);
             this.btnBusqueda.Name = "btnBusqueda";
-            this.btnBusqueda.Size = new System.Drawing.Size(123, 80);
+            this.btnBusqueda.Size = new System.Drawing.Size(131, 80);
             this.btnBusqueda.TabIndex = 2;
             this.btnBusqueda.TabStop = false;
             this.btnBusqueda.UseVisualStyleBackColor = false;
@@ -136,9 +136,9 @@
             this.btnGestorModelos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnGestorModelos.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGestorModelos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.btnGestorModelos.Location = new System.Drawing.Point(156, 3);
+            this.btnGestorModelos.Location = new System.Drawing.Point(143, 3);
             this.btnGestorModelos.Name = "btnGestorModelos";
-            this.btnGestorModelos.Size = new System.Drawing.Size(121, 80);
+            this.btnGestorModelos.Size = new System.Drawing.Size(126, 80);
             this.btnGestorModelos.TabIndex = 1;
             this.btnGestorModelos.TabStop = false;
             this.btnGestorModelos.UseVisualStyleBackColor = false;
@@ -155,7 +155,7 @@
             this.btnRepositorio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.btnRepositorio.Location = new System.Drawing.Point(3, 3);
             this.btnRepositorio.Name = "btnRepositorio";
-            this.btnRepositorio.Size = new System.Drawing.Size(147, 80);
+            this.btnRepositorio.Size = new System.Drawing.Size(134, 80);
             this.btnRepositorio.TabIndex = 0;
             this.btnRepositorio.TabStop = false;
             this.btnRepositorio.UseVisualStyleBackColor = false;
@@ -168,7 +168,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 89);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(147, 147);
+            this.panel3.Size = new System.Drawing.Size(134, 147);
             this.panel3.TabIndex = 6;
             // 
             // label4
@@ -180,7 +180,7 @@
             this.label4.ForeColor = System.Drawing.Color.Gray;
             this.label4.Location = new System.Drawing.Point(11, 39);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(133, 98);
+            this.label4.Size = new System.Drawing.Size(120, 98);
             this.label4.TabIndex = 4;
             this.label4.Text = "Visualiza tu repositorio de archivos propios y compartidos. Además realiza carga " +
     "de contenidos en forma masiva.";
@@ -190,7 +190,7 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.label1.Location = new System.Drawing.Point(14, 8);
+            this.label1.Location = new System.Drawing.Point(8, 8);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(137, 29);
             this.label1.TabIndex = 3;
@@ -201,9 +201,9 @@
             this.panel4.Controls.Add(this.label5);
             this.panel4.Controls.Add(this.label2);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(156, 89);
+            this.panel4.Location = new System.Drawing.Point(143, 89);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(121, 147);
+            this.panel4.Size = new System.Drawing.Size(126, 147);
             this.panel4.TabIndex = 7;
             // 
             // label5
@@ -211,7 +211,7 @@
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label5.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.label5.Location = new System.Drawing.Point(-27, 8);
+            this.label5.Location = new System.Drawing.Point(-24, 8);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(196, 34);
             this.label5.TabIndex = 5;
@@ -226,7 +226,7 @@
             this.label2.ForeColor = System.Drawing.Color.Gray;
             this.label2.Location = new System.Drawing.Point(6, 38);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(115, 80);
+            this.label2.Size = new System.Drawing.Size(120, 80);
             this.label2.TabIndex = 4;
             this.label2.Text = "Gestiona tus metadatos personalizados a través de Modelos de Contenido";
             // 
@@ -235,9 +235,9 @@
             this.panel5.Controls.Add(this.label3);
             this.panel5.Controls.Add(this.label6);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(283, 89);
+            this.panel5.Location = new System.Drawing.Point(275, 89);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(123, 147);
+            this.panel5.Size = new System.Drawing.Size(131, 147);
             this.panel5.TabIndex = 8;
             // 
             // label3
@@ -249,7 +249,7 @@
             this.label3.ForeColor = System.Drawing.Color.Gray;
             this.label3.Location = new System.Drawing.Point(12, 39);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(108, 95);
+            this.label3.Size = new System.Drawing.Size(116, 95);
             this.label3.TabIndex = 5;
             this.label3.Text = "Búsqueda personalizada a través de metadatos";
             // 
@@ -258,7 +258,7 @@
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label6.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.label6.Location = new System.Drawing.Point(9, 8);
+            this.label6.Location = new System.Drawing.Point(13, 8);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(109, 29);
             this.label6.TabIndex = 6;

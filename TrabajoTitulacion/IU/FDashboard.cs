@@ -27,17 +27,17 @@ namespace TrabajoTitulacion.IU
             this.idPersona = idPersona;
         }
 
-        private void FDashboard_Load(object sender, EventArgs e)
+        private async void FDashboard_Load(object sender, EventArgs e)
         {
             try
             {
-                PersonasStatic.ObtenerPersona(idPersona);
-                toolStripMenuUsuario.Text = PersonasStatic.PersonaActual.FirstName;
+                var personaActual = await PersonasStatic.ObtenerPersona(idPersona);                                
+                toolStripMenuUsuario.Text = personaActual.FirstName;
                 AñadirFormsHijos();
                 AbrirInicio();
             }
             catch(UnauthorizedAccessException)
-            {
+            {                
                 MessageBox.Show("Lo sentimos, ocurrió un error al cargar sus datos");
                 Logout();
             }
@@ -52,12 +52,12 @@ namespace TrabajoTitulacion.IU
             FInicio fInicio = new FInicio();
             fInicio.MdiParent = this;
             FRepositorio fRespositorio = new FRepositorio();            
-            fRespositorio.MdiParent = this;
+            fRespositorio.MdiParent = this;            
 
             //forms to add            
         }
 
-        private void AbrirInicio()
+        public void AbrirInicio()
         {
             EsconderFormsNoActuales(0);
             MdiChildren[0].Dock = DockStyle.Fill;
@@ -85,7 +85,7 @@ namespace TrabajoTitulacion.IU
         {
             try
             {
-                AutenticacionStatic.Logout();
+                AutenticacionStatic.Logout(idPersona);
                 MessageBox.Show("Su sesión ha sido finalizada correctamente");
 
             }

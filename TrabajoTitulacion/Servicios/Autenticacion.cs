@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Threading;
 
 namespace TrabajoTitulacion.Servicios
 {
@@ -20,24 +21,24 @@ namespace TrabajoTitulacion.Servicios
         /// <param name="userId">Nombre de usuario</param>
         /// <param name="password">Contraseña</param>
         /// <returns>ticket de autenticacion</returns>
-        public string Login(string userId, string password)
+        public async Task<string> Login(string userId, string password)
         {
             var solicitud = new RestRequest(Method.POST);
             solicitud.Resource = "tickets/";
             solicitud.RequestFormat = DataFormat.Json;
             solicitud.AddBody(new { userId = userId, password = password });
-            IRestResponse respuesta = cliente.Execute(solicitud);
+            var respuesta = await cliente.ExecuteTaskAsync(solicitud);
             var contenidoRespuesta = respuesta.Content;
-            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();            
             return contenidoRespuesta;
         }
 
-        public void Logout()
+        public async Task Logout(string userId)
         {
             var solicitud = new RestRequest(Method.DELETE);
-            solicitud.Resource = "tickets/" + PersonasStatic.PersonaActual.Id;
+            solicitud.Resource = "tickets/" + await PersonasStatic.ObtenerPersona(userId);
             IRestResponse respuesta = cliente.Execute(solicitud);
-            var contenidoRespuesta = respuesta.Content;            
+            var contenidoRespuesta = respuesta.Content;     
         }
     }
 }

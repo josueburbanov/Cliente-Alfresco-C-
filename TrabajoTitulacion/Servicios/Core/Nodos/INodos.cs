@@ -8,8 +8,8 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
 {
     interface INodos
     {
-        string ObtenerListaNodosHijos(string recurso);
-        string ObtenerNodo(string idNodo);
+        Task<string> ObtenerListaNodosHijos(string recurso);
+        Task<string> ObtenerNodo(string idNodo);
         void ObtenerContenido(string idNodo, string path);
     }
 }

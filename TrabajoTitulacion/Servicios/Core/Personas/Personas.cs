@@ -17,12 +17,12 @@ namespace TrabajoTitulacion.Servicios.Core.Personas
         /// </summary>
         /// <param name="idPersona">Nombre de usuario</param>
         /// <returns>Persona como JSON</returns>
-        public string ObtenerPersona(string idPersona)
+        public async Task<string> ObtenerPersona(string idPersona)
         {            
             var solicitud = new RestRequest(Method.GET);
             solicitud.Resource = "people/"+idPersona;
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
-            IRestResponse respuesta = cliente.Execute(solicitud);
+            IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
             var contenidoRespuesta = respuesta.Content;
             if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
             return contenidoRespuesta;            
