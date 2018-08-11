@@ -64,11 +64,11 @@
     <Compile Include="IU\CtrluContenido.Designer.cs">
       <DependentUpon>CtrluContenido.cs</DependentUpon>
     </Compile>
-    <Compile Include="IU\CtrluDetallesContenido.cs">
+    <Compile Include="IU\CtrluPropiedad.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="IU\CtrluDetallesContenido.Designer.cs">
-      <DependentUpon>CtrluDetallesContenido.cs</DependentUpon>
+    <Compile Include="IU\CtrluPropiedad.Designer.cs">
+      <DependentUpon>CtrluPropiedad.cs</DependentUpon>
     </Compile>
     <Compile Include="IU\FDashboard.cs">
       <SubType>Form</SubType>
@@ -106,8 +106,15 @@
     <Compile Include="IU\FRepositorio.Designer.cs">
       <DependentUpon>FRepositorio.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modelos\CMM\Aspect.cs" />
+    <Compile Include="Modelos\CMM\Constraint.cs" />
+    <Compile Include="Modelos\CMM\Model.cs" />
+    <Compile Include="Modelos\CMM\Parameter.cs" />
+    <Compile Include="Modelos\CMM\Property.cs" />
+    <Compile Include="Modelos\CMM\Type1.cs" />
     <Compile Include="Modelos\Company.cs" />
     <Compile Include="Modelos\ContentInfo.cs" />
+    <Compile Include="Modelos\Core\Nodo.cs" />
     <Compile Include="Modelos\Node.cs" />
     <Compile Include="Modelos\PathElement.cs" />
     <Compile Include="Modelos\PathInfo.cs" />
@@ -119,9 +126,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicios\Autenticacion.cs" />
     <Compile Include="Servicios\AutenticacionStatic.cs" />
-    <Compile Include="Servicios\Core\Nodos\INodos.cs" />
-    <Compile Include="Servicios\Core\Nodos\Nodos.cs" />
-    <Compile Include="Servicios\Core\Nodos\NodosStatic.cs" />
+    <Compile Include="Servicios\CMM\AspectosPersonalizados\AspectosPersonalizadosServicio.cs" />
+    <Compile Include="Servicios\CMM\AspectosPersonalizados\AspectosPersonalizadosServicioStatic.cs" />
+    <Compile Include="Servicios\CMM\AspectosPersonalizados\IAspectosPersonalizadosServicio.cs" />
+    <Compile Include="Servicios\CMM\ModelosPersonalizados\IModeloPersonalizadoServicio.cs" />
+    <Compile Include="Servicios\CMM\ModelosPersonalizados\ModelosPersonalizadosServicio.cs" />
+    <Compile Include="Servicios\CMM\ModelosPersonalizados\ModelosPersonalizadosServicioStatic.cs" />
+    <Compile Include="Servicios\CMM\TiposPersonalizados\ITiposPersonalizadosServicio.cs" />
+    <Compile Include="Servicios\CMM\TiposPersonalizados\TiposPersonalizadosServicio.cs" />
+    <Compile Include="Servicios\CMM\TiposPersonalizados\TiposPersonalizadosServicioStatic.cs" />
+    <Compile Include="Servicios\Core\Nodos\INodosServicio.cs" />
+    <Compile Include="Servicios\Core\Nodos\NodosServicio.cs" />
+    <Compile Include="Servicios\Core\Nodos\NodosServicioStatic.cs" />
     <Compile Include="Servicios\Core\Personas\IPersonas.cs" />
     <Compile Include="Servicios\Core\Personas\Personas.cs" />
     <Compile Include="Servicios\Core\Personas\PersonasStatic.cs" />
@@ -129,8 +145,8 @@
     <EmbeddedResource Include="IU\CtrluContenido.resx">
       <DependentUpon>CtrluContenido.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IU\CtrluDetallesContenido.resx">
-      <DependentUpon>CtrluDetallesContenido.cs</DependentUpon>
+    <EmbeddedResource Include="IU\CtrluPropiedad.resx">
+      <DependentUpon>CtrluPropiedad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IU\FDashboard.resx">
       <DependentUpon>FDashboard.cs</DependentUpon>

@@ -4,14 +4,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrabajoTitulacion.Modelos;
+using TrabajoTitulacion.Modelos.Core;
 using TrabajoTitulacion.Servicios.Core.Nodos;
 
 namespace TrabajoTitulacion.IU
 {
     public partial class FRepositorio : Form
     {
-        private Node nodoRoot;
-        private List<Node> nodosDeRoot;
+        private Nodo nodoRoot;
+        private List<Nodo> nodosDeRoot;
         
 
         public FRepositorio()
@@ -27,13 +28,13 @@ namespace TrabajoTitulacion.IU
                 FPrincipalLoading fPrincipalLoading = new FPrincipalLoading();
                 //fPrincipalLoading.Show();
                 //Se obtiene la lista de los nodos hijos de root (1er nivel) y el nodo root
-                nodosDeRoot = await NodosStatic.ObtenerListaNodosHijos("-root-");
-                nodoRoot = await NodosStatic.ObtenerNodo("-root-");
+                nodosDeRoot = await NodosServicioStatic.ObtenerListaNodosHijos("-root-");
+                nodoRoot = await NodosServicioStatic.ObtenerNodo("-root-");
                 nodoRoot.NodosHijos = nodosDeRoot;
 
                 //Se pobla recursivamente todos los nodos
                 fPrincipalLoading.Show();
-                await NodosStatic.PoblarNodosHijos(nodosDeRoot);
+                await NodosServicioStatic.PoblarNodosHijos(nodosDeRoot);
 
                 //Se agrega los nodos al treeview                
                 treeViewRepositorio.Nodes.Add(nodoRoot.Id, "Mis archivos");
@@ -51,7 +52,7 @@ namespace TrabajoTitulacion.IU
         }
 
 
-        private void AñadirNodosTV(List<Node> nodosPadres, TreeNode nodoTvAbuelo)
+        private void AñadirNodosTV(List<Nodo> nodosPadres, TreeNode nodoTvAbuelo)
         {
             foreach (var nodoPadre in nodosPadres)
             {
@@ -73,6 +74,7 @@ namespace TrabajoTitulacion.IU
 
         private void LnklblDescargar_MouseClick(object sender, MouseEventArgs e)
         {
+            //Nota: El código de este evento también está en el evento del control de usuario
             flwlypanelNodosHijos.Controls.Clear();
         }
 
@@ -80,7 +82,7 @@ namespace TrabajoTitulacion.IU
         {
             flwlypanelNodosHijos.Controls.Clear();
             flwlypanelNavegacion.Controls.Clear();
-            Node nodoSeleccionado = (Node)treeViewRepositorio.SelectedNode.Tag;
+            Nodo nodoSeleccionado = (Nodo)treeViewRepositorio.SelectedNode.Tag;
 
             //Si el nodo no tiene hijos muestra una imagen (arrastre y suelte archivos)
             if (nodoSeleccionado.NodosHijos.Count == 0)
@@ -100,17 +102,16 @@ namespace TrabajoTitulacion.IU
             }
 
             //Coloca en la barra de navegación el path del nodo
-
             if (!(treeViewRepositorio.SelectedNode.Parent is null))
             {
                 TreeNode nodoPadreTV = treeViewRepositorio.SelectedNode.Parent;
-                Node nodoPadre = (Node)nodoPadreTV.Tag;
-                Node nodoPadreAux = nodoPadre;
+                Nodo nodoPadre = (Nodo)nodoPadreTV.Tag;
+                Nodo nodoPadreAux = nodoPadre;
 
                 while (!nodoPadreAux.Equals(nodoRoot))
                 {
                     nodoPadreTV = nodoPadreTV.Parent;
-                    nodoPadreAux = (Node)nodoPadreTV.Tag;
+                    nodoPadreAux = (Nodo)nodoPadreTV.Tag;
                     DibujarLinkNavegacion(nodoPadreAux.Name);
                     DibujarSeparador();
                 }
@@ -136,7 +137,7 @@ namespace TrabajoTitulacion.IU
             flwlypanelNavegacion.Controls.Add(lnklblNodoHijo);
         }
 
-        private void DibujarContenido(Node nodoHijo)
+        private void DibujarContenido(Nodo nodoHijo)
         {
             CtrluContenido ctrluContenido = new CtrluContenido();
             ctrluContenido.BackColor = System.Drawing.Color.Transparent;
@@ -152,9 +153,12 @@ namespace TrabajoTitulacion.IU
             ctrluContenido.LnklblPropiedades.MouseClick += LnklblPropiedades_MouseClick;
         }
 
+        /// <summary>
+        /// El evento genera la apertura de un formulario donde se muestran las propiedades del Nodo
+        /// </summary>
         private void LnklblPropiedades_MouseClick(object sender, MouseEventArgs e)
         {
-            Node nodoSeleccionado = (Node)(((LinkLabel)sender).Parent).Tag;
+            Nodo nodoSeleccionado = (Nodo)(((LinkLabel)sender).Parent).Tag;
             FDetallesContenido fDetallesContenido = new FDetallesContenido(nodoSeleccionado);
             fDetallesContenido.ShowDialog();
         }

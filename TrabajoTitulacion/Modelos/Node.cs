@@ -37,10 +37,7 @@ namespace TrabajoTitulacion.Modelos
             Permissions = permissions;            
         }
 
-        /// <summary>
-        /// Lista de nodos hijos
-        /// </summary>
-        public List<Node> NodosHijos { get; set; }
+        
 
         /// <summary>
         /// </summary>

@@ -37,10 +37,10 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.pctboxTipoContenido = new System.Windows.Forms.PictureBox();
             this.lnklblNombre = new System.Windows.Forms.LinkLabel();
-            this.lblModificado = new System.Windows.Forms.Label();
             this.lblVersion = new System.Windows.Forms.Label();
+            this.lblModificado = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.flwpnlPropiedades = new System.Windows.Forms.FlowLayoutPanel();
+            this.flwypanelPropiedades = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -55,7 +55,7 @@
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel2, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.flwpnlPropiedades, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.flwypanelPropiedades, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -115,8 +115,8 @@
             // 
             this.flowLayoutPanel1.Controls.Add(this.pctboxTipoContenido);
             this.flowLayoutPanel1.Controls.Add(this.lnklblNombre);
-            this.flowLayoutPanel1.Controls.Add(this.lblModificado);
             this.flowLayoutPanel1.Controls.Add(this.lblVersion);
+            this.flowLayoutPanel1.Controls.Add(this.lblModificado);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 75);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -150,27 +150,28 @@
             this.lnklblNombre.Text = "Nombre";
             this.lnklblNombre.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             // 
+            // lblVersion
+            // 
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.BackColor = System.Drawing.Color.LightGray;
+            this.lblVersion.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.ForeColor = System.Drawing.Color.Gray;
+            this.lblVersion.Location = new System.Drawing.Point(110, 0);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(45, 14);
+            this.lblVersion.TabIndex = 13;
+            this.lblVersion.Text = "Versión";
+            // 
             // lblModificado
             // 
             this.lblModificado.AutoSize = true;
             this.lblModificado.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblModificado.ForeColor = System.Drawing.Color.Gray;
-            this.lblModificado.Location = new System.Drawing.Point(110, 0);
+            this.lblModificado.Location = new System.Drawing.Point(161, 0);
             this.lblModificado.Name = "lblModificado";
             this.lblModificado.Size = new System.Drawing.Size(82, 14);
             this.lblModificado.TabIndex = 12;
             this.lblModificado.Text = "Modificado por";
-            // 
-            // lblVersion
-            // 
-            this.lblVersion.AutoSize = true;
-            this.lblVersion.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVersion.ForeColor = System.Drawing.Color.Gray;
-            this.lblVersion.Location = new System.Drawing.Point(198, 0);
-            this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(45, 14);
-            this.lblVersion.TabIndex = 13;
-            this.lblVersion.Text = "Versión";
             // 
             // pictureBox1
             // 
@@ -182,13 +183,16 @@
             this.pictureBox1.TabIndex = 12;
             this.pictureBox1.TabStop = false;
             // 
-            // flwpnlPropiedades
+            // flwypanelPropiedades
             // 
-            this.flwpnlPropiedades.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flwpnlPropiedades.Location = new System.Drawing.Point(3, 113);
-            this.flwpnlPropiedades.Name = "flwpnlPropiedades";
-            this.flwpnlPropiedades.Size = new System.Drawing.Size(794, 289);
-            this.flwpnlPropiedades.TabIndex = 13;
+            this.flwypanelPropiedades.AutoScroll = true;
+            this.flwypanelPropiedades.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flwypanelPropiedades.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flwypanelPropiedades.Location = new System.Drawing.Point(3, 113);
+            this.flwypanelPropiedades.Name = "flwypanelPropiedades";
+            this.flwypanelPropiedades.Size = new System.Drawing.Size(794, 289);
+            this.flwypanelPropiedades.TabIndex = 13;
+            this.flwypanelPropiedades.WrapContents = false;
             // 
             // FDetallesContenido
             // 
@@ -224,6 +228,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.FlowLayoutPanel flwpnlPropiedades;
+        private System.Windows.Forms.FlowLayoutPanel flwypanelPropiedades;
     }
 }

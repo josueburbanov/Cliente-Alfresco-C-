@@ -39,7 +39,7 @@
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(240, 220);
+            this.pictureBox1.Size = new System.Drawing.Size(255, 255);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -48,14 +48,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(240, 220);
+            this.ClientSize = new System.Drawing.Size(255, 255);
             this.ControlBox = false;
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(240, 220);
+            this.MaximumSize = new System.Drawing.Size(255, 255);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(240, 220);
+            this.MinimumSize = new System.Drawing.Size(255, 255);
             this.Name = "FPrincipalLoading";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

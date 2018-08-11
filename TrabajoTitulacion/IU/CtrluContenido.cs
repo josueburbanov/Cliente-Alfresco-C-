@@ -25,7 +25,7 @@ namespace TrabajoTitulacion.IU
             var path = abrirFldbrswrSeleccionarPath();
             if(path != null)
             {
-                NodosStatic.ObtenerContenido(((Node)Tag).Id, path+"\\"+((Node)Tag).Name);
+                NodosServicioStatic.ObtenerContenido(((Node)Tag).Id, path+"\\"+((Node)Tag).Name);
             }
         }
 

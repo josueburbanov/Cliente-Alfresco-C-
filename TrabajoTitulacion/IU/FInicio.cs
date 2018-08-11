@@ -7,11 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TrabajoTitulacion.Modelos.CMM;
+using TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados;
+using TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados;
+using TrabajoTitulacion.Servicios.CMM.TiposPersonalizados;
+using TrabajoTitulacion.Servicios.Core.Nodos;
 
 namespace TrabajoTitulacion.IU
 {
     public partial class FInicio : Form
-    {        
+    {
         public FInicio()
         {
             InitializeComponent();
@@ -30,12 +35,13 @@ namespace TrabajoTitulacion.IU
 
         private void btnGestorModelos_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnBusqueda_Click(object sender, EventArgs e)
         {
-            
+
         }
     }
 }
+
