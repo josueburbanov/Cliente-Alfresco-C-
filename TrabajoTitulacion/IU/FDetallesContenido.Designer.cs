@@ -31,9 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FDetallesContenido));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnAceptar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnEditarPropiedades = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.pctboxTipoContenido = new System.Windows.Forms.PictureBox();
             this.lnklblNombre = new System.Windows.Forms.LinkLabel();
@@ -59,6 +59,7 @@
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(20, 20, 0, 0);
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.10979F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.591886F));
@@ -69,47 +70,50 @@
             // 
             // flowLayoutPanel2
             // 
-            this.flowLayoutPanel2.Controls.Add(this.button2);
-            this.flowLayoutPanel2.Controls.Add(this.button1);
-            this.flowLayoutPanel2.Controls.Add(this.button3);
+            this.flowLayoutPanel2.Controls.Add(this.btnAceptar);
+            this.flowLayoutPanel2.Controls.Add(this.btnCancelar);
+            this.flowLayoutPanel2.Controls.Add(this.btnEditarPropiedades);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 408);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(23, 410);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(794, 39);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(774, 37);
             this.flowLayoutPanel2.TabIndex = 11;
             // 
-            // button2
+            // btnAceptar
             // 
-            this.button2.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(3, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "Aceptar";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnAceptar.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAceptar.Location = new System.Drawing.Point(3, 3);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(75, 23);
+            this.btnAceptar.TabIndex = 0;
+            this.btnAceptar.Text = "Aceptar";
+            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
-            // button1
+            // btnCancelar
             // 
-            this.button1.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(84, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Cancelar";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnCancelar.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Location = new System.Drawing.Point(84, 3);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.TabIndex = 0;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
-            // button3
+            // btnEditarPropiedades
             // 
-            this.button3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button3.BackgroundImage")));
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.Transparent;
-            this.button3.Location = new System.Drawing.Point(165, 3);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(27, 27);
-            this.button3.TabIndex = 0;
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnEditarPropiedades.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnEditarPropiedades.BackgroundImage")));
+            this.btnEditarPropiedades.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnEditarPropiedades.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditarPropiedades.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditarPropiedades.ForeColor = System.Drawing.Color.Transparent;
+            this.btnEditarPropiedades.Location = new System.Drawing.Point(165, 3);
+            this.btnEditarPropiedades.Name = "btnEditarPropiedades";
+            this.btnEditarPropiedades.Size = new System.Drawing.Size(27, 27);
+            this.btnEditarPropiedades.TabIndex = 0;
+            this.btnEditarPropiedades.UseVisualStyleBackColor = true;
+            this.btnEditarPropiedades.Click += new System.EventHandler(this.btnEditarPropiedades_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -118,10 +122,10 @@
             this.flowLayoutPanel1.Controls.Add(this.lblVersion);
             this.flowLayoutPanel1.Controls.Add(this.lblModificado);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 75);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(23, 92);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(794, 32);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(774, 30);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // pctboxTipoContenido
@@ -177,9 +181,9 @@
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(23, 23);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(794, 66);
+            this.pictureBox1.Size = new System.Drawing.Size(774, 63);
             this.pictureBox1.TabIndex = 12;
             this.pictureBox1.TabStop = false;
             // 
@@ -188,9 +192,9 @@
             this.flwypanelPropiedades.AutoScroll = true;
             this.flwypanelPropiedades.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flwypanelPropiedades.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flwypanelPropiedades.Location = new System.Drawing.Point(3, 113);
+            this.flwypanelPropiedades.Location = new System.Drawing.Point(23, 128);
             this.flwypanelPropiedades.Name = "flwypanelPropiedades";
-            this.flwypanelPropiedades.Size = new System.Drawing.Size(794, 289);
+            this.flwypanelPropiedades.Size = new System.Drawing.Size(774, 276);
             this.flwypanelPropiedades.TabIndex = 13;
             this.flwypanelPropiedades.WrapContents = false;
             // 
@@ -225,9 +229,9 @@
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Button btnEditarPropiedades;
         private System.Windows.Forms.FlowLayoutPanel flwypanelPropiedades;
     }
 }

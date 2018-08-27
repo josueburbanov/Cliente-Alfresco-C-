@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TrabajoTitulacion.Modelos;
 using TrabajoTitulacion.Servicios;
 using TrabajoTitulacion.Servicios.Core.Personas;
 using TrabajoTitulacion.UI;
@@ -16,7 +17,8 @@ namespace TrabajoTitulacion.IU
     public partial class FDashboard : Form
     {
         private string idPersona;
-                        
+        public Person PersonaActual { get; set; }
+        
         public FDashboard()
         {
             InitializeComponent();
@@ -31,8 +33,8 @@ namespace TrabajoTitulacion.IU
         {
             try
             {
-                var personaActual = await PersonasStatic.ObtenerPersona(idPersona);                                
-                toolStripMenuUsuario.Text = personaActual.FirstName;
+                PersonaActual = await PersonasStatic.ObtenerPersona(idPersona);                                
+                tlstripMenuUsuario.Text = PersonaActual.FirstName;
                 AñadirFormsHijos();
                 AbrirInicio();
             }
@@ -44,6 +46,7 @@ namespace TrabajoTitulacion.IU
         }
 
 
+
         /// <summary>
         /// Añade los formularios hijos al formulario principal, asigna indices a cada form, 0:Inicio, 1:Repositorio, etc
         /// </summary>
@@ -52,8 +55,9 @@ namespace TrabajoTitulacion.IU
             FInicio fInicio = new FInicio();
             fInicio.MdiParent = this;
             FRepositorio fRespositorio = new FRepositorio();            
-            fRespositorio.MdiParent = this;            
-
+            fRespositorio.MdiParent = this;
+            FGestorModelos fGestorModelos = new FGestorModelos();
+            fGestorModelos.MdiParent = this;
             //forms to add            
         }
 
@@ -69,6 +73,12 @@ namespace TrabajoTitulacion.IU
             EsconderFormsNoActuales(1);
             MdiChildren[1].Dock = DockStyle.Fill;
             MdiChildren[1].Show();
+        }
+        public void AbrirGestorModelos()
+        {
+            EsconderFormsNoActuales(2);
+            MdiChildren[2].Dock = DockStyle.Fill;
+            MdiChildren[2].Show();
         }
 
         private void EsconderFormsNoActuales(int indiceForm)
@@ -117,6 +127,11 @@ namespace TrabajoTitulacion.IU
         private void toolStripMenuInicio_Click(object sender, EventArgs e)
         {
             AbrirInicio();
+        }
+
+        private void toolStripMenuGestorDeModelos_Click(object sender, EventArgs e)
+        {
+            AbrirGestorModelos();
         }
     }
 }

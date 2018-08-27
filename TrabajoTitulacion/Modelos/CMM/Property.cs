@@ -30,6 +30,7 @@ namespace TrabajoTitulacion.Modelos.CMM
         public Property(string name, string title, string datatype)
         {
             Name = name;
+            PrefixedName = name;
             Title = title;
             Datatype = datatype;
         }
@@ -37,17 +38,10 @@ namespace TrabajoTitulacion.Modelos.CMM
         public Property(string name, string title, string description,string datatype)
         {
             Name = name;
+            PrefixedName = name;
             Title = title;
             Description = description;
             Datatype = datatype;
         }
-        public Property(string name, string title, string datatype, bool protected1)
-        {
-            Name = name;
-            Title = title;
-            Datatype = datatype;
-            Protected1 = protected1;
-        }
-
     }
 }

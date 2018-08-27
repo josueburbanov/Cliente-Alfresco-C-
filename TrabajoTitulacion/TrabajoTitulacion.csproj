@@ -64,11 +64,23 @@
     <Compile Include="IU\CtrluContenido.Designer.cs">
       <DependentUpon>CtrluContenido.cs</DependentUpon>
     </Compile>
+    <Compile Include="IU\CtrluModelo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="IU\CtrluModelo.Designer.cs">
+      <DependentUpon>CtrluModelo.cs</DependentUpon>
+    </Compile>
     <Compile Include="IU\CtrluPropiedad.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="IU\CtrluPropiedad.Designer.cs">
       <DependentUpon>CtrluPropiedad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IU\FAspectos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IU\FAspectos.Designer.cs">
+      <DependentUpon>FAspectos.cs</DependentUpon>
     </Compile>
     <Compile Include="IU\FDashboard.cs">
       <SubType>Form</SubType>
@@ -82,11 +94,23 @@
     <Compile Include="IU\FDetallesContenido.Designer.cs">
       <DependentUpon>FDetallesContenido.cs</DependentUpon>
     </Compile>
+    <Compile Include="IU\FGestorModelos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IU\FGestorModelos.Designer.cs">
+      <DependentUpon>FGestorModelos.cs</DependentUpon>
+    </Compile>
     <Compile Include="IU\FInicio.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="IU\FInicio.Designer.cs">
       <DependentUpon>FInicio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IU\FModelos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IU\FModelos.Designer.cs">
+      <DependentUpon>FModelos.cs</DependentUpon>
     </Compile>
     <Compile Include="IU\FPrincipal.cs">
       <SubType>Form</SubType>
@@ -94,17 +118,29 @@
     <Compile Include="IU\FPrincipal.Designer.cs">
       <DependentUpon>FPrincipal.cs</DependentUpon>
     </Compile>
-    <Compile Include="IU\FPrincipalLoading.cs">
+    <Compile Include="IU\FLoading.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="IU\FPrincipalLoading.Designer.cs">
-      <DependentUpon>FPrincipalLoading.cs</DependentUpon>
+    <Compile Include="IU\FLoading.Designer.cs">
+      <DependentUpon>FLoading.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IU\FPropiedades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IU\FPropiedades.Designer.cs">
+      <DependentUpon>FPropiedades.cs</DependentUpon>
     </Compile>
     <Compile Include="IU\FRepositorio.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="IU\FRepositorio.Designer.cs">
       <DependentUpon>FRepositorio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IU\FTipos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IU\FTipos.Designer.cs">
+      <DependentUpon>FTipos.cs</DependentUpon>
     </Compile>
     <Compile Include="Modelos\CMM\Aspect.cs" />
     <Compile Include="Modelos\CMM\Constraint.cs" />
@@ -116,9 +152,11 @@
     <Compile Include="Modelos\ContentInfo.cs" />
     <Compile Include="Modelos\Core\Nodo.cs" />
     <Compile Include="Modelos\Node.cs" />
+    <Compile Include="Modelos\NodeBodyUpdate.cs" />
     <Compile Include="Modelos\PathElement.cs" />
     <Compile Include="Modelos\PathInfo.cs" />
     <Compile Include="Modelos\PermissionElement.cs" />
+    <Compile Include="Modelos\PermissionsBodyUpdate.cs" />
     <Compile Include="Modelos\PermissionsInfo.cs" />
     <Compile Include="Modelos\Person.cs" />
     <Compile Include="Modelos\UserInfo.cs" />
@@ -145,8 +183,14 @@
     <EmbeddedResource Include="IU\CtrluContenido.resx">
       <DependentUpon>CtrluContenido.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="IU\CtrluModelo.resx">
+      <DependentUpon>CtrluModelo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IU\CtrluPropiedad.resx">
       <DependentUpon>CtrluPropiedad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IU\FAspectos.resx">
+      <DependentUpon>FAspectos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IU\FDashboard.resx">
       <DependentUpon>FDashboard.cs</DependentUpon>
@@ -154,17 +198,29 @@
     <EmbeddedResource Include="IU\FDetallesContenido.resx">
       <DependentUpon>FDetallesContenido.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="IU\FGestorModelos.resx">
+      <DependentUpon>FGestorModelos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IU\FInicio.resx">
       <DependentUpon>FInicio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IU\FModelos.resx">
+      <DependentUpon>FModelos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IU\FPrincipal.resx">
       <DependentUpon>FPrincipal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IU\FPrincipalLoading.resx">
-      <DependentUpon>FPrincipalLoading.cs</DependentUpon>
+    <EmbeddedResource Include="IU\FLoading.resx">
+      <DependentUpon>FLoading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IU\FPropiedades.resx">
+      <DependentUpon>FPropiedades.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IU\FRepositorio.resx">
       <DependentUpon>FRepositorio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IU\FTipos.resx">
+      <DependentUpon>FTipos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

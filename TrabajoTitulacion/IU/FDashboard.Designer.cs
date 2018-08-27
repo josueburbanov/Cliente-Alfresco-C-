@@ -32,7 +32,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.menuStripRight = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuUsuario = new System.Windows.Forms.ToolStripMenuItem();
+            this.tlstripMenuUsuario = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripTopLeft = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuInicio = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,7 +85,7 @@
             this.menuStripRight.Font = new System.Drawing.Font("Roboto Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuStripRight.GripMargin = new System.Windows.Forms.Padding(2, 1, 0, 1);
             this.menuStripRight.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuUsuario});
+            this.tlstripMenuUsuario});
             this.menuStripRight.Location = new System.Drawing.Point(382, 0);
             this.menuStripRight.Name = "menuStripRight";
             this.menuStripRight.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -93,21 +93,21 @@
             this.menuStripRight.Size = new System.Drawing.Size(383, 25);
             this.menuStripRight.TabIndex = 5;
             // 
-            // toolStripMenuUsuario
+            // tlstripMenuUsuario
             // 
-            this.toolStripMenuUsuario.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tlstripMenuUsuario.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem5});
-            this.toolStripMenuUsuario.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripMenuUsuario.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuUsuario.Image")));
-            this.toolStripMenuUsuario.Name = "toolStripMenuUsuario";
-            this.toolStripMenuUsuario.Size = new System.Drawing.Size(79, 21);
-            this.toolStripMenuUsuario.Text = "Usuario";
+            this.tlstripMenuUsuario.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tlstripMenuUsuario.Image = ((System.Drawing.Image)(resources.GetObject("tlstripMenuUsuario.Image")));
+            this.tlstripMenuUsuario.Name = "tlstripMenuUsuario";
+            this.tlstripMenuUsuario.Size = new System.Drawing.Size(79, 21);
+            this.tlstripMenuUsuario.Text = "Usuario";
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem5.Text = "Cerrar Sesión";
             // 
             // menuStripTopLeft
@@ -153,6 +153,7 @@
             this.toolStripMenuGestorDeModelos.Name = "toolStripMenuGestorDeModelos";
             this.toolStripMenuGestorDeModelos.Size = new System.Drawing.Size(143, 21);
             this.toolStripMenuGestorDeModelos.Text = "Gestor de Modelos";
+            this.toolStripMenuGestorDeModelos.Click += new System.EventHandler(this.toolStripMenuGestorDeModelos_Click);
             // 
             // toolStripMenuBusqueda
             // 
@@ -193,7 +194,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.MenuStrip menuStripRight;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuUsuario;
+        private System.Windows.Forms.ToolStripMenuItem tlstripMenuUsuario;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private System.Windows.Forms.MenuStrip menuStripTopLeft;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuRepositorio;

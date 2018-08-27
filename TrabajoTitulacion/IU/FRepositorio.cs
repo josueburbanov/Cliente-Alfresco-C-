@@ -25,24 +25,25 @@ namespace TrabajoTitulacion.IU
                        
             try
             {
-                FPrincipalLoading fPrincipalLoading = new FPrincipalLoading();
-                //fPrincipalLoading.Show();
+                FLoading fPrincipalLoading = new FLoading();
                 //Se obtiene la lista de los nodos hijos de root (1er nivel) y el nodo root
                 nodosDeRoot = await NodosServicioStatic.ObtenerListaNodosHijos("-root-");
                 nodoRoot = await NodosServicioStatic.ObtenerNodo("-root-");
                 nodoRoot.NodosHijos = nodosDeRoot;
 
-                //Se pobla recursivamente todos los nodos
                 fPrincipalLoading.Show();
+                //Se pobla recursivamente todos los nodos
                 await NodosServicioStatic.PoblarNodosHijos(nodosDeRoot);
+                
 
                 //Se agrega los nodos al treeview                
-                treeViewRepositorio.Nodes.Add(nodoRoot.Id, "Mis archivos");
+                treeViewRepositorio.Nodes.Add(nodoRoot.Id, "Mis archivos");                
                 treeViewRepositorio.Nodes[nodoRoot.Id].Tag = nodoRoot;
-                AñadirNodosTV(nodosDeRoot, treeViewRepositorio.Nodes[nodoRoot.Id]);                
-                fPrincipalLoading.Close();
-                treeViewRepositorio.Refresh();
+                AñadirNodosTV(nodosDeRoot, treeViewRepositorio.Nodes[nodoRoot.Id]);
                 
+                treeViewRepositorio.Refresh();
+                fPrincipalLoading.Close();
+
             }
             catch (UnauthorizedAccessException)
             {                

@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using srvApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TrabajoTitulacion.Modelos.CMM;
 using TrabajoTitulacion.Modelos.Core;
+using TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados;
 using TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados;
 using TrabajoTitulacion.Servicios.CMM.TiposPersonalizados;
 
@@ -33,10 +36,10 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
 
             if (nodoListo.IsFile)
             {
-                //Añadir Aspectos por defecto (Objetos) del nodo
-                AñadirAspectos(respuestaDeserializada.entry.properties, nodoListo);
-
                 await AñadirTipoPersonalizado(respuestaDeserializada.entry.properties, nodoListo);
+
+                //Añadir Aspectos por defecto (Objetos) del nodo
+                await AñadirAspectos(respuestaDeserializada.entry.properties, nodoListo);
             }
 
 
@@ -66,6 +69,7 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
                         continue;
                     }
                 }
+                tipoNodo.ModeloPerteneciente = modelo;
                 nodoListo.TipoNodo = tipoNodo;
             }
         }
@@ -75,7 +79,7 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
         /// </summary>
         /// <param name="propiedadesDeserializadas">Nodo JSON con metadatos de descarga</param>
         /// <param name="nodoListo">Objeto Nodo, deserializado pero aun sin Aspectos. Se le añadirá sus Aspectos</param>
-        private static void AñadirAspectos(dynamic propiedadesDeserializadas, Nodo nodoListo)
+        private static async Task AñadirAspectos(dynamic propiedadesDeserializadas, Nodo nodoListo)
         {
             List<string> nodoAspectnames = (List<string>)nodoListo.AspectNames;
 
@@ -92,6 +96,18 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
                     }
                 }
             }
+
+            if (!(nodoListo.TipoNodo is null))
+            {
+                List<Aspect> aspectosPersonalizados = await AspectosPersonalizadosServicioStatic.ObtenerAspectosPersonalizados(nodoListo.TipoNodo.ModeloPerteneciente.Name);
+                foreach (var aspectoPersonalizado in aspectosPersonalizados)
+                {
+                    //Muestra todos los aspectos
+                    aspectoPersonalizado.Showable = true;
+                    aspectosNodo.Add(aspectoPersonalizado);
+                }
+            }
+
             //Properties de Aspectos:
             AñadirPropiedadesAspectos(propiedadesDeserializadas, aspectosNodo, nodoListo);
         }
@@ -106,16 +122,16 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
         {
             string nodoPropertiesJson = JsonConvert.SerializeObject(propiedadesDeserializadas);
             Dictionary<string, dynamic> nodoProperties = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(nodoPropertiesJson);
-            foreach (var aspecto in aspectosNodo)
+
+            foreach (var property in nodoProperties)
             {
-                foreach (var property in nodoProperties)
+                var propiedadBuscada = (from aspecto in aspectosNodo
+                                        from propiedad in aspecto.Properties
+                                        where propiedad.PrefixedName == property.Key || propiedad.Name == property.Key
+                                        select propiedad).FirstOrDefault();
+                if (!(propiedadBuscada is null))
                 {
-                    Property propertyTemp = aspecto.Properties.Find(x => x.Name == property.Key);
-                    if (!(propertyTemp is null))
-                    {
-                        propertyTemp.Value = property.Value;
-                        continue;
-                    }
+                    propiedadBuscada.Value = property.Value;
                 }
             }
             nodoListo.Aspectos = aspectosNodo;
@@ -160,13 +176,16 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
             }
         }
 
-        public async static Task<Nodo> ActualizarNodo(Nodo nodoActualizar)
+        public async static Task<Nodo> ActualizarPropiedadesNodo(Nodo nodoActualizar)
         {
             NodosServicio nodosServicio = new NodosServicio();
-            string nodoJsonActualizar = JsonConvert.SerializeObject(nodoActualizar);
-            Console.WriteLine(nodoJsonActualizar);
+            FormatearPropiedades(nodoActualizar);
 
-            string respuestaJson = await nodosServicio.ActualizarNodo(nodoActualizar.Id, nodoJsonActualizar);
+            //Nota: nodoType=null porque no se puede actualizar al mismo tipo y aspectNames=null porque no se actualiza aspectos
+            NodeBodyUpdate nodeBodyUpdate = new NodeBodyUpdate(nodoActualizar.Name, null, null,
+                (Dictionary<string,string>)nodoActualizar.Properties);
+            string nodoBodyUpdateJson = JsonConvert.SerializeObject(nodeBodyUpdate);
+            string respuestaJson = await nodosServicio.ActualizarNodo(nodoActualizar.Id, nodoBodyUpdateJson);
 
             dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
             string nodoJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);
@@ -180,8 +199,33 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
                 await AñadirTipoPersonalizado(respuestaDeserializada.entry.properties, nodoListo);
             }
             return nodoListo;
+        }
 
+        private static void FormatearPropiedades(Nodo nodoActualizar)
+        {
+            Dictionary<string, string> propiedadesJson = new Dictionary<string, string>();
 
+            //Se cargan las propiedades de aspectos
+            foreach (var aspecto in nodoActualizar.Aspectos)
+            {
+                if (aspecto.Showable == true)
+                {
+                    foreach (var propiedad in aspecto.Properties)
+                    {
+                        propiedadesJson.Add(propiedad.PrefixedName, propiedad.Value);
+                    }
+                }
+            }
+
+            //Se cargan las propiedades del tipo personalizado 
+            if (!(nodoActualizar.TipoNodo is null))
+            {
+                foreach (var propiedad in nodoActualizar.TipoNodo.Properties)
+                {
+                    propiedadesJson.Add(propiedad.PrefixedName, propiedad.Value);
+                }
+            }
+            nodoActualizar.Properties = propiedadesJson;
         }
     }
 }

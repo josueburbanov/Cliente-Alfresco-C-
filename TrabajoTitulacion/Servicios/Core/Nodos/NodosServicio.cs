@@ -2,6 +2,7 @@
 using System;
 using RestSharp.Extensions;
 using System.Threading.Tasks;
+using TrabajoTitulacion.Modelos;
 
 namespace TrabajoTitulacion.Servicios.Core.Nodos
 {
@@ -10,11 +11,11 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
         const string URL_BASE = "http://127.0.0.1:8090/alfresco/api/-default-/public/alfresco/versions/1";
         RestClient cliente = new RestClient(URL_BASE);
 
-        public async Task<string> ActualizarNodo(string idNodo, string nodoJson)
+        public async Task<string> ActualizarNodo(string idNodo, string nodoActualizar)
         {
             var solicitud = new RestRequest(Method.PUT);
             solicitud.Resource = "nodes/" + idNodo;
-            solicitud.AddJsonBody(nodoJson);
+            solicitud.AddParameter("application/json", nodoActualizar, ParameterType.RequestBody);
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
             IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
             var contenidoRespuesta = respuesta.Content;

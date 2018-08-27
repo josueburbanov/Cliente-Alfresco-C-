@@ -46,5 +46,30 @@ namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
             Model modeloPersonalizado = modelosPersonalizados.Find(x => x.NamespacePrefix == prefijoModelo);
             return modeloPersonalizado;
         }
+        public static async Task CrearModeloPersonalizado(Model modelo)
+        {
+            ModelosPersonalizadosServicio modelosPersonalizadosServicio = new ModelosPersonalizadosServicio();
+            string modeloJson = JsonConvert.SerializeObject(modelo);
+            await modelosPersonalizadosServicio.CrearModeloPersonalizado(modeloJson);
+        }
+        public static async Task ActualizarModeloPersonalizado(Model modelo)
+        {
+            ModelosPersonalizadosServicio modelosPersonalizadosServicio = new ModelosPersonalizadosServicio();
+            string modeloJson = JsonConvert.SerializeObject(modelo);
+            await modelosPersonalizadosServicio.ActualizarModeloPersonalizado(modelo.Name,modeloJson);
+        }
+        public static async Task CambiarEstadoModeloPersonalizado(Model modelo)
+        {
+            ModelosPersonalizadosServicio modelosPersonalizadosServicio = new ModelosPersonalizadosServicio();
+            if (modelo.Status == "ACTIVE")
+                await modelosPersonalizadosServicio.DesactivarModeloPersonalizado(modelo.Name);
+            else if (modelo.Status == "DRAFT")
+                await modelosPersonalizadosServicio.ActivarModeloPersonalizado(modelo.Name);
+        }
+        public static async Task EliminarModeloPersonalizado(string nombreModelo)
+        {
+            ModelosPersonalizadosServicio modelosPersonalizadosServicio = new ModelosPersonalizadosServicio();
+            await modelosPersonalizadosServicio.EliminarModeloPersonalizado(nombreModelo);
+        }
     }
 }

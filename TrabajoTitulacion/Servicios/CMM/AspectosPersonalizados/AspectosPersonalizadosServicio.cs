@@ -22,5 +22,50 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
             if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
             return contenidoRespuesta;
         }
+        public async Task<string> ActualizarAspectoPersonalizado(string nombreModelo, string nombreAspecto, string aspecto)
+        {
+            var solicitud = new RestRequest(Method.PUT);
+            solicitud.Resource = "cmm/" + nombreModelo + "/aspects/"+nombreAspecto;
+            solicitud.AddParameter("application/json", aspecto, ParameterType.RequestBody);
+            solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
+            IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
+            var contenidoRespuesta = respuesta.Content;
+            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            return contenidoRespuesta;
+        }
+
+        public async Task<string> CrearAspectoPersonalizado(string nombreModelo, string aspecto)
+        {
+            var solicitud = new RestRequest(Method.POST);
+            solicitud.Resource = "cmm/" + nombreModelo + "/aspects";
+            solicitud.AddParameter("application/json", aspecto, ParameterType.RequestBody);
+            solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
+            IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
+            var contenidoRespuesta = respuesta.Content;
+            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            return contenidoRespuesta;
+        }
+
+        public async Task<string> EliminarAspectoPersonalizado(string nombreModelo, string nombreAspecto)
+        {
+            var solicitud = new RestRequest(Method.DELETE);
+            solicitud.Resource = "cmm/" + nombreModelo + "/aspects/" + nombreAspecto;
+            solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
+            IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
+            var contenidoRespuesta = respuesta.Content;
+            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            return contenidoRespuesta;
+        }
+
+        public async Task<string> ObtenerAspectoPersonalizado(string nombreModelo, string nombreAspecto)
+        {
+            var solicitud = new RestRequest(Method.GET);
+            solicitud.Resource = "cmm/" + nombreModelo + "/aspects/" + nombreAspecto;
+            solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
+            IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
+            var contenidoRespuesta = respuesta.Content;
+            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            return contenidoRespuesta;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,16 +9,29 @@ namespace TrabajoTitulacion.Modelos.CMM
 {
     public class Aspect
     {
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
+        [JsonProperty(PropertyName = "title")]
         public string Title { get; set; }
+        [JsonProperty(PropertyName = "properties")]
         public List<Property> Properties { get; set; }
+        [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
-        public List<object> Associations { get; set; }
-        public List<Aspect> Mandatory_aspects{ get; set; }
-        public string Parent { get; set; }
-        public bool Archive { get; set; }
+        [JsonProperty(PropertyName = "parentName")]
+        public string ParentName { get; set; }
+        [JsonProperty(PropertyName = "prefixedName")]
+        public string PrefixedName { get; set; }
         //Nota: Showable no pertenece al sistema, agregada por el desarrollador
-        public bool Showable { get; set; } 
+        [JsonIgnore]
+        public bool Showable { get; set; }
+        //Nota: ModeloPerteneciente no pertenece al sistema, agregada por el desarrollador
+        [JsonIgnore]
+        public Model ModeloPerteneciente { get; set; }
+
+        public Aspect()
+        {
+            ModeloPerteneciente = new Model();
+        }
 
         public void Audio()
         {

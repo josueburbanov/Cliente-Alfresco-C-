@@ -22,11 +22,6 @@ namespace TrabajoTitulacion.IU
             InitializeComponent();
         }
 
-        private void FInicio_Load(object sender, EventArgs e)
-        {
-            
-        }
-
         private void btnRepositorio_Click(object sender, EventArgs e)
         {
             var mdiParent = MdiParent as FDashboard;
@@ -35,11 +30,96 @@ namespace TrabajoTitulacion.IU
 
         private void btnGestorModelos_Click(object sender, EventArgs e)
         {
-
+            var mdiParent = MdiParent as FDashboard;
+            mdiParent.AbrirGestorModelos();
         }
 
         private void btnBusqueda_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private async void FInicio_Load(object sender, EventArgs e)
+        {
+            //await pruebaUnitaria();
+        }
+
+        private async Task pruebaUnitaria()
+        {
+            //prueba unitaria
+            Model modelo = await ModelosPersonalizadosServicioStatic.ObtenerModeloPersonalizado("testModelNueva");
+
+            Console.WriteLine("N " + modelo.Name);
+            Console.WriteLine("M " + modelo.Author);
+            Console.WriteLine("S " + modelo.Status);
+            //Console.WriteLine("Types: "+modelo.Types.Count);
+
+            List<Type1> tipos = await TiposPersonalizadosServicioStatic.ObtenerTiposPersonalizados("testModelNueva");
+            foreach (var item in tipos)
+            {
+                Console.WriteLine("_--------------_Tipos___-------");
+                Console.WriteLine("N: " + item.Name);
+                Console.WriteLine("D: " + item.Description);
+                Console.WriteLine("T" + item.Title);
+                foreach (var prop in item.Properties)
+                {
+                    Console.WriteLine("-----------------Properties");
+                    Console.WriteLine("Np: " + prop.Name);
+                    Console.WriteLine("Tp: " + prop.Title);
+                    if (prop.Constraints is null)
+                    {
+
+                    }
+                    else
+                    {
+                        foreach (var constr in prop.Constraints)
+                        {
+                            Console.WriteLine("Const: " + constr.Name);
+                            Console.WriteLine("Const:pfxn:  " + constr.PrefixedName);
+                            Console.WriteLine("Const: params: _________________");
+                            foreach (var param in constr.Parameters)
+                            {
+                                Console.WriteLine("key: " + param.Name + " valor: " + param.SimpleValue);
+                            }
+                        }
+
+                    }
+
+                }
+            }
+            List<Aspect> aspectos = await AspectosPersonalizadosServicioStatic.ObtenerAspectosPersonalizados("testModelNueva");
+            foreach (var aspecto in aspectos)
+            {
+                Console.WriteLine("**************ASPECTOS*****************");
+                Console.WriteLine("An: " + aspecto.Name);
+                foreach (var prop in aspecto.Properties)
+                {
+                    Console.WriteLine("**********Prop aspectos**************");
+                    Console.WriteLine("Pan: " + prop.Name);
+                    Console.WriteLine("Dan: " + prop.Description);
+                    Console.WriteLine("Tan: " + prop.Title);
+                    Console.WriteLine("tan: " + prop.Datatype);
+                    Console.WriteLine("dfv: " + prop.DefaultValue);
+                    Console.WriteLine("pfxname:" + prop.PrefixedName);
+                    Console.WriteLine("facetable: " + prop.Facetable);
+                    Console.WriteLine("indextonex" + prop.indexTokenisationMode);
+                    Console.WriteLine("mandatoryEnforced" + prop.MandatoryEnforced);
+                    Console.WriteLine("multivalued:" + prop.MultiValued);
+                    foreach (var constraint in prop.Constraints)
+                    {
+                        Console.WriteLine("Constr.name: " + constraint.Name);
+                        Console.WriteLine("Constr.prefix: " + constraint.PrefixedName);
+                        Console.WriteLine("constr.type: " + constraint.Type);
+                        foreach (var param in constraint.Parameters)
+                        {
+                            Console.WriteLine("param.name" + param.Name);
+                            Console.WriteLine("param.simplevalue" + param.SimpleValue);
+
+                        }
+
+                    }
+                }
+            }
 
         }
     }

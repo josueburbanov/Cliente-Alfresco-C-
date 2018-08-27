@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrabajoTitulacion.Modelos.CMM;
+using TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados;
 
 namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
 {
@@ -29,6 +30,53 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
                 aspectosPersonalizados.Add(aspectoLimpio);
             }
             return aspectosPersonalizados;
+        }
+
+        public async static Task<List<Aspect>> ObtenerAspectosActivos()
+        {
+            List<Model> modelos = await ModelosPersonalizadosServicioStatic.ObtenerModelosPersonalizados();
+            List<Aspect> aspectosPersonalizados = new List<Aspect>();
+            foreach (var modelo in modelos)
+            {
+                if (modelo.Status == "ACTIVE")
+                {
+                    aspectosPersonalizados.AddRange(await ObtenerAspectosPersonalizados(modelo.Name));
+                }
+            }
+            return aspectosPersonalizados;
+        }
+
+        public async static Task CrearAspectoPersonalizado(Aspect aspectoCrear)
+        {
+            AspectosPersonalizadosServicio aspectosPersonalizadosServicio = new AspectosPersonalizadosServicio();
+            string aspectoJson = JsonConvert.SerializeObject(aspectoCrear);
+            await aspectosPersonalizadosServicio.CrearAspectoPersonalizado(
+                aspectoCrear.ModeloPerteneciente.Name,aspectoJson);
+        }
+        public async static Task ActualizarAspectoPersonalizado(Aspect aspectoActualizar)
+        {
+            AspectosPersonalizadosServicio aspectosPersonalizadosServicio = new AspectosPersonalizadosServicio();
+            string aspectoJson = JsonConvert.SerializeObject(aspectoActualizar);
+            await aspectosPersonalizadosServicio.ActualizarAspectoPersonalizado(
+                aspectoActualizar.ModeloPerteneciente.Name,
+                aspectoActualizar.Name,
+                aspectoJson);
+        }
+        public async static Task EliminarAspectoPersonalizado(string nombreModelo, string nombreAspecto)
+        {
+            AspectosPersonalizadosServicio aspectosPersonalizadosServicio = new AspectosPersonalizadosServicio();
+            await aspectosPersonalizadosServicio.EliminarAspectoPersonalizado(
+                nombreModelo, nombreAspecto);
+        }
+        public async static Task<Aspect> ObtenerAspectoPersonalizado(string nombreModelo, string nombreAspecto)
+        {
+            AspectosPersonalizadosServicio aspectosPersonalizadosServicio = new AspectosPersonalizadosServicio();
+            string respuestaJson = await aspectosPersonalizadosServicio.ObtenerAspectoPersonalizado(nombreModelo, nombreAspecto);
+            
+            //Se deserializa y luego serializa para obtener una lista de aspectos (Elimina metadatos de descarga)
+            dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
+            string tipoPersonalizadoJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);
+            return JsonConvert.DeserializeObject<Aspect>(tipoPersonalizadoJson);
         }
     }
 }

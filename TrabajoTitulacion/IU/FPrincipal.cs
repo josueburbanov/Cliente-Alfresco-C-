@@ -8,7 +8,7 @@ namespace TrabajoTitulacion.UI
 {
     public partial class FPrincipal : Form
     {
-        FPrincipalLoading fPrincipalLoading = new FPrincipalLoading();
+        FLoading fPrincipalLoading = new FLoading();
         public FPrincipal()
         {
             InitializeComponent();

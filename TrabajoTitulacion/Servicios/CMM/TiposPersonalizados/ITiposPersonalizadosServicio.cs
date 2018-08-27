@@ -10,5 +10,8 @@ namespace TrabajoTitulacion.Servicios.CMM.TiposPersonalizados
     {
         Task<string> ObtenerTiposPersonalizados(string nombreModelo);
         Task<string> ObtenerTipoPersonalizado(string nombreModelo, string nombreTipo);
+        Task<string> ActualizarTipoPersonalizado(string nombreModelo, string nombreTipo, string tipo);
+        Task<string> CrearTipoPersonalizado(string nombreModelo, string tipo);
+        Task<string> EliminarTipoPersonalizado(string nombreModelo, string nombreTipo);
     }
 }

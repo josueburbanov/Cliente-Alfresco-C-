@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace TrabajoTitulacion.IU
 {
-    public partial class FPrincipalLoading : Form
+    public partial class FLoading : Form
     {
-        public FPrincipalLoading()
+        public FLoading()
         {
             InitializeComponent();
         }
