@@ -8,9 +8,9 @@ namespace TrabajoTitulacion.Servicios.CMM.TiposPersonalizados
 {
     class TiposPersonalizadosServicioStatic
     {
-        public static async Task<List<Type1>> ObtenerTiposPersonalizados(string nombreModelo)
+        public static async Task<List<Type>> ObtenerTiposPersonalizados(string nombreModelo)
         {
-            List<Type1> tiposPersonalizados = new List<Type1>();
+            List<Type> tiposPersonalizados = new List<Type>();
             TiposPersonalizadosServicio tiposPersonalizadosServicio = new TiposPersonalizadosServicio();
             string respuestaJson = await tiposPersonalizadosServicio.ObtenerTiposPersonalizados(nombreModelo);
 
@@ -23,13 +23,13 @@ namespace TrabajoTitulacion.Servicios.CMM.TiposPersonalizados
             foreach (var tipo in tiposNoMapeados)
             {
                 string tipoJson = JsonConvert.SerializeObject(tipo.entry);
-                Type1 tipoLimpio = JsonConvert.DeserializeObject<Type1>(tipoJson);
+                Type tipoLimpio = JsonConvert.DeserializeObject<Type>(tipoJson);
                 tiposPersonalizados.Add(tipoLimpio);
             }
             return tiposPersonalizados;
         }
 
-        public static async Task<Type1> ObtenerTipoPersonalizado(string nombreModelo, string nombreTipo)
+        public static async Task<Type> ObtenerTipoPersonalizado(string nombreModelo, string nombreTipo)
         {            
             TiposPersonalizadosServicio tiposPersonalizadosServicio = new TiposPersonalizadosServicio();
             string respuestaJson = await tiposPersonalizadosServicio.ObtenerTipoPersonalizado(nombreModelo, nombreTipo);
@@ -37,19 +37,19 @@ namespace TrabajoTitulacion.Servicios.CMM.TiposPersonalizados
             //Se deserializa y luego serializa para obtener una lista de tipos (Elimina metadatos de descarga)
             dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
             string tipoPersonalizadoJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);
-            return JsonConvert.DeserializeObject<Type1>(tipoPersonalizadoJson);
+            return JsonConvert.DeserializeObject<Type>(tipoPersonalizadoJson);
         }
-        public static async Task ActualizarTipoPersonalizado(Type1 tipo)
+        public static async Task ActualizarTipoPersonalizado(Type tipo)
         {
             TiposPersonalizadosServicio tiposPersonalizadosServicio = new TiposPersonalizadosServicio();
             string tipoJson = JsonConvert.SerializeObject(tipo);
             await tiposPersonalizadosServicio.ActualizarTipoPersonalizado(tipo.ModeloPerteneciente.Name,
                 tipo.Name, tipoJson);
         }
-        public static async Task<List<Type1>> ObtenerTiposActivos()
+        public static async Task<List<Type>> ObtenerTiposActivos()
         {
             List<Model> modelos = await ModelosPersonalizadosServicioStatic.ObtenerModelosPersonalizados();
-            List<Type1> tiposPersonalizados = new List<Type1>();
+            List<Type> tiposPersonalizados = new List<Type>();
             foreach (var modelo in modelos)
             {
                 if (modelo.Status == "ACTIVE")
@@ -59,7 +59,7 @@ namespace TrabajoTitulacion.Servicios.CMM.TiposPersonalizados
             }
             return tiposPersonalizados;
         }
-        public static async Task CrearTipoPersonalizado(Type1 tipo)
+        public static async Task CrearTipoPersonalizado(Type tipo)
         {
             TiposPersonalizadosServicio tiposPersonalizadosServicio = new TiposPersonalizadosServicio();
             string tipoJson = JsonConvert.SerializeObject(tipo);

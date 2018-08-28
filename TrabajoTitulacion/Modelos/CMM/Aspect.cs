@@ -26,7 +26,7 @@ namespace TrabajoTitulacion.Modelos.CMM
         public bool Showable { get; set; }
         //Nota: ModeloPerteneciente no pertenece al sistema, agregada por el desarrollador
         [JsonIgnore]
-        public Model ModeloPerteneciente { get; set; }
+        public Model ModeloPerteneciente { get; set; }        
 
         public Aspect()
         {

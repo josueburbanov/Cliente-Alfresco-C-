@@ -22,7 +22,7 @@ namespace TrabajoTitulacion.Modelos.CMM
         [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
         [JsonIgnore]
-        public List<Type1> Types { get; set; }
+        public List<Type> Types { get; set; }
         [JsonIgnore]
         public List<Aspect> Aspects { get; set; }
     }

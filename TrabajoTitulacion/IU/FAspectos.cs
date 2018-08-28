@@ -35,9 +35,9 @@ namespace TrabajoTitulacion.IU
         }
         private async Task PoblarDtgv()
         {
-            List<Aspect> modelos = await AspectosPersonalizadosServicioStatic.ObtenerAspectosPersonalizados(nombreModelo);
+            List<Aspect> aspectos = await AspectosPersonalizadosServicioStatic.ObtenerAspectosPersonalizados(nombreModelo);
             dtgviewDatos.AutoGenerateColumns = false;
-            dtgviewDatos.DataSource = modelos;
+            dtgviewDatos.DataSource = aspectos;
             dtgviewDatos.Columns["clmNombreTipo"].DataPropertyName = "Name";
             dtgviewDatos.Columns["clmEtiquetaPresentacionTipo"].DataPropertyName = "Title";
             dtgviewDatos.Columns["clmPadreTipo"].DataPropertyName = "ParentName";
@@ -163,6 +163,11 @@ namespace TrabajoTitulacion.IU
             }
         }
 
-
+        private async void tlstripPropiedades_Click(object sender, EventArgs e)
+        {
+            Aspect aspectoSeleccionado = await AspectosPersonalizadosServicioStatic.ObtenerAspectoPersonalizado(
+                nombreModelo, dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
+            fgestorModelos.AbrirPropiedades(nombreModelo, aspectoSeleccionado, "ASPECTOS");
+        }
     }
 }

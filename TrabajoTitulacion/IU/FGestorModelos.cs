@@ -57,5 +57,17 @@ namespace TrabajoTitulacion.IU
             var mdiParent = MdiParent as FDashboard;
             mdiParent.AbrirInicio();
         }
+
+        internal void AbrirPropiedades(string nombreModelo, object submodelo, string proveniente)
+        {
+            if (tblpanelContenedor.Controls.Count > 0)
+                tblpanelContenedor.Controls.Clear();
+            FPropiedades fpropiedades = new FPropiedades(this, nombreModelo, submodelo, proveniente);
+            fpropiedades.TopLevel = false;
+            fpropiedades.Dock = DockStyle.Fill;
+            fpropiedades.Visible = true;
+            tblpanelContenedor.Controls.Add(fpropiedades);
+
+        }
     }
 }

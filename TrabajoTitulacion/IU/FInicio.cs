@@ -54,7 +54,7 @@ namespace TrabajoTitulacion.IU
             Console.WriteLine("S " + modelo.Status);
             //Console.WriteLine("Types: "+modelo.Types.Count);
 
-            List<Type1> tipos = await TiposPersonalizadosServicioStatic.ObtenerTiposPersonalizados("testModelNueva");
+            List<Modelos.CMM.Type> tipos = await TiposPersonalizadosServicioStatic.ObtenerTiposPersonalizados("testModelNueva");
             foreach (var item in tipos)
             {
                 Console.WriteLine("_--------------_Tipos___-------");
@@ -101,9 +101,7 @@ namespace TrabajoTitulacion.IU
                     Console.WriteLine("tan: " + prop.Datatype);
                     Console.WriteLine("dfv: " + prop.DefaultValue);
                     Console.WriteLine("pfxname:" + prop.PrefixedName);
-                    Console.WriteLine("facetable: " + prop.Facetable);
-                    Console.WriteLine("indextonex" + prop.indexTokenisationMode);
-                    Console.WriteLine("mandatoryEnforced" + prop.MandatoryEnforced);
+                    Console.WriteLine("indextonex" + prop.IndexTokenisationMode);
                     Console.WriteLine("multivalued:" + prop.MultiValued);
                     foreach (var constraint in prop.Constraints)
                     {

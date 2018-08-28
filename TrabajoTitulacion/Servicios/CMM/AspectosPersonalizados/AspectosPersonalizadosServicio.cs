@@ -67,5 +67,18 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
             if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
             return contenidoRespuesta;
         }
+
+        public async Task<string> AñadirPropiedadesAspecto(string nombreModelo, string nombreAspecto, string propertiesBodyUpdate)
+        {
+            var solicitud = new RestRequest(Method.PUT);
+            solicitud.Resource = "cmm/" + nombreModelo + "/aspects/" + nombreAspecto;
+            solicitud.AddParameter("application/json", propertiesBodyUpdate, ParameterType.RequestBody);
+            solicitud.AddQueryParameter("select", "props");
+            solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
+            IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
+            var contenidoRespuesta = respuesta.Content;
+            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            return contenidoRespuesta;
+        }
     }
 }

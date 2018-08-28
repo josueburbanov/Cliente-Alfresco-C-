@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TrabajoTitulacion.Modelos.CMM
 {
-    public class Type1
+    public class Type
     {
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
@@ -21,7 +21,7 @@ namespace TrabajoTitulacion.Modelos.CMM
         [JsonIgnore]
         public Model ModeloPerteneciente { get; set; }
 
-        public Type1()
+        public Type()
         {
             ModeloPerteneciente = new Model();
         }

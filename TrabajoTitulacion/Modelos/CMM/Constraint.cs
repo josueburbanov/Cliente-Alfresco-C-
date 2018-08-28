@@ -12,5 +12,10 @@ namespace TrabajoTitulacion.Modelos.CMM
         public string PrefixedName { get; set; }
         public string Type { get; set; }
         public List<Parameter> Parameters { get; set; }
+
+        public Constraint(string name)
+        {
+            Name = name;
+        }
     }
 }

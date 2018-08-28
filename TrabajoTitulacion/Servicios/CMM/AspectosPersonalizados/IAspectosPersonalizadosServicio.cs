@@ -13,5 +13,6 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
         Task<string> ObtenerAspectoPersonalizado(string nombreModelo, string nombreAspecto);
         Task<string> ActualizarAspectoPersonalizado(string nombreModelo, string nombreAspecto, string aspecto);
         Task<string> EliminarAspectoPersonalizado(string nombreModelo, string nombreAspecto);
+        Task<string> AñadirPropiedadesAspecto(string nombreModelo, string nombreAspecto, string propertiesBodyUpdate);
     }
 }

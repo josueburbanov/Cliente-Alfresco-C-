@@ -56,7 +56,7 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
             Model modelo = await ModelosPersonalizadosServicioStatic.ObtenerModeloPersonalizadoxPrefijo(prefijoModeloNodo);
             if (!(modelo is null))
             {
-                Type1 tipoNodo = await TiposPersonalizadosServicioStatic.ObtenerTipoPersonalizado(modelo.Name, nombreTipoNodo);
+                Modelos.CMM.Type tipoNodo = await TiposPersonalizadosServicioStatic.ObtenerTipoPersonalizado(modelo.Name, nombreTipoNodo);
 
                 string nodoPropertiesJson = JsonConvert.SerializeObject(propiedadesDeserializadas);
                 Dictionary<string, dynamic> nodoProperties = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(nodoPropertiesJson);

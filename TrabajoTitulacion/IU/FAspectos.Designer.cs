@@ -65,9 +65,9 @@
             this.clmEtiquetaPresentacionTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmPadreTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.lnklblActualNav = new System.Windows.Forms.LinkLabel();
             this.lnklblVolverNav = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
-            this.lnklblActualNav = new System.Windows.Forms.LinkLabel();
             this.cntxMenuAcciones = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tlstripCrear = new System.Windows.Forms.ToolStripMenuItem();
             this.tlstripEditar = new System.Windows.Forms.ToolStripMenuItem();
@@ -497,6 +497,18 @@
             this.panel3.Size = new System.Drawing.Size(653, 35);
             this.panel3.TabIndex = 4;
             // 
+            // lnklblActualNav
+            // 
+            this.lnklblActualNav.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.lnklblActualNav.AutoSize = true;
+            this.lnklblActualNav.Location = new System.Drawing.Point(170, 9);
+            this.lnklblActualNav.Name = "lnklblActualNav";
+            this.lnklblActualNav.Size = new System.Drawing.Size(50, 17);
+            this.lnklblActualNav.TabIndex = 2;
+            this.lnklblActualNav.TabStop = true;
+            this.lnklblActualNav.Text = "Modelo";
+            // 
             // lnklblVolverNav
             // 
             this.lnklblVolverNav.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -521,18 +533,6 @@
             this.label2.Text = "|";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // lnklblActualNav
-            // 
-            this.lnklblActualNav.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.lnklblActualNav.AutoSize = true;
-            this.lnklblActualNav.Location = new System.Drawing.Point(170, 9);
-            this.lnklblActualNav.Name = "lnklblActualNav";
-            this.lnklblActualNav.Size = new System.Drawing.Size(50, 17);
-            this.lnklblActualNav.TabIndex = 2;
-            this.lnklblActualNav.TabStop = true;
-            this.lnklblActualNav.Text = "Modelo";
-            // 
             // cntxMenuAcciones
             // 
             this.cntxMenuAcciones.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -541,7 +541,7 @@
             this.tlstripEliminar,
             this.tlstripPropiedades});
             this.cntxMenuAcciones.Name = "cntxMenuAccionesModelo";
-            this.cntxMenuAcciones.Size = new System.Drawing.Size(187, 92);
+            this.cntxMenuAcciones.Size = new System.Drawing.Size(187, 114);
             // 
             // tlstripCrear
             // 
@@ -569,6 +569,7 @@
             this.tlstripPropiedades.Name = "tlstripPropiedades";
             this.tlstripPropiedades.Size = new System.Drawing.Size(186, 22);
             this.tlstripPropiedades.Text = "Propiedades...";
+            this.tlstripPropiedades.Click += new System.EventHandler(this.tlstripPropiedades_Click);
             // 
             // cntxMenuGeneral
             // 

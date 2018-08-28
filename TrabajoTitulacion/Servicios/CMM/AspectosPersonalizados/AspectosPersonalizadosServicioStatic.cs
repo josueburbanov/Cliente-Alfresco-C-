@@ -78,5 +78,14 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
             string tipoPersonalizadoJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);
             return JsonConvert.DeserializeObject<Aspect>(tipoPersonalizadoJson);
         }
+        public async static Task AñadirPropiedadeAspecto(string nombreModelo, string nombreAspecto, PropertiesBodyUpdate propertiesBodyUpdate)
+        {
+            AspectosPersonalizadosServicio aspectosPersonalizadosServicio = new AspectosPersonalizadosServicio();
+            string propertiesBodyUpdateJson = JsonConvert.SerializeObject(propertiesBodyUpdate);
+            await aspectosPersonalizadosServicio.AñadirPropiedadesAspecto(
+                nombreModelo,
+                nombreAspecto,
+                propertiesBodyUpdateJson);
+        }
     }
 }

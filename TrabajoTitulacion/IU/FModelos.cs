@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrabajoTitulacion.Modelos.CMM;
@@ -198,6 +199,18 @@ namespace TrabajoTitulacion.IU
             Model modeloSeleccionado = await ModelosPersonalizadosServicioStatic.ObtenerModeloPersonalizado(
                 dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
             fgestorModelos.AbrirAspectos(modeloSeleccionado.Name);
+        }
+
+        private void txtNombreModelo_TextChanged(object sender, EventArgs e)
+        {
+            if ((new Regex("^(?!(.*[\\\"\\*\\\\\\>\\<\\?\\/\\:\\|]+.*) | (.*[\\.]?.*[\\.] +$)| (.*[ ] +$))")).IsMatch(txtNombreModelo.Text))
+            {
+                txtNombreModelo.ForeColor = Color.Black;
+            }
+            else
+            {
+                txtNombreModelo.ForeColor = Color.Red;
+            }
         }
     }
 }
