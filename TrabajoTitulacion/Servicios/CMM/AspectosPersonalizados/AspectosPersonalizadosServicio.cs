@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using Newtonsoft.Json;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,12 +69,40 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
             return contenidoRespuesta;
         }
 
-        public async Task<string> AñadirPropiedadesAspecto(string nombreModelo, string nombreAspecto, string propertiesBodyUpdate)
+        public async Task<string> AñadirPropiedadAspecto(string nombreModelo, string nombreAspecto, string propertiesBodyCreate)
         {
             var solicitud = new RestRequest(Method.PUT);
             solicitud.Resource = "cmm/" + nombreModelo + "/aspects/" + nombreAspecto;
-            solicitud.AddParameter("application/json", propertiesBodyUpdate, ParameterType.RequestBody);
+            solicitud.AddParameter("application/json", propertiesBodyCreate, ParameterType.RequestBody);
             solicitud.AddQueryParameter("select", "props");
+            solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
+            IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
+            var contenidoRespuesta = respuesta.Content;
+            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            return contenidoRespuesta;
+        }
+
+        public async Task<string> ActualizarPropiedadAspecto(string nombreModelo, string nombreAspecto, string nombrePropiedad, string propiedadActualizar)
+        {
+            var solicitud = new RestRequest(Method.PUT);
+            solicitud.Resource = "cmm/" + nombreModelo + "/aspects/" + nombreAspecto;
+            solicitud.AddParameter("application/octect-stream", propiedadActualizar, ParameterType.RequestBody);
+            solicitud.AddQueryParameter("select", "props");
+            solicitud.AddQueryParameter("update", nombrePropiedad);
+            solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
+            IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
+            var contenidoRespuesta = respuesta.Content;
+            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            return contenidoRespuesta;
+        }
+
+        public async Task<string> EliminarPropiedadAspecto(string nombreModelo, string nombreAspecto, string nombrePropiedad)
+        {
+            var solicitud = new RestRequest(Method.PUT);
+            solicitud.Resource = "cmm/" + nombreModelo + "/aspects/" + nombreAspecto;
+            solicitud.AddParameter("application/octect-stream", JsonConvert.SerializeObject(new { name = nombreAspecto}), ParameterType.RequestBody);
+            solicitud.AddQueryParameter("select", "props");
+            solicitud.AddQueryParameter("delete", nombrePropiedad);
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
             IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
             var contenidoRespuesta = respuesta.Content;

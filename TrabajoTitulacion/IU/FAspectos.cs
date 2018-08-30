@@ -14,28 +14,28 @@ namespace TrabajoTitulacion.IU
 {
     public partial class FAspectos : Form
     {
-        private string nombreModelo;
+        private Model modelo;
         private FGestorModelos fgestorModelos;
         public FAspectos()
         {
             InitializeComponent();
         }
-        public FAspectos(FGestorModelos fgestorModelos, string nombreModelo)
+        public FAspectos(FGestorModelos fgestorModelos, Model modelo)
         {
             InitializeComponent();
-            this.nombreModelo = nombreModelo;
+            this.modelo = modelo;
             this.fgestorModelos = fgestorModelos;
         }
 
         private async void FAspectos_Load(object sender, EventArgs e)
         {
-            lnklblActualNav.Text = nombreModelo;
+            lnklblActualNav.Text = modelo.Name;
             await PoblarDtgv();
             NuevaPlantilla();
         }
         private async Task PoblarDtgv()
         {
-            List<Aspect> aspectos = await AspectosPersonalizadosServicioStatic.ObtenerAspectosPersonalizados(nombreModelo);
+            List<Aspect> aspectos = await AspectosPersonalizadosServicioStatic.ObtenerAspectosPersonalizados(modelo.Name);
             dtgviewDatos.AutoGenerateColumns = false;
             dtgviewDatos.DataSource = aspectos;
             dtgviewDatos.Columns["clmNombreTipo"].DataPropertyName = "Name";
@@ -100,7 +100,7 @@ namespace TrabajoTitulacion.IU
         private async void PlantillaEditar()
         {
             Aspect aspectoEditar = await AspectosPersonalizadosServicioStatic.ObtenerAspectoPersonalizado(
-                nombreModelo, dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
+                modelo.Name, dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
             panelTipo.Visible = true;
             btnAceptar.Text = "Editar";
             lblEstado.Text = "Editando Tipo";
@@ -116,7 +116,7 @@ namespace TrabajoTitulacion.IU
         {
             FLoading fPrincipalLoading = new FLoading();
             fPrincipalLoading.Show();
-            await AspectosPersonalizadosServicioStatic.EliminarAspectoPersonalizado(nombreModelo,
+            await AspectosPersonalizadosServicioStatic.EliminarAspectoPersonalizado(modelo.Name,
                 dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
             fPrincipalLoading.Close();
             MessageBox.Show("El aspecto ha sido eliminado");
@@ -143,7 +143,7 @@ namespace TrabajoTitulacion.IU
                 aspectoCrear.ParentName = cmbxPadre.SelectedItem.ToString();
                 aspectoCrear.Description = txtDescripcion.Text;
                 aspectoCrear.Title = txtTitulo.Text;
-                aspectoCrear.ModeloPerteneciente.Name = nombreModelo;
+                aspectoCrear.ModeloPerteneciente.Name = modelo.Name;
                 await AspectosPersonalizadosServicioStatic.CrearAspectoPersonalizado(aspectoCrear);
                 MessageBox.Show("Aspecto creado exitosamente");
                 await PoblarDtgv();
@@ -155,7 +155,7 @@ namespace TrabajoTitulacion.IU
                 aspectoActualizar.ParentName = cmbxPadre.SelectedItem.ToString();
                 aspectoActualizar.Description = txtDescripcion.Text;
                 aspectoActualizar.Title = txtTitulo.Text;
-                aspectoActualizar.ModeloPerteneciente.Name = nombreModelo;
+                aspectoActualizar.ModeloPerteneciente.Name = modelo.Name;
                 await AspectosPersonalizadosServicioStatic.ActualizarAspectoPersonalizado(aspectoActualizar);
                 MessageBox.Show("Aspecto actualizado exitosamente");
                 await PoblarDtgv();
@@ -166,8 +166,8 @@ namespace TrabajoTitulacion.IU
         private async void tlstripPropiedades_Click(object sender, EventArgs e)
         {
             Aspect aspectoSeleccionado = await AspectosPersonalizadosServicioStatic.ObtenerAspectoPersonalizado(
-                nombreModelo, dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
-            fgestorModelos.AbrirPropiedades(nombreModelo, aspectoSeleccionado, "ASPECTOS");
+                modelo.Name, dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
+            fgestorModelos.AbrirPropiedades(modelo, aspectoSeleccionado, "ASPECTOS");
         }
     }
 }

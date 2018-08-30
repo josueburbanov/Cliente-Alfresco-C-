@@ -174,7 +174,7 @@ namespace TrabajoTitulacion.IU
         {
             Model modeloSeleccionado = await ModelosPersonalizadosServicioStatic.ObtenerModeloPersonalizado(
                 dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
-            fgestorModelos.AbrirTipos(modeloSeleccionado.Name);
+            fgestorModelos.AbrirTipos(modeloSeleccionado);
         }
 
         private void btnNuevoModeloNav_Click(object sender, EventArgs e)
@@ -191,14 +191,14 @@ namespace TrabajoTitulacion.IU
         {
             Model modeloSeleccionado = await ModelosPersonalizadosServicioStatic.ObtenerModeloPersonalizado(
                 dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
-            fgestorModelos.AbrirTipos(modeloSeleccionado.Name);
+            fgestorModelos.AbrirTipos(modeloSeleccionado);
         }
 
         private async void aspectosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Model modeloSeleccionado = await ModelosPersonalizadosServicioStatic.ObtenerModeloPersonalizado(
                 dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
-            fgestorModelos.AbrirAspectos(modeloSeleccionado.Name);
+            fgestorModelos.AbrirAspectos(modeloSeleccionado);
         }
 
         private void txtNombreModelo_TextChanged(object sender, EventArgs e)

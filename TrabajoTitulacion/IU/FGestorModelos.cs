@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TrabajoTitulacion.Modelos.CMM;
 
 namespace TrabajoTitulacion.IU
 {
@@ -32,24 +33,28 @@ namespace TrabajoTitulacion.IU
             fModelos.Visible = true;
             tblpanelContenedor.Controls.Add(fModelos);
         }
-        public void AbrirTipos(string nombreModelo)
+        public void AbrirTipos(Model modelo)
         {
             if (tblpanelContenedor.Controls.Count > 0)
                 tblpanelContenedor.Controls.Clear();
-            FTipos ftipos = new FTipos(this, nombreModelo);
-            ftipos.TopLevel = false;
-            ftipos.Dock = DockStyle.Fill;
-            ftipos.Visible = true;
+            FTipos ftipos = new FTipos(this, modelo)
+            {
+                TopLevel = false,
+                Dock = DockStyle.Fill,
+                Visible = true
+            };
             tblpanelContenedor.Controls.Add(ftipos);
         }
-        public void AbrirAspectos(string nombreModelo)
+        public void AbrirAspectos(Model modelo)
         {
             if (tblpanelContenedor.Controls.Count > 0)
                 tblpanelContenedor.Controls.Clear();
-            FAspectos faspectos = new FAspectos(this, nombreModelo);
-            faspectos.TopLevel = false;
-            faspectos.Dock = DockStyle.Fill;
-            faspectos.Visible = true;
+            FAspectos faspectos = new FAspectos(this, modelo)
+            {
+                TopLevel = false,
+                Dock = DockStyle.Fill,
+                Visible = true
+            };
             tblpanelContenedor.Controls.Add(faspectos);
         }
         public void VolverInicio()
@@ -58,14 +63,16 @@ namespace TrabajoTitulacion.IU
             mdiParent.AbrirInicio();
         }
 
-        internal void AbrirPropiedades(string nombreModelo, object submodelo, string proveniente)
+        internal void AbrirPropiedades(Model modelo, object submodelo, string proveniente)
         {
             if (tblpanelContenedor.Controls.Count > 0)
                 tblpanelContenedor.Controls.Clear();
-            FPropiedades fpropiedades = new FPropiedades(this, nombreModelo, submodelo, proveniente);
-            fpropiedades.TopLevel = false;
-            fpropiedades.Dock = DockStyle.Fill;
-            fpropiedades.Visible = true;
+            FPropiedades fpropiedades = new FPropiedades(this, modelo, submodelo, proveniente)
+            {
+                TopLevel = false,
+                Dock = DockStyle.Fill,
+                Visible = true
+            };
             tblpanelContenedor.Controls.Add(fpropiedades);
 
         }

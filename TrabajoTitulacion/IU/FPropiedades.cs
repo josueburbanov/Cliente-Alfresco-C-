@@ -14,7 +14,7 @@ namespace TrabajoTitulacion.IU
 {
     public partial class FPropiedades : Form
     {
-        private string nombreModelo;
+        private Model modelo;
         private dynamic subModelo; //Tipo o Aspecto
         private FGestorModelos fgestorModelos;
         private string proveniente;
@@ -22,25 +22,32 @@ namespace TrabajoTitulacion.IU
         {
             InitializeComponent();
         }
-        public FPropiedades(FGestorModelos fgestorModelos, string nombreModelo, object subModelo, string proveniente)
+        public FPropiedades(FGestorModelos fgestorModelos, Model modelo, object subModelo, string proveniente)
         {
             InitializeComponent();
-            this.nombreModelo = nombreModelo;            
+            this.modelo = modelo;
             this.fgestorModelos = fgestorModelos;
             this.proveniente = proveniente;
-            if(proveniente == "TIPOS") this.subModelo = (Modelos.CMM.Type)subModelo;
+            if (proveniente == "TIPOS") this.subModelo = (Modelos.CMM.Type)subModelo;
             if (proveniente == "ASPECTOS") this.subModelo = (Aspect)subModelo;
         }
-        private void FPropiedades_Load(object sender, EventArgs e)
+        private async void FPropiedades_Load(object sender, EventArgs e)
         {
-            lnklblModeloNav.Text = nombreModelo;
+            lnklblModeloNav.Text = modelo.Name;
             lnklblSubmodeloNav.Text = subModelo.Name;
-            PoblarDtgv();
+            await PoblarDtgv();
             NuevaPlantilla();
         }
 
-        private void PoblarDtgv()
+        private async Task PoblarDtgv()
         {
+            if (proveniente == "ASPECTOS")
+                subModelo = await AspectosPersonalizadosServicioStatic.ObtenerAspectoPersonalizado(modelo.Name, subModelo.Name);
+            if (proveniente == "TIPOS")
+            {
+
+            }
+
             dtgviewDatos.AutoGenerateColumns = false;
             dtgviewDatos.DataSource = subModelo.Properties;
             dtgviewDatos.Columns["clmNombreTipo"].DataPropertyName = "Name";
@@ -54,8 +61,8 @@ namespace TrabajoTitulacion.IU
 
         private void lnklblVolverNav_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (proveniente == "TIPOS") fgestorModelos.AbrirTipos(nombreModelo);
-            if (proveniente == "ASPECTOS") fgestorModelos.AbrirAspectos(nombreModelo);
+            if (proveniente == "TIPOS") fgestorModelos.AbrirTipos(modelo);
+            if (proveniente == "ASPECTOS") fgestorModelos.AbrirAspectos(modelo);
         }
 
         private void btnCerrarPlantilla_Click(object sender, EventArgs e)
@@ -68,9 +75,9 @@ namespace TrabajoTitulacion.IU
             txtNombre.Clear();
             txtTitulo.Clear();
             txtDescripcion.Clear();
-            cmbxTipoDato.SelectedItem = "Ninguno";
+            cmbxTipoDato.SelectedItem = "d:text";
             cmbxRequerido.SelectedItem = "Opcional";
-            cmbxRestriccion .SelectedItem = "Ninguno";
+            cmbxRestriccion.SelectedItem = "Ninguno";
             cmbxIndexacion.SelectedItem = "Ninguno";
             chkboxMultiple.Checked = false;
             btnAceptar.Text = "Crear";
@@ -100,97 +107,140 @@ namespace TrabajoTitulacion.IU
 
                 List<Property> propiedadesCrear = new List<Property>();
                 propiedadesCrear.Add(propiedadCrear);
-                PropertiesBodyUpdate propertiesBodyUpdate=new PropertiesBodyUpdate(subModelo.Name, propiedadesCrear);
+                PropertiesBodyUpdate propertiesBodyCreate = new PropertiesBodyUpdate(subModelo.Name, propiedadesCrear);
                 if (proveniente == "ASPECTOS")
                 {
                     await AspectosPersonalizadosServicioStatic.AñadirPropiedadeAspecto(
-                        nombreModelo,
+                        modelo.Name,
                         subModelo.Name,
-                        propertiesBodyUpdate);
+                        propertiesBodyCreate);
                     MessageBox.Show("Propiedad creada exitosamente");
                 }
-                if (proveniente == "TIPOS") fgestorModelos.AbrirAspectos(nombreModelo);
-                PoblarDtgv();
+                if (proveniente == "TIPOS") fgestorModelos.AbrirAspectos(modelo);
+                await PoblarDtgv();
 
 
             }
-            //else if (btnAceptar.Text == "Editar")
-            //{
-            //    Aspect aspectoActualizar = new Aspect();
-            //    aspectoActualizar.Name = txtNombre.Text;
-            //    aspectoActualizar.ParentName = cmbxPadre.SelectedItem.ToString();
-            //    aspectoActualizar.Description = txtDescripcion.Text;
-            //    aspectoActualizar.Title = txtTitulo.Text;
-            //    aspectoActualizar.ModeloPerteneciente.Name = nombreModelo;
-            //    await AspectosPersonalizadosServicioStatic.ActualizarAspectoPersonalizado(aspectoActualizar);
-            //    MessageBox.Show("Aspecto actualizado exitosamente");
-            //    await PoblarDtgv();
-            //}
+            else if (btnAceptar.Text == "Editar")
+            {
+                if (modelo.Status == "DRAFT")
+                {
+                    Property propiedadEditar = new Property();
+                    propiedadEditar.Name = txtNombre.Text;
+                    propiedadEditar.Description = txtDescripcion.Text;
+                    propiedadEditar.Title = txtTitulo.Text;
+                    propiedadEditar.Datatype = cmbxTipoDato.SelectedItem.ToString();
+                    propiedadEditar.MultiValued = chkboxMultiple.Checked;
+                    if (cmbxRequerido.SelectedItem.ToString() == "Opcional") propiedadEditar.Mandatory = false;
+                    else { propiedadEditar.Mandatory = true; }
+                    if (cmbxRequerido.SelectedItem.ToString() == "Ninguno") propiedadEditar.Constraints = null;
+                    else { }
+                    if (cmbxIndexacion.SelectedItem.ToString() == "Ninguno")
+                    {
+                        propiedadEditar.Facetable = "UNSET";
+                        propiedadEditar.IndexTokenisationMode = "TRUE";
+                        propiedadEditar.Indexed = false;
+                        propiedadEditar.MandatoryEnforced = false;
+                    }
+                    List<Property> propiedades = new List<Property>();
+                    propiedades.Add(propiedadEditar);
+                    PropertiesBodyUpdate propertiesBodyUpdate = new PropertiesBodyUpdate(subModelo.Name, propiedades);
+
+                    if (proveniente == "ASPECTOS")
+                    {
+                        await AspectosPersonalizadosServicioStatic.ActualizarPropiedadAspecto(
+                        modelo.Name,
+                        subModelo.Name,
+                        propiedadEditar.Name,
+                        propertiesBodyUpdate);
+                        MessageBox.Show("Propiedad actualizada exitosamente");
+                    }
+                    if (proveniente == "TIPOS") fgestorModelos.AbrirAspectos(modelo);
+                    await PoblarDtgv();
+                }
+                else
+                {
+                    MessageBox.Show("Para Editar una propiedad el modelo debe estar desactivado");
+                }
+            }
         }
 
-        //private void tlstripCrear_Click(object sender, EventArgs e)
-        //{
-        //    NuevaPlantilla();
-        //}
+        private void tlstripCrear_Click(object sender, EventArgs e)
+        {
+            NuevaPlantilla();
+        }
 
-        //private void dtgviewDatos_MouseDown(object sender, MouseEventArgs e)
-        //{
-        //    if (e.Button == MouseButtons.Right)
-        //    {
-        //        try
-        //        {
-        //            var indicesDtgviewDatos = dtgviewDatos.HitTest(e.X, e.Y);
-        //            dtgviewDatos.ClearSelection();
-        //            dtgviewDatos.Rows[indicesDtgviewDatos.RowIndex].Selected = true;
-        //            dtgviewDatos.ContextMenuStrip = cntxMenuAcciones;
-        //        }
-        //        catch (ArgumentOutOfRangeException)
-        //        {
-        //            dtgviewDatos.ContextMenuStrip = cntxMenuGeneral;
-        //        }
-        //    }
-        //}
+        private void tlstripEditar_Click(object sender, EventArgs e)
+        {
+            PlantillaEditar();
+        }
 
-        //private void tlstripEditar_Click_1(object sender, EventArgs e)
-        //{
-        //    PlantillaEditar();
-        //}
+        private void dtgviewDatos_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                try
+                {
+                    var indicesDtgviewDatos = dtgviewDatos.HitTest(e.X, e.Y);
+                    dtgviewDatos.ClearSelection();
+                    dtgviewDatos.Rows[indicesDtgviewDatos.RowIndex].Selected = true;
+                    dtgviewDatos.ContextMenuStrip = cntxMenuAcciones;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                }
+            }
+        }
 
-        //private async void PlantillaEditar()
-        //{
-        //    Aspect aspectoEditar = await AspectosPersonalizadosServicioStatic.ObtenerAspectoPersonalizado(
-        //        nombreModelo, dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
-        //    panelTipo.Visible = true;
-        //    btnAceptar.Text = "Editar";
-        //    lblEstado.Text = "Editando Tipo";
-        //    txtNombre.Text = aspectoEditar.Name;
-        //    txtNombre.Enabled = false;
-        //    await cargarCmbxPadres();
-        //    cmbxPadre.SelectedIndex = cmbxPadre.Items.IndexOf(aspectoEditar.ParentName);
-        //    txtTitulo.Text = aspectoEditar.Title;
-        //    txtDescripcion.Text = aspectoEditar.Description;
-        //}
+        private void PlantillaEditar()
+        {
+            Property propiedadEditar = new Property();
+            if (proveniente == "ASPECTOS")
+            {
+                Aspect aspectoActual = (Aspect)subModelo;
+                propiedadEditar = (from propiedad in aspectoActual.Properties
+                                   where propiedad.Name == dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString()
+                                   select propiedad).FirstOrDefault();
+            }
+            else if (proveniente == "TIPOS")
+            {
+                Modelos.CMM.Type aspectoActual = (Modelos.CMM.Type)subModelo;
+                propiedadEditar = (from propiedad in aspectoActual.Properties
+                                   where propiedad.Name == dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString()
+                                   select propiedad).FirstOrDefault();
+            }
 
-        //private async void tlstripEliminar_Click(object sender, EventArgs e)
-        //{
-        //    FLoading fPrincipalLoading = new FLoading();
-        //    fPrincipalLoading.Show();
-        //    await AspectosPersonalizadosServicioStatic.EliminarAspectoPersonalizado(nombreModelo,
-        //        dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
-        //    fPrincipalLoading.Close();
-        //    MessageBox.Show("El aspecto ha sido eliminado");
-        //    await PoblarDtgv();
-        //    dtgviewDatos.Refresh();
-        //}
+            flwlypanelPropiedades.Visible = true;
+            btnAceptar.Text = "Editar";
+            lblEstado.Text = "Editando Propiedad";
+            txtNombre.Text = propiedadEditar.Name;
+            txtNombre.Enabled = false;
+            txtTitulo.Text = propiedadEditar.Title;
+            txtDescripcion.Text = propiedadEditar.Description;
+            cmbxTipoDato.SelectedIndex = cmbxTipoDato.Items.IndexOf(propiedadEditar.Datatype);
+            chkboxMultiple.Checked = propiedadEditar.MultiValued;
+            if (propiedadEditar.Mandatory)
+                cmbxRequerido.SelectedIndex = cmbxRequerido.Items.IndexOf("Obligatorio");
+            else cmbxRequerido.SelectedIndex = cmbxRequerido.Items.IndexOf("Opcional");
+            if (propiedadEditar.Constraints is null)
+                cmbxRestriccion.SelectedIndex = cmbxRestriccion.Items.IndexOf("Ninguno");
+            else { }
+            if (propiedadEditar.Indexed)
+                cmbxIndexacion.SelectedIndex = cmbxIndexacion.Items.IndexOf("Ninguno");
+        }
 
-        //private void lnklblVolverNav_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        //{
-        //    fgestorModelos.AbrirModelos();
-        //}
-
-        //private void tlstripCrearAspecto_Click(object sender, EventArgs e)
-        //{
-        //    NuevaPlantilla();
-        //}
+        private async void tlstripEliminar_Click(object sender, EventArgs e)
+        {
+            FLoading fPrincipalLoading = new FLoading();
+            fPrincipalLoading.Show();
+            await AspectosPersonalizadosServicioStatic.EliminarPropiedadAspecto(
+                modelo.Name,
+                subModelo.Name,
+                dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
+            fPrincipalLoading.Close();
+            MessageBox.Show("La propiedad ha sido eliminada");
+            await PoblarDtgv();
+            dtgviewDatos.Refresh();
+        }
     }
 }

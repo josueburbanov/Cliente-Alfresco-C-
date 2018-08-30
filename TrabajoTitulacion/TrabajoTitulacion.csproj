@@ -147,7 +147,7 @@
     <Compile Include="Modelos\CMM\Model.cs" />
     <Compile Include="Modelos\CMM\Parameter.cs" />
     <Compile Include="Modelos\CMM\Property.cs" />
-    <Compile Include="Modelos\CMM\PropertyBodyCreate.cs" />
+    <Compile Include="Modelos\CMM\PropertyBodyUpdate.cs" />
     <Compile Include="Modelos\CMM\Type.cs" />
     <Compile Include="Modelos\Company.cs" />
     <Compile Include="Modelos\ContentInfo.cs" />

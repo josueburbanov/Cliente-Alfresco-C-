@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -74,8 +74,11 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dtgviewDatos = new System.Windows.Forms.DataGridView();
             this.clmNombreTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cntxMenuAcciones = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tlstripCrear = new System.Windows.Forms.ToolStripMenuItem();
+            this.tlstripEditar = new System.Windows.Forms.ToolStripMenuItem();
+            this.tlstripEliminar = new System.Windows.Forms.ToolStripMenuItem();
             this.clmEtiquetaPresentacionTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmPadreTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmTipoDato = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmRequisito = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmValorDefault = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -95,6 +98,7 @@
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgviewDatos)).BeginInit();
+            this.cntxMenuAcciones.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -560,41 +564,42 @@
             this.dtgviewDatos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmNombreTipo,
             this.clmEtiquetaPresentacionTipo,
-            this.clmPadreTipo,
             this.clmTipoDato,
             this.clmRequisito,
             this.clmValorDefault,
             this.clmMultiplesValores});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dtgviewDatos.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dtgviewDatos.DefaultCellStyle = dataGridViewCellStyle7;
             this.dtgviewDatos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtgviewDatos.Location = new System.Drawing.Point(0, 3);
             this.dtgviewDatos.Margin = new System.Windows.Forms.Padding(0);
             this.dtgviewDatos.MultiSelect = false;
             this.dtgviewDatos.Name = "dtgviewDatos";
             this.dtgviewDatos.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgviewDatos.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgviewDatos.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dtgviewDatos.RowHeadersVisible = false;
             this.dtgviewDatos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dtgviewDatos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgviewDatos.Size = new System.Drawing.Size(600, 462);
             this.dtgviewDatos.TabIndex = 0;
+            this.dtgviewDatos.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dtgviewDatos_MouseDown);
             // 
             // clmNombreTipo
             // 
+            this.clmNombreTipo.ContextMenuStrip = this.cntxMenuAcciones;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
             this.clmNombreTipo.DefaultCellStyle = dataGridViewCellStyle1;
@@ -604,8 +609,39 @@
             this.clmNombreTipo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.clmNombreTipo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // cntxMenuAcciones
+            // 
+            this.cntxMenuAcciones.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tlstripCrear,
+            this.tlstripEditar,
+            this.tlstripEliminar});
+            this.cntxMenuAcciones.Name = "cntxMenuAccionesModelo";
+            this.cntxMenuAcciones.Size = new System.Drawing.Size(197, 92);
+            // 
+            // tlstripCrear
+            // 
+            this.tlstripCrear.Name = "tlstripCrear";
+            this.tlstripCrear.Size = new System.Drawing.Size(196, 22);
+            this.tlstripCrear.Text = "Crear Nueva Propiedad";
+            this.tlstripCrear.Click += new System.EventHandler(this.tlstripCrear_Click);
+            // 
+            // tlstripEditar
+            // 
+            this.tlstripEditar.Name = "tlstripEditar";
+            this.tlstripEditar.Size = new System.Drawing.Size(196, 22);
+            this.tlstripEditar.Text = "Editar";
+            this.tlstripEditar.Click += new System.EventHandler(this.tlstripEditar_Click);
+            // 
+            // tlstripEliminar
+            // 
+            this.tlstripEliminar.Name = "tlstripEliminar";
+            this.tlstripEliminar.Size = new System.Drawing.Size(196, 22);
+            this.tlstripEliminar.Text = "Eliminar";
+            this.tlstripEliminar.Click += new System.EventHandler(this.tlstripEliminar_Click);
+            // 
             // clmEtiquetaPresentacionTipo
             // 
+            this.clmEtiquetaPresentacionTipo.ContextMenuStrip = this.cntxMenuAcciones;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
             this.clmEtiquetaPresentacionTipo.DefaultCellStyle = dataGridViewCellStyle2;
@@ -613,47 +649,42 @@
             this.clmEtiquetaPresentacionTipo.Name = "clmEtiquetaPresentacionTipo";
             this.clmEtiquetaPresentacionTipo.ReadOnly = true;
             // 
-            // clmPadreTipo
-            // 
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            this.clmPadreTipo.DefaultCellStyle = dataGridViewCellStyle3;
-            this.clmPadreTipo.HeaderText = "Padre";
-            this.clmPadreTipo.Name = "clmPadreTipo";
-            this.clmPadreTipo.ReadOnly = true;
-            // 
             // clmTipoDato
             // 
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            this.clmTipoDato.DefaultCellStyle = dataGridViewCellStyle4;
+            this.clmTipoDato.ContextMenuStrip = this.cntxMenuAcciones;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            this.clmTipoDato.DefaultCellStyle = dataGridViewCellStyle3;
             this.clmTipoDato.HeaderText = "Tipo de Dato";
             this.clmTipoDato.Name = "clmTipoDato";
             this.clmTipoDato.ReadOnly = true;
             // 
             // clmRequisito
             // 
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
-            this.clmRequisito.DefaultCellStyle = dataGridViewCellStyle5;
+            this.clmRequisito.ContextMenuStrip = this.cntxMenuAcciones;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            this.clmRequisito.DefaultCellStyle = dataGridViewCellStyle4;
             this.clmRequisito.HeaderText = "Requerido";
             this.clmRequisito.Name = "clmRequisito";
             this.clmRequisito.ReadOnly = true;
             // 
             // clmValorDefault
             // 
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
-            this.clmValorDefault.DefaultCellStyle = dataGridViewCellStyle6;
+            this.clmValorDefault.ContextMenuStrip = this.cntxMenuAcciones;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            this.clmValorDefault.DefaultCellStyle = dataGridViewCellStyle5;
             this.clmValorDefault.HeaderText = "Valor por Defecto";
             this.clmValorDefault.Name = "clmValorDefault";
             this.clmValorDefault.ReadOnly = true;
             // 
             // clmMultiplesValores
             // 
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
-            this.clmMultiplesValores.DefaultCellStyle = dataGridViewCellStyle7;
+            this.clmMultiplesValores.ContextMenuStrip = this.cntxMenuAcciones;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            this.clmMultiplesValores.DefaultCellStyle = dataGridViewCellStyle6;
             this.clmMultiplesValores.HeaderText = "Múltiples Valores";
             this.clmMultiplesValores.Name = "clmMultiplesValores";
             this.clmMultiplesValores.ReadOnly = true;
@@ -760,6 +791,7 @@
             this.tableLayoutPanel3.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtgviewDatos)).EndInit();
+            this.cntxMenuAcciones.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.ResumeLayout(false);
@@ -785,13 +817,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel lnklblSubmodeloNav;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmNombreTipo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmEtiquetaPresentacionTipo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmPadreTipo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmTipoDato;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmRequisito;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmValorDefault;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmMultiplesValores;
         private System.Windows.Forms.FlowLayoutPanel flwlypanelPropiedades;
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.TextBox txtNombre;
@@ -817,5 +842,15 @@
         private System.Windows.Forms.ComboBox cmbxIndexacion;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmNombreTipo;
+        private System.Windows.Forms.ContextMenuStrip cntxMenuAcciones;
+        private System.Windows.Forms.ToolStripMenuItem tlstripCrear;
+        private System.Windows.Forms.ToolStripMenuItem tlstripEditar;
+        private System.Windows.Forms.ToolStripMenuItem tlstripEliminar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmEtiquetaPresentacionTipo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmTipoDato;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmRequisito;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmValorDefault;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmMultiplesValores;
     }
 }

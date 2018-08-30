@@ -51,7 +51,7 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
             AspectosPersonalizadosServicio aspectosPersonalizadosServicio = new AspectosPersonalizadosServicio();
             string aspectoJson = JsonConvert.SerializeObject(aspectoCrear);
             await aspectosPersonalizadosServicio.CrearAspectoPersonalizado(
-                aspectoCrear.ModeloPerteneciente.Name,aspectoJson);
+                aspectoCrear.ModeloPerteneciente.Name, aspectoJson);
         }
         public async static Task ActualizarAspectoPersonalizado(Aspect aspectoActualizar)
         {
@@ -72,20 +72,31 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
         {
             AspectosPersonalizadosServicio aspectosPersonalizadosServicio = new AspectosPersonalizadosServicio();
             string respuestaJson = await aspectosPersonalizadosServicio.ObtenerAspectoPersonalizado(nombreModelo, nombreAspecto);
-            
+
             //Se deserializa y luego serializa para obtener una lista de aspectos (Elimina metadatos de descarga)
             dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
             string tipoPersonalizadoJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);
             return JsonConvert.DeserializeObject<Aspect>(tipoPersonalizadoJson);
         }
-        public async static Task AñadirPropiedadeAspecto(string nombreModelo, string nombreAspecto, PropertiesBodyUpdate propertiesBodyUpdate)
+        public async static Task AñadirPropiedadeAspecto(string nombreModelo, string nombreAspecto, PropertiesBodyUpdate propertiesBodyCreate)
         {
             AspectosPersonalizadosServicio aspectosPersonalizadosServicio = new AspectosPersonalizadosServicio();
-            string propertiesBodyUpdateJson = JsonConvert.SerializeObject(propertiesBodyUpdate);
-            await aspectosPersonalizadosServicio.AñadirPropiedadesAspecto(
+            string propertiesBodyUpdateJson = JsonConvert.SerializeObject(propertiesBodyCreate);
+            await aspectosPersonalizadosServicio.AñadirPropiedadAspecto(
                 nombreModelo,
                 nombreAspecto,
                 propertiesBodyUpdateJson);
+        }
+        public async static Task ActualizarPropiedadAspecto(string nombreModelo, string nombreAspecto, string nombrePropiedad, PropertiesBodyUpdate propiedadesActualizar)
+        {
+            AspectosPersonalizadosServicio aspectosPersonalizadosServicio = new AspectosPersonalizadosServicio();
+            string propiedadActualizarJson = JsonConvert.SerializeObject(propiedadesActualizar);
+            await aspectosPersonalizadosServicio.ActualizarPropiedadAspecto(nombreModelo, nombreAspecto, nombrePropiedad, propiedadActualizarJson);
+        }
+        public async static Task EliminarPropiedadAspecto(string nombreModelo, string nombreAspecto, string nombrePropiedad)
+        {
+            AspectosPersonalizadosServicio aspectosPersonalizadosServicio = new AspectosPersonalizadosServicio();
+            await aspectosPersonalizadosServicio.EliminarPropiedadAspecto(nombreModelo, nombreAspecto, nombrePropiedad);
         }
     }
 }
