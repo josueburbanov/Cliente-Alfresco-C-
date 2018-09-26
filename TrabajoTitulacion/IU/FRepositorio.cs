@@ -11,9 +11,7 @@ namespace TrabajoTitulacion.IU
 {
     public partial class FRepositorio : Form
     {
-        private Nodo nodoRoot;
-        private List<Nodo> nodosDeRoot;
-        
+        private Nodo nodoRoot;        
 
         public FRepositorio()
         {
@@ -26,7 +24,9 @@ namespace TrabajoTitulacion.IU
             try
             {
                 FLoading fPrincipalLoading = new FLoading();
+
                 //Se obtiene la lista de los nodos hijos de root (1er nivel) y el nodo root
+                List<Nodo> nodosDeRoot;
                 nodosDeRoot = await NodosServicioStatic.ObtenerListaNodosHijos("-root-");
                 nodoRoot = await NodosServicioStatic.ObtenerNodo("-root-");
                 nodoRoot.NodosHijos = nodosDeRoot;
@@ -179,12 +179,6 @@ namespace TrabajoTitulacion.IU
         {
             FDetallesContenido fDetallesContenido = new FDetallesContenido();
             fDetallesContenido.ShowDialog();
-
-        }
-
-        private void FRepositorio_Shown(object sender, EventArgs e)
-        {
-            
         }
     }
 }

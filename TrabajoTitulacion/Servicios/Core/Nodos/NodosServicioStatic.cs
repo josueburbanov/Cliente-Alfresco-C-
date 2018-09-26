@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using srvApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +10,10 @@ using TrabajoTitulacion.Modelos.Core;
 using TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados;
 using TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados;
 using TrabajoTitulacion.Servicios.CMM.TiposPersonalizados;
+using RestSharp.Extensions;
+using DSOFile;
+using TrabajoTitulacion.Modelos;
+using System.IO;
 
 namespace TrabajoTitulacion.Servicios.Core.Nodos
 {
@@ -18,11 +21,34 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
     {
         private static List<Nodo> nodosDeRoot = new List<Nodo>();
 
-        public static void ObtenerContenido(string idNodo, string path)
+        public async static Task ObtenerContenido(string idNodo, string path)
         {
             NodosServicio servicioNodos = new NodosServicio();
-            servicioNodos.ObtenerContenido(idNodo, path);
+            (await servicioNodos.ObtenerContenido(idNodo)).SaveAs(path);
         }
+        
+        public async static Task<Nodo> CrearNodoContenido(string idNodoPadre, Nodo nodo, byte[] contenido)
+        {
+            NodosServicio servicioNodos = new NodosServicio();
+            NodeBodyCreate nodeBodyCreate = new NodeBodyCreate
+            {
+                Name = nodo.Name,
+                NodeType = nodo.NodeType,                
+                Properties = (Dictionary<string, string>)nodo.Properties
+            };
+            string nodeBodyCreateJson = JsonConvert.SerializeObject(nodeBodyCreate);
+            string respuestaJson = await servicioNodos.CrearNodo(idNodoPadre,nodeBodyCreateJson);
+            
+            //Se deserializa y luego serializa para obtener una lista de nodos (Elimina metadatos de descarga)
+            dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
+            string nodoJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);
+            Nodo nodoListo = JsonConvert.DeserializeObject<Nodo>(nodoJson);
+
+            await servicioNodos.ActualizarContenido(nodoListo.Id, true, null, nodoListo.Name, null, null, contenido);
+            return nodoListo;
+        }
+
+
 
         public async static Task<Nodo> ObtenerNodo(string idNodo)
         {
@@ -154,9 +180,11 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
                 string nodoJson = JsonConvert.SerializeObject(nodo.entry);
                 Nodo nodoLimpio = JsonConvert.DeserializeObject<Nodo>(nodoJson);
                 nodosHijos.Add(nodoLimpio);
+
             }
             return nodosHijos;
         }
+
 
         /// <summary>
         /// Pobla los nodos hijos de una lista de nodos padres de un mismo nivel
@@ -183,7 +211,7 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
 
             //Nota: nodoType=null porque no se puede actualizar al mismo tipo y aspectNames=null porque no se actualiza aspectos
             NodeBodyUpdate nodeBodyUpdate = new NodeBodyUpdate(nodoActualizar.Name, null, null,
-                (Dictionary<string,string>)nodoActualizar.Properties);
+                (Dictionary<string, string>)nodoActualizar.Properties);
             string nodoBodyUpdateJson = JsonConvert.SerializeObject(nodeBodyUpdate);
             string respuestaJson = await nodosServicio.ActualizarNodo(nodoActualizar.Id, nodoBodyUpdateJson);
 
@@ -226,6 +254,53 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
                 }
             }
             nodoActualizar.Properties = propiedadesJson;
+        }
+        public static Nodo BuscarNodo(Nodo nodoPadre, string idNodoHijo)
+        {
+            Nodo nodoEncontrado = null;
+            foreach (var nodo in nodoPadre.NodosHijos)
+            {
+                if (nodo.IsFile && nodo.Id == idNodoHijo)
+                {
+                    nodoEncontrado = nodo;
+                    break;
+                }
+                else if (nodo.IsFolder && nodo.NodosHijos.Count != 0)
+                {
+                    nodoEncontrado = BuscarNodo(nodo, idNodoHijo);
+                    break;
+                }
+            }
+            return nodoEncontrado;
+        }
+        public async static Task ActualizarContenido(Nodo nodo, bool majorVersion, string comment, byte[] contentBodyUpdate )
+        {
+            NodosServicio nodosServicio = new NodosServicio();
+            await nodosServicio.ActualizarContenido(nodo.Id, majorVersion, comment, nodo.Name, null, null, contentBodyUpdate);
+        }
+
+        public async static Task<Nodo> CrearNodo(string idNodoPadre, Nodo nodo)
+        {
+            NodosServicio servicioNodos = new NodosServicio();
+            NodeBodyCreate nodeBodyCreate = new NodeBodyCreate
+            {
+                Name = nodo.Name,
+                NodeType = nodo.NodeType,
+                Properties = (Dictionary<string, string>)nodo.Properties
+            };
+            string nodeBodyCreateJson = JsonConvert.SerializeObject(nodeBodyCreate);
+            string respuestaJson = await servicioNodos.CrearNodo(idNodoPadre, nodeBodyCreateJson);
+            
+            //Se deserializa y luego serializa para obtener una lista de nodos (Elimina metadatos de descarga)
+            dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
+            string nodoJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);
+            Nodo nodoListo = JsonConvert.DeserializeObject<Nodo>(nodoJson);
+            return nodoListo;
+        }
+        public async static Task EliminarNodo(string idNodo)
+        {
+            NodosServicio servicioNodos = new NodosServicio();
+            await servicioNodos.EliminarNodo(idNodo);
         }
     }
 }

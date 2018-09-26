@@ -58,6 +58,8 @@ namespace TrabajoTitulacion.IU
             fRespositorio.MdiParent = this;
             FGestorModelos fGestorModelos = new FGestorModelos();
             fGestorModelos.MdiParent = this;
+            FSync fSync = new FSync();
+            fSync.MdiParent = this;
             //forms to add            
         }
 
@@ -79,6 +81,12 @@ namespace TrabajoTitulacion.IU
             EsconderFormsNoActuales(2);
             MdiChildren[2].Dock = DockStyle.Fill;
             MdiChildren[2].Show();
+        }
+        public void AbrirSincronizacion()
+        {
+            EsconderFormsNoActuales(3);
+            MdiChildren[3].Dock = DockStyle.Fill;
+            MdiChildren[3].Show();
         }
 
         private void EsconderFormsNoActuales(int indiceForm)
@@ -132,6 +140,11 @@ namespace TrabajoTitulacion.IU
         private void toolStripMenuGestorDeModelos_Click(object sender, EventArgs e)
         {
             AbrirGestorModelos();
+        }
+
+        private void tlstripMenuSincronizacion_Click(object sender, EventArgs e)
+        {
+            AbrirSincronizacion();
         }
     }
 }

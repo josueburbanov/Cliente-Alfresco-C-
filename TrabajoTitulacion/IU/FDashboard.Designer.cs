@@ -35,10 +35,11 @@
             this.tlstripMenuUsuario = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripTopLeft = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuInicio = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuRepositorio = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuGestorDeModelos = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuBusqueda = new System.Windows.Forms.ToolStripMenuItem();
+            this.tlstripMenuInicio = new System.Windows.Forms.ToolStripMenuItem();
+            this.tlstripMenuRepositorio = new System.Windows.Forms.ToolStripMenuItem();
+            this.tlstripMenuGestorDeModelos = new System.Windows.Forms.ToolStripMenuItem();
+            this.tlstripMenuBusqueda = new System.Windows.Forms.ToolStripMenuItem();
+            this.tlstripMenuSincronizacion = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.menuStripRight.SuspendLayout();
@@ -59,7 +60,7 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(771, 31);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1079, 31);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -74,7 +75,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(765, 25);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1073, 25);
             this.tableLayoutPanel2.TabIndex = 5;
             // 
             // menuStripRight
@@ -86,11 +87,11 @@
             this.menuStripRight.GripMargin = new System.Windows.Forms.Padding(2, 1, 0, 1);
             this.menuStripRight.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tlstripMenuUsuario});
-            this.menuStripRight.Location = new System.Drawing.Point(382, 0);
+            this.menuStripRight.Location = new System.Drawing.Point(536, 0);
             this.menuStripRight.Name = "menuStripRight";
             this.menuStripRight.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.menuStripRight.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.menuStripRight.Size = new System.Drawing.Size(383, 25);
+            this.menuStripRight.Size = new System.Drawing.Size(537, 25);
             this.menuStripRight.TabIndex = 5;
             // 
             // tlstripMenuUsuario
@@ -107,7 +108,7 @@
             // 
             this.toolStripMenuItem5.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem5.Text = "Cerrar Sesión";
             // 
             // menuStripTopLeft
@@ -118,57 +119,67 @@
             this.menuStripTopLeft.Font = new System.Drawing.Font("Roboto Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuStripTopLeft.GripMargin = new System.Windows.Forms.Padding(2, 1, 0, 1);
             this.menuStripTopLeft.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuInicio,
-            this.toolStripMenuRepositorio,
-            this.toolStripMenuGestorDeModelos,
-            this.toolStripMenuBusqueda});
+            this.tlstripMenuInicio,
+            this.tlstripMenuRepositorio,
+            this.tlstripMenuGestorDeModelos,
+            this.tlstripMenuBusqueda,
+            this.tlstripMenuSincronizacion});
             this.menuStripTopLeft.Location = new System.Drawing.Point(0, 0);
             this.menuStripTopLeft.Name = "menuStripTopLeft";
             this.menuStripTopLeft.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.menuStripTopLeft.Size = new System.Drawing.Size(382, 25);
+            this.menuStripTopLeft.Size = new System.Drawing.Size(536, 25);
             this.menuStripTopLeft.TabIndex = 4;
             // 
-            // toolStripMenuInicio
+            // tlstripMenuInicio
             // 
-            this.toolStripMenuInicio.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripMenuInicio.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuInicio.Image")));
-            this.toolStripMenuInicio.Name = "toolStripMenuInicio";
-            this.toolStripMenuInicio.Size = new System.Drawing.Size(67, 21);
-            this.toolStripMenuInicio.Text = "Inicio";
-            this.toolStripMenuInicio.Click += new System.EventHandler(this.toolStripMenuInicio_Click);
+            this.tlstripMenuInicio.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tlstripMenuInicio.Image = ((System.Drawing.Image)(resources.GetObject("tlstripMenuInicio.Image")));
+            this.tlstripMenuInicio.Name = "tlstripMenuInicio";
+            this.tlstripMenuInicio.Size = new System.Drawing.Size(67, 21);
+            this.tlstripMenuInicio.Text = "Inicio";
+            this.tlstripMenuInicio.Click += new System.EventHandler(this.toolStripMenuInicio_Click);
             // 
-            // toolStripMenuRepositorio
+            // tlstripMenuRepositorio
             // 
-            this.toolStripMenuRepositorio.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripMenuRepositorio.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuRepositorio.Image")));
-            this.toolStripMenuRepositorio.Name = "toolStripMenuRepositorio";
-            this.toolStripMenuRepositorio.Size = new System.Drawing.Size(100, 21);
-            this.toolStripMenuRepositorio.Text = "Repositorio";
-            this.toolStripMenuRepositorio.Click += new System.EventHandler(this.toolStripMenuRepositorio_Click);
+            this.tlstripMenuRepositorio.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tlstripMenuRepositorio.Image = ((System.Drawing.Image)(resources.GetObject("tlstripMenuRepositorio.Image")));
+            this.tlstripMenuRepositorio.Name = "tlstripMenuRepositorio";
+            this.tlstripMenuRepositorio.Size = new System.Drawing.Size(100, 21);
+            this.tlstripMenuRepositorio.Text = "Repositorio";
+            this.tlstripMenuRepositorio.Click += new System.EventHandler(this.toolStripMenuRepositorio_Click);
             // 
-            // toolStripMenuGestorDeModelos
+            // tlstripMenuGestorDeModelos
             // 
-            this.toolStripMenuGestorDeModelos.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripMenuGestorDeModelos.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuGestorDeModelos.Image")));
-            this.toolStripMenuGestorDeModelos.Name = "toolStripMenuGestorDeModelos";
-            this.toolStripMenuGestorDeModelos.Size = new System.Drawing.Size(143, 21);
-            this.toolStripMenuGestorDeModelos.Text = "Gestor de Modelos";
-            this.toolStripMenuGestorDeModelos.Click += new System.EventHandler(this.toolStripMenuGestorDeModelos_Click);
+            this.tlstripMenuGestorDeModelos.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tlstripMenuGestorDeModelos.Image = ((System.Drawing.Image)(resources.GetObject("tlstripMenuGestorDeModelos.Image")));
+            this.tlstripMenuGestorDeModelos.Name = "tlstripMenuGestorDeModelos";
+            this.tlstripMenuGestorDeModelos.Size = new System.Drawing.Size(143, 21);
+            this.tlstripMenuGestorDeModelos.Text = "Gestor de Modelos";
+            this.tlstripMenuGestorDeModelos.Click += new System.EventHandler(this.toolStripMenuGestorDeModelos_Click);
             // 
-            // toolStripMenuBusqueda
+            // tlstripMenuBusqueda
             // 
-            this.toolStripMenuBusqueda.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripMenuBusqueda.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuBusqueda.Image")));
-            this.toolStripMenuBusqueda.Name = "toolStripMenuBusqueda";
-            this.toolStripMenuBusqueda.Size = new System.Drawing.Size(93, 21);
-            this.toolStripMenuBusqueda.Text = "Búsqueda";
+            this.tlstripMenuBusqueda.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tlstripMenuBusqueda.Image = ((System.Drawing.Image)(resources.GetObject("tlstripMenuBusqueda.Image")));
+            this.tlstripMenuBusqueda.Name = "tlstripMenuBusqueda";
+            this.tlstripMenuBusqueda.Size = new System.Drawing.Size(93, 21);
+            this.tlstripMenuBusqueda.Text = "Búsqueda";
+            // 
+            // tlstripMenuSincronizacion
+            // 
+            this.tlstripMenuSincronizacion.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tlstripMenuSincronizacion.Image = ((System.Drawing.Image)(resources.GetObject("tlstripMenuSincronizacion.Image")));
+            this.tlstripMenuSincronizacion.Name = "tlstripMenuSincronizacion";
+            this.tlstripMenuSincronizacion.Size = new System.Drawing.Size(119, 21);
+            this.tlstripMenuSincronizacion.Text = "Sincronización";
+            this.tlstripMenuSincronizacion.Click += new System.EventHandler(this.tlstripMenuSincronizacion_Click);
             // 
             // FDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(771, 530);
+            this.ClientSize = new System.Drawing.Size(1079, 530);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -197,9 +208,10 @@
         private System.Windows.Forms.ToolStripMenuItem tlstripMenuUsuario;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private System.Windows.Forms.MenuStrip menuStripTopLeft;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuRepositorio;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuGestorDeModelos;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuBusqueda;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuInicio;
+        private System.Windows.Forms.ToolStripMenuItem tlstripMenuRepositorio;
+        private System.Windows.Forms.ToolStripMenuItem tlstripMenuGestorDeModelos;
+        private System.Windows.Forms.ToolStripMenuItem tlstripMenuBusqueda;
+        private System.Windows.Forms.ToolStripMenuItem tlstripMenuInicio;
+        private System.Windows.Forms.ToolStripMenuItem tlstripMenuSincronizacion;
     }
 }

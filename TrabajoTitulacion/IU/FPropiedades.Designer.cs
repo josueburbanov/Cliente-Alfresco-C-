@@ -616,7 +616,7 @@
             this.tlstripEditar,
             this.tlstripEliminar});
             this.cntxMenuAcciones.Name = "cntxMenuAccionesModelo";
-            this.cntxMenuAcciones.Size = new System.Drawing.Size(197, 92);
+            this.cntxMenuAcciones.Size = new System.Drawing.Size(197, 70);
             // 
             // tlstripCrear
             // 

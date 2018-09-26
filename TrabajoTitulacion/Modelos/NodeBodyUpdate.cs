@@ -2,7 +2,7 @@
 // Changes may cause incorrect behavior and will be lost if the code is
 // regenerated.
 
-namespace srvApi.Models
+namespace TrabajoTitulacion.Modelos
 {
     using System;
     using System.Linq;
