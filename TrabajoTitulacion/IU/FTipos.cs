@@ -31,7 +31,7 @@ namespace TrabajoTitulacion.IU
         }
         private async Task PoblarDtgv()
         {
-            List<Modelos.CMM.Type> tipos = await TiposPersonalizadosServicioStatic.ObtenerTiposPersonalizados(modelo.Name);
+            List<Modelos.CMM.Type> tipos = await TiposPersonalizadosStatic.ObtenerTiposPersonalizados(modelo.Name);
             dtgviewDatos.AutoGenerateColumns = false;
             dtgviewDatos.DataSource = tipos;
             dtgviewDatos.Columns["clmNombreTipo"].DataPropertyName = "Name";
@@ -61,7 +61,7 @@ namespace TrabajoTitulacion.IU
 
         private async Task cargarCmbxPadres()
         {
-            List<Modelos.CMM.Type> tiposActivos = await TiposPersonalizadosServicioStatic.ObtenerTiposActivos();
+            List<Modelos.CMM.Type> tiposActivos = await TiposPersonalizadosStatic.ObtenerTiposActivos();
             foreach (var tipo in tiposActivos)
             {
                 cmbxPadre.Items.Add(tipo.PrefixedName);
@@ -85,7 +85,7 @@ namespace TrabajoTitulacion.IU
                 tipoCrear.Description = txtDescripcion.Text;
                 tipoCrear.Title = txtTitulo.Text;
                 tipoCrear.ModeloPerteneciente.Name = modelo.Name;
-                await TiposPersonalizadosServicioStatic.CrearTipoPersonalizado(tipoCrear);
+                await TiposPersonalizadosStatic.CrearTipoPersonalizado(tipoCrear);
                 MessageBox.Show("Tipo creado exitosamente");
                 await PoblarDtgv();
             }else if(btnAceptarTipo.Text == "Editar")
@@ -96,7 +96,7 @@ namespace TrabajoTitulacion.IU
                 tipoActualizar.Description = txtDescripcion.Text;
                 tipoActualizar.Title = txtTitulo.Text;
                 tipoActualizar.ModeloPerteneciente.Name = modelo.Name;
-                await TiposPersonalizadosServicioStatic.ActualizarTipoPersonalizado(tipoActualizar);
+                await TiposPersonalizadosStatic.ActualizarTipoPersonalizado(tipoActualizar);
                 MessageBox.Show("Tipo actualizado exitosamente");
                 await PoblarDtgv();
                 NuevaPlantilla();
@@ -133,7 +133,7 @@ namespace TrabajoTitulacion.IU
 
         private async void PlantillaEditar()
         {
-            Modelos.CMM.Type tipoEditar = await TiposPersonalizadosServicioStatic.ObtenerTipoPersonalizado(
+            Modelos.CMM.Type tipoEditar = await TiposPersonalizadosStatic.ObtenerTipoPersonalizado(
                 modelo.Name, dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
             panelTipo.Visible = true;
             btnAceptarTipo.Text = "Editar";
@@ -150,7 +150,7 @@ namespace TrabajoTitulacion.IU
         {
             FLoading fPrincipalLoading = new FLoading();
             fPrincipalLoading.Show();
-            await TiposPersonalizadosServicioStatic.EliminarTipoPersonalizado(modelo.Name,
+            await TiposPersonalizadosStatic.EliminarTipoPersonalizado(modelo.Name,
                 dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
             fPrincipalLoading.Close();
             MessageBox.Show("El tipo ha sido eliminado");

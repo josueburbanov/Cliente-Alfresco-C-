@@ -33,7 +33,7 @@ namespace TrabajoTitulacion.IU
         }
         private async Task PoblarDtgvModelos()
         {
-            List<Model> modelos = await ModelosPersonalizadosServicioStatic.ObtenerModelosPersonalizados();
+            List<Model> modelos = await ModelosPersonalizadosStatic.ObtenerModelosPersonalizados();
             dtgviewDatos.AutoGenerateColumns = false;
             dtgviewDatos.DataSource = modelos;
             dtgviewDatos.Columns["clmNombreModelo"].DataPropertyName = "Name";
@@ -56,7 +56,7 @@ namespace TrabajoTitulacion.IU
                 modelo.Status = "DRAFT";
                 FLoading fPrincipalLoading = new FLoading();
                 fPrincipalLoading.Show();
-                await ModelosPersonalizadosServicioStatic.CrearModeloPersonalizado(modelo);
+                await ModelosPersonalizadosStatic.CrearModeloPersonalizado(modelo);
                 fPrincipalLoading.Close();
                 MessageBox.Show("El nuevo modelo ha sido creado con éxito");
                 await PoblarDtgvModelos();
@@ -73,7 +73,7 @@ namespace TrabajoTitulacion.IU
                 var mdiParent = MdiParent as FDashboard;
                 FLoading fPrincipalLoading = new FLoading();
                 fPrincipalLoading.Show();
-                await ModelosPersonalizadosServicioStatic.ActualizarModeloPersonalizado(modelo);
+                await ModelosPersonalizadosStatic.ActualizarModeloPersonalizado(modelo);
                 fPrincipalLoading.Close();
                 MessageBox.Show("El modelo " + modelo.Name + " ha sido actualizado con éxito");
                 await PoblarDtgvModelos();
@@ -110,7 +110,7 @@ namespace TrabajoTitulacion.IU
         }
         private async void PlantillaEditarModelo()
         {
-            Model modeloEditar = await ModelosPersonalizadosServicioStatic.ObtenerModeloPersonalizado(
+            Model modeloEditar = await ModelosPersonalizadosStatic.ObtenerModeloPersonalizado(
                 dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
             panelModelo.Visible = true;
             btnAceptarModelo.Text = "Editar";
@@ -142,11 +142,11 @@ namespace TrabajoTitulacion.IU
 
         private async void tlstripActivarDesactivar_Click(object sender, EventArgs e)
         {
-            Model modeloCambiarEstado = await ModelosPersonalizadosServicioStatic.ObtenerModeloPersonalizado(
+            Model modeloCambiarEstado = await ModelosPersonalizadosStatic.ObtenerModeloPersonalizado(
                 dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
             FLoading fPrincipalLoading = new FLoading();
             fPrincipalLoading.Show();
-            await ModelosPersonalizadosServicioStatic.CambiarEstadoModeloPersonalizado(modeloCambiarEstado);
+            await ModelosPersonalizadosStatic.CambiarEstadoModeloPersonalizado(modeloCambiarEstado);
             fPrincipalLoading.Close();
             MessageBox.Show("El modelo " + modeloCambiarEstado.Name + " ha sido cambiado de estado");
             await PoblarDtgvModelos();
@@ -157,7 +157,7 @@ namespace TrabajoTitulacion.IU
         {
             FLoading fPrincipalLoading = new FLoading();
             fPrincipalLoading.Show();
-            await ModelosPersonalizadosServicioStatic.EliminarModeloPersonalizado(
+            await ModelosPersonalizadosStatic.EliminarModeloPersonalizado(
                 dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
             fPrincipalLoading.Close();
             MessageBox.Show("El modelo ha sido eliminado");
@@ -172,7 +172,7 @@ namespace TrabajoTitulacion.IU
 
         private async void tlstripTiposPersonalizados_Click(object sender, EventArgs e)
         {
-            Model modeloSeleccionado = await ModelosPersonalizadosServicioStatic.ObtenerModeloPersonalizado(
+            Model modeloSeleccionado = await ModelosPersonalizadosStatic.ObtenerModeloPersonalizado(
                 dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
             fgestorModelos.AbrirTipos(modeloSeleccionado);
         }
@@ -189,14 +189,14 @@ namespace TrabajoTitulacion.IU
 
         private async void dtgviewModelos_DoubleClick(object sender, EventArgs e)
         {
-            Model modeloSeleccionado = await ModelosPersonalizadosServicioStatic.ObtenerModeloPersonalizado(
+            Model modeloSeleccionado = await ModelosPersonalizadosStatic.ObtenerModeloPersonalizado(
                 dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
             fgestorModelos.AbrirTipos(modeloSeleccionado);
         }
 
         private async void aspectosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Model modeloSeleccionado = await ModelosPersonalizadosServicioStatic.ObtenerModeloPersonalizado(
+            Model modeloSeleccionado = await ModelosPersonalizadosStatic.ObtenerModeloPersonalizado(
                 dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
             fgestorModelos.AbrirAspectos(modeloSeleccionado);
         }

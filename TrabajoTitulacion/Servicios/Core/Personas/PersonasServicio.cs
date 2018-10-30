@@ -8,24 +8,31 @@ using System.Threading.Tasks;
 
 namespace TrabajoTitulacion.Servicios.Core.Personas
 {
-    class Personas : IPersonas
+    class PersonasServicio : IPersonas
     {
-        const string URL_BASE = "http://127.0.0.1:8090/alfresco/api/-default-/public/alfresco/versions/1";
-        RestClient cliente = new RestClient(URL_BASE);
+        string URL_BASE;
+        RestClient cliente;
+
+        public PersonasServicio()
+        {
+            URL_BASE = Properties.Settings.Default.URL_SERVIDOR + "alfresco/api/-default-/public/alfresco/versions/1";
+            RestClient cliente = new RestClient(URL_BASE);
+        }
+
         /// <summary>
         /// Obtiene una persona
         /// </summary>
         /// <param name="idPersona">Nombre de usuario</param>
         /// <returns>Persona como JSON</returns>
-        public async Task<string> ObtenerPersona(string idPersona)
-        {            
+        public async Task<string> ObtenerPersona(string idUsuario)
+        {
             var solicitud = new RestRequest(Method.GET);
-            solicitud.Resource = "people/"+idPersona;
+            solicitud.Resource = "people/" + idUsuario;
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
             IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
             var contenidoRespuesta = respuesta.Content;
             if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
-            return contenidoRespuesta;            
+            return contenidoRespuesta;
         }
     }
 }

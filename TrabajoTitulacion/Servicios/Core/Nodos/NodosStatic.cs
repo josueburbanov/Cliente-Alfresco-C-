@@ -17,28 +17,25 @@ using System.IO;
 
 namespace TrabajoTitulacion.Servicios.Core.Nodos
 {
-    class NodosServicioStatic
+    class NodosStatic
     {
-        private static List<Nodo> nodosDeRoot = new List<Nodo>();
-
+        static NodosServicio servicioNodos = new NodosServicio();
         public async static Task ObtenerContenido(string idNodo, string path)
         {
-            NodosServicio servicioNodos = new NodosServicio();
             (await servicioNodos.ObtenerContenido(idNodo)).SaveAs(path);
         }
-        
+
         public async static Task<Nodo> CrearNodoContenido(string idNodoPadre, Nodo nodo, byte[] contenido)
         {
-            NodosServicio servicioNodos = new NodosServicio();
             NodeBodyCreate nodeBodyCreate = new NodeBodyCreate
             {
                 Name = nodo.Name,
-                NodeType = nodo.NodeType,                
+                NodeType = nodo.NodeType,
                 Properties = (Dictionary<string, string>)nodo.Properties
             };
             string nodeBodyCreateJson = JsonConvert.SerializeObject(nodeBodyCreate);
-            string respuestaJson = await servicioNodos.CrearNodo(idNodoPadre,nodeBodyCreateJson);
-            
+            string respuestaJson = await servicioNodos.CrearNodo(idNodoPadre, nodeBodyCreateJson);
+
             //Se deserializa y luego serializa para obtener una lista de nodos (Elimina metadatos de descarga)
             dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
             string nodoJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);
@@ -48,30 +45,36 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
             return nodoListo;
         }
 
-
-
         public async static Task<Nodo> ObtenerNodo(string idNodo)
         {
-            NodosServicio servicioNodos = new NodosServicio();
             string respuestaJson = await servicioNodos.ObtenerNodo(idNodo);
+
+            if(respuestaJson is null)
+            {
+                return null;
+            }
+            else { 
 
             //Se deserializa y luego serializa para obtener una lista de nodos (Elimina metadatos de descarga)
             dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
             string nodoJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);
             Nodo nodoListo = JsonConvert.DeserializeObject<Nodo>(nodoJson);
 
-            if (nodoListo.IsFile)
-            {
-                await AñadirTipoPersonalizado(respuestaDeserializada.entry.properties, nodoListo);
-
-                //Añadir Aspectos por defecto (Objetos) del nodo
-                await AñadirAspectos(respuestaDeserializada.entry.properties, nodoListo);
-            }
-
+            //await AñadirTipoPersonalizado(respuestaDeserializada.entry.properties, nodoListo);
+            //Añadir Aspectos por defecto (Objetos) del nodo
+            //await AñadirAspectos(respuestaDeserializada.entry.properties, nodoListo);
 
             return nodoListo;
+            }
         }
 
+
+        /// <summary>
+        /// Mapea el tipo actual del nodo, al atributo TipoNodo del objeto Nodo
+        /// </summary>
+        /// <param name="propiedadesDeserializadas"></param>
+        /// <param name="nodoListo"></param>
+        /// <returns></returns>
         private async static Task AñadirTipoPersonalizado(dynamic propiedadesDeserializadas, Nodo nodoListo)
         {
             string prefijoModeloNodo = nodoListo.NodeType.Split(':')[0];
@@ -79,10 +82,10 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
 
 
             //Si no existe el modelo, entonces no se añade el tipo personalizado
-            Model modelo = await ModelosPersonalizadosServicioStatic.ObtenerModeloPersonalizadoxPrefijo(prefijoModeloNodo);
+            Model modelo = await ModelosPersonalizadosStatic.ObtenerModeloPersonalizadoxPrefijo(prefijoModeloNodo);
             if (!(modelo is null))
             {
-                Modelos.CMM.Type tipoNodo = await TiposPersonalizadosServicioStatic.ObtenerTipoPersonalizado(modelo.Name, nombreTipoNodo);
+                Modelos.CMM.Type tipoNodo = await TiposPersonalizadosStatic.ObtenerTipoPersonalizado(modelo.Name, nombreTipoNodo);
 
                 string nodoPropertiesJson = JsonConvert.SerializeObject(propiedadesDeserializadas);
                 Dictionary<string, dynamic> nodoProperties = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(nodoPropertiesJson);
@@ -125,7 +128,7 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
 
             if (!(nodoListo.TipoNodo is null))
             {
-                List<Aspect> aspectosPersonalizados = await AspectosPersonalizadosServicioStatic.ObtenerAspectosPersonalizados(nodoListo.TipoNodo.ModeloPerteneciente.Name);
+                List<Aspect> aspectosPersonalizados = await AspectosPersonalizadosStatic.ObtenerAspectosPersonalizados(nodoListo.TipoNodo.ModeloPerteneciente.Name);
                 foreach (var aspectoPersonalizado in aspectosPersonalizados)
                 {
                     //Muestra todos los aspectos
@@ -135,7 +138,7 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
             }
 
             //Properties de Aspectos:
-            AñadirPropiedadesAspectos(propiedadesDeserializadas, aspectosNodo, nodoListo);
+            AñadirPropsAspectos(propiedadesDeserializadas, aspectosNodo, nodoListo);
         }
 
         /// <summary>
@@ -144,7 +147,7 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
         /// <param name="propiedadesDeserializadas">Nodo JSON con metadatos de descarga</param>
         /// <param name="aspectosNodo">Lista de Aspectos que posee el Objeto Nodo</param>
         /// <param name="nodoListo">Objeto Nodo, deserializado pero aun sin Aspectos. Se le añadirá sus Aspectos</param>
-        private static void AñadirPropiedadesAspectos(dynamic propiedadesDeserializadas, List<Aspect> aspectosNodo, Nodo nodoListo)
+        private static void AñadirPropsAspectos(dynamic propiedadesDeserializadas, List<Aspect> aspectosNodo, Nodo nodoListo)
         {
             string nodoPropertiesJson = JsonConvert.SerializeObject(propiedadesDeserializadas);
             Dictionary<string, dynamic> nodoProperties = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(nodoPropertiesJson);
@@ -166,7 +169,6 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
         public async static Task<List<Nodo>> ObtenerListaNodosHijos(string nodoPadreId)
         {
             List<Nodo> nodosHijos = new List<Nodo>();
-            NodosServicio servicioNodos = new NodosServicio();
             string respuestaJson = await servicioNodos.ObtenerListaNodosHijos(nodoPadreId);
 
             //Se deserializa y luego serializa para obtener una lista de nodos (Elimina metadatos de descarga)
@@ -179,8 +181,11 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
             {
                 string nodoJson = JsonConvert.SerializeObject(nodo.entry);
                 Nodo nodoLimpio = JsonConvert.DeserializeObject<Nodo>(nodoJson);
-                nodosHijos.Add(nodoLimpio);
-
+                nodosHijos.Add(nodoLimpio);                
+                //Nota: Esta respuesta no contiene Propiedades ni aspectos
+                //await AñadirTipoPersonalizado(nodo.entry.properties, nodoLimpio);
+                //Añadir Aspectos por defecto (Objetos) del nodo
+                //await AñadirAspectos(nodo.entry.properties, nodoLimpio);
             }
             return nodosHijos;
         }
@@ -204,31 +209,73 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
             }
         }
 
+        public async static Task CompletarNodos(Nodo nodoRaiz)
+        {            
+            foreach (var nodo in nodoRaiz.NodosHijos)
+            {
+                await CompletarNodo(nodo);
+                if(nodo.NodosHijos.Count() != 0 && nodo.IsFolder)
+                {
+                    await CompletarNodos(nodo);
+                }
+            }
+        }
+
+        private async static Task CompletarNodo(Nodo nodoCompletar)
+        {
+            Nodo nodoCompleto = await ObtenerNodo(nodoCompletar.Id);
+            nodoCompletar.AspectNames = nodoCompleto.AspectNames;
+            nodoCompletar.Path = nodoCompleto.Path;
+        }
+
+        public async static Task<Nodo> ActualizarAspectosNodo(Nodo nodoActualizar)
+        {
+            NodeBodyUpdate nodeBodyUpdate = new NodeBodyUpdate(nodoActualizar.Name, null, nodoActualizar.AspectNames);
+            string nodoBodyUpdateJson = JsonConvert.SerializeObject(nodeBodyUpdate);
+            string respuestaJson = await servicioNodos.ActualizarNodo(nodoActualizar.Id, nodoBodyUpdateJson);
+
+            dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
+            string nodoJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);
+            Nodo nodoListo = JsonConvert.DeserializeObject<Nodo>(nodoJson);
+
+            //Añadir Aspectos por defecto (Objetos) del nodo
+            await AñadirAspectos(respuestaDeserializada.entry.properties, nodoListo);
+
+            await AñadirTipoPersonalizado(respuestaDeserializada.entry.properties, nodoListo);
+            return nodoListo;
+        }
+
         public async static Task<Nodo> ActualizarPropiedadesNodo(Nodo nodoActualizar)
         {
-            NodosServicio nodosServicio = new NodosServicio();
             FormatearPropiedades(nodoActualizar);
 
             //Nota: nodoType=null porque no se puede actualizar al mismo tipo y aspectNames=null porque no se actualiza aspectos
             NodeBodyUpdate nodeBodyUpdate = new NodeBodyUpdate(nodoActualizar.Name, null, null,
                 (Dictionary<string, string>)nodoActualizar.Properties);
             string nodoBodyUpdateJson = JsonConvert.SerializeObject(nodeBodyUpdate);
-            string respuestaJson = await nodosServicio.ActualizarNodo(nodoActualizar.Id, nodoBodyUpdateJson);
+            string respuestaJson = await servicioNodos.ActualizarNodo(nodoActualizar.Id, nodoBodyUpdateJson);
 
             dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
             string nodoJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);
             Nodo nodoListo = JsonConvert.DeserializeObject<Nodo>(nodoJson);
 
-            if (nodoListo.IsFile)
-            {
-                //Añadir Aspectos por defecto (Objetos) del nodo
-                AñadirAspectos(respuestaDeserializada.entry.properties, nodoListo);
 
-                await AñadirTipoPersonalizado(respuestaDeserializada.entry.properties, nodoListo);
-            }
+            AñadirAspectos(respuestaDeserializada.entry.properties, nodoListo);
+
+            await AñadirTipoPersonalizado(respuestaDeserializada.entry.properties, nodoListo);
             return nodoListo;
         }
 
+
+        private static List<string> FormatearAspectos(Nodo nodoActualizar)
+        {
+            List<string> aspectosJson = new List<string>();
+            foreach (var aspecto in nodoActualizar.Aspectos)
+            {
+                aspectosJson.Add(aspecto.Name);
+            }
+            return aspectosJson;
+        }
         private static void FormatearPropiedades(Nodo nodoActualizar)
         {
             Dictionary<string, string> propiedadesJson = new Dictionary<string, string>();
@@ -273,15 +320,13 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
             }
             return nodoEncontrado;
         }
-        public async static Task ActualizarContenido(Nodo nodo, bool majorVersion, string comment, byte[] contentBodyUpdate )
+        public async static Task ActualizarContenido(Nodo nodo, bool majorVersion, string comment, byte[] contentBodyUpdate)
         {
-            NodosServicio nodosServicio = new NodosServicio();
-            await nodosServicio.ActualizarContenido(nodo.Id, majorVersion, comment, nodo.Name, null, null, contentBodyUpdate);
+            await servicioNodos.ActualizarContenido(nodo.Id, majorVersion, comment, nodo.Name, null, null, contentBodyUpdate);
         }
 
         public async static Task<Nodo> CrearNodo(string idNodoPadre, Nodo nodo)
         {
-            NodosServicio servicioNodos = new NodosServicio();
             NodeBodyCreate nodeBodyCreate = new NodeBodyCreate
             {
                 Name = nodo.Name,
@@ -290,7 +335,7 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
             };
             string nodeBodyCreateJson = JsonConvert.SerializeObject(nodeBodyCreate);
             string respuestaJson = await servicioNodos.CrearNodo(idNodoPadre, nodeBodyCreateJson);
-            
+
             //Se deserializa y luego serializa para obtener una lista de nodos (Elimina metadatos de descarga)
             dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
             string nodoJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);
@@ -299,8 +344,13 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
         }
         public async static Task EliminarNodo(string idNodo)
         {
-            NodosServicio servicioNodos = new NodosServicio();
             await servicioNodos.EliminarNodo(idNodo);
+        }
+        public async static Task ActualizarNodo(Nodo nodo)
+        {
+            NodeBodyUpdate nodeBodyUpdate = new NodeBodyUpdate(nodo.Name);
+            string nodoJson = JsonConvert.SerializeObject(nodeBodyUpdate);
+            await servicioNodos.ActualizarNodo(nodo.Id, nodoJson);
         }
     }
 }

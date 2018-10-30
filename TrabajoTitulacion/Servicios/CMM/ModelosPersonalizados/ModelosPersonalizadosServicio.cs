@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
 {
-    class ModelosPersonalizadosServicio : IModeloPersonalizadoServicio
+    class ModelosPersonalizadosServicio : IModelosPersonalizados
     {
         const string URL_BASE = "http://127.0.0.1:8090/alfresco/api/-default-/private/alfresco/versions/1";
         RestClient cliente = new RestClient(URL_BASE);
 
-        public async Task<string> ActivarModeloPersonalizado(string nombreModelo)
+        public async Task<string> ActivarModelo(string nombreModelo)
         {
             var solicitud = new RestRequest(Method.PUT);
             solicitud.Resource = "cmm/" + nombreModelo;
@@ -22,7 +22,7 @@ namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
             if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
             return contenidoRespuesta;
         }
-        public async Task<string> DesactivarModeloPersonalizado(string nombreModelo)
+        public async Task<string> DesactivarModelo(string nombreModelo)
         {
             var solicitud = new RestRequest(Method.PUT);
             solicitud.Resource = "cmm/" + nombreModelo;
@@ -34,7 +34,7 @@ namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
             if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
             return contenidoRespuesta;
         }
-        public async Task<string> ActualizarModeloPersonalizado(string nombreModelo, string modelo)
+        public async Task<string> ActualizarModelo(string nombreModelo, string modelo)
         {
             var solicitud = new RestRequest(Method.PUT);
             solicitud.Resource = "cmm/"+nombreModelo;
@@ -45,7 +45,7 @@ namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
             if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
             return contenidoRespuesta;
         }
-        public async Task<string> CrearModeloPersonalizado(string modelo)
+        public async Task<string> CrearModelo(string modelo)
         {
             var solicitud = new RestRequest(Method.POST);
             solicitud.Resource = "cmm/";
@@ -58,7 +58,7 @@ namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
         }
 
 
-        public async Task<string> ObtenerModeloPersonalizado(string nombreModelo)
+        public async Task<string> ObtenerModelo(string nombreModelo)
         {
             var solicitud = new RestRequest(Method.GET);
             solicitud.Resource = "cmm/"+nombreModelo;
@@ -69,7 +69,7 @@ namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
             return contenidoRespuesta;
         }
 
-        public async Task<string> ObtenerModelosPersonalizados()
+        public async Task<string> ObtenerModelos()
         {
             var solicitud = new RestRequest(Method.GET);
             solicitud.Resource = "cmm";
@@ -80,7 +80,7 @@ namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
             return contenidoRespuesta;
         }
 
-        public async Task<string> EliminarModeloPersonalizado(string nombreModelo)
+        public async Task<string> EliminarModelo(string nombreModelo)
         {
             var solicitud = new RestRequest(Method.DELETE);
             solicitud.Resource = "cmm/"+nombreModelo;

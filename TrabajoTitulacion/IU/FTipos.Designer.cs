@@ -29,12 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FTipos));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -42,7 +41,6 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.panelTipo = new System.Windows.Forms.Panel();
             this.cmbxPadre = new System.Windows.Forms.ComboBox();
-            this.btnCerrarPlantilla = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -59,20 +57,20 @@
             this.lblEstado = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.lblTitulo = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dtgviewDatos = new System.Windows.Forms.DataGridView();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.btnModeloNav = new System.Windows.Forms.Button();
-            this.btnVolverModelosNav = new System.Windows.Forms.Button();
+            this.clmNombreTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cntxMenuAcciones = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tlstripCrearTipo = new System.Windows.Forms.ToolStripMenuItem();
             this.tlstripEditar = new System.Windows.Forms.ToolStripMenuItem();
             this.tlstripEliminar = new System.Windows.Forms.ToolStripMenuItem();
             this.tlstripPropiedades = new System.Windows.Forms.ToolStripMenuItem();
-            this.label1 = new System.Windows.Forms.Label();
-            this.clmNombreTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmEtiquetaPresentacionTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmPadreTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnModeloNav = new System.Windows.Forms.Button();
+            this.btnVolverModelosNav = new System.Windows.Forms.Button();
             this.cntxMenuGeneral = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tlstripCrearAspecto = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel2.SuspendLayout();
@@ -82,10 +80,10 @@
             this.panelTipo.SuspendLayout();
             this.panel5.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgviewDatos)).BeginInit();
-            this.panel3.SuspendLayout();
-            this.cntxMenuAcciones.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgviewDatos)).BeginInit();
+            this.cntxMenuAcciones.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.cntxMenuGeneral.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -164,7 +162,6 @@
             // 
             this.panelTipo.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.panelTipo.Controls.Add(this.cmbxPadre);
-            this.panelTipo.Controls.Add(this.btnCerrarPlantilla);
             this.panelTipo.Controls.Add(this.label7);
             this.panelTipo.Controls.Add(this.label9);
             this.panelTipo.Controls.Add(this.label8);
@@ -194,24 +191,6 @@
             this.cmbxPadre.Name = "cmbxPadre";
             this.cmbxPadre.Size = new System.Drawing.Size(92, 25);
             this.cmbxPadre.TabIndex = 10;
-            // 
-            // btnCerrarPlantilla
-            // 
-            this.btnCerrarPlantilla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCerrarPlantilla.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCerrarPlantilla.BackgroundImage")));
-            this.btnCerrarPlantilla.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnCerrarPlantilla.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCerrarPlantilla.FlatAppearance.BorderColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnCerrarPlantilla.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnCerrarPlantilla.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnCerrarPlantilla.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCerrarPlantilla.Location = new System.Drawing.Point(198, 27);
-            this.btnCerrarPlantilla.Margin = new System.Windows.Forms.Padding(0);
-            this.btnCerrarPlantilla.Name = "btnCerrarPlantilla";
-            this.btnCerrarPlantilla.Size = new System.Drawing.Size(19, 13);
-            this.btnCerrarPlantilla.TabIndex = 2;
-            this.btnCerrarPlantilla.UseVisualStyleBackColor = true;
-            this.btnCerrarPlantilla.Click += new System.EventHandler(this.btnCerrarPlantilla_Click);
             // 
             // label7
             // 
@@ -400,6 +379,20 @@
             this.lblTitulo.TabIndex = 1;
             this.lblTitulo.Text = "Tipos Personalizados";
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.dtgviewDatos, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(32, 62);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(600, 466);
+            this.tableLayoutPanel1.TabIndex = 2;
+            // 
             // dtgviewDatos
             // 
             this.dtgviewDatos.AllowUserToAddRows = false;
@@ -412,34 +405,103 @@
             this.clmNombreTipo,
             this.clmEtiquetaPresentacionTipo,
             this.clmPadreTipo});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dtgviewDatos.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dtgviewDatos.DefaultCellStyle = dataGridViewCellStyle4;
             this.dtgviewDatos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtgviewDatos.Location = new System.Drawing.Point(0, 3);
             this.dtgviewDatos.Margin = new System.Windows.Forms.Padding(0);
             this.dtgviewDatos.MultiSelect = false;
             this.dtgviewDatos.Name = "dtgviewDatos";
             this.dtgviewDatos.ReadOnly = true;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgviewDatos.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgviewDatos.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dtgviewDatos.RowHeadersVisible = false;
             this.dtgviewDatos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dtgviewDatos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgviewDatos.Size = new System.Drawing.Size(600, 463);
             this.dtgviewDatos.TabIndex = 0;
             this.dtgviewDatos.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dtgviewTipos_MouseDown);
+            // 
+            // clmNombreTipo
+            // 
+            this.clmNombreTipo.ContextMenuStrip = this.cntxMenuAcciones;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.clmNombreTipo.DefaultCellStyle = dataGridViewCellStyle1;
+            this.clmNombreTipo.HeaderText = "Nombre Tipo";
+            this.clmNombreTipo.Name = "clmNombreTipo";
+            this.clmNombreTipo.ReadOnly = true;
+            this.clmNombreTipo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.clmNombreTipo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // cntxMenuAcciones
+            // 
+            this.cntxMenuAcciones.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tlstripCrearTipo,
+            this.tlstripEditar,
+            this.tlstripEliminar,
+            this.tlstripPropiedades});
+            this.cntxMenuAcciones.Name = "cntxMenuAccionesModelo";
+            this.cntxMenuAcciones.Size = new System.Drawing.Size(181, 114);
+            // 
+            // tlstripCrearTipo
+            // 
+            this.tlstripCrearTipo.Name = "tlstripCrearTipo";
+            this.tlstripCrearTipo.Size = new System.Drawing.Size(180, 22);
+            this.tlstripCrearTipo.Text = "Crear Nuevo Tipo";
+            this.tlstripCrearTipo.Click += new System.EventHandler(this.tlstripCrearTipo_Click);
+            // 
+            // tlstripEditar
+            // 
+            this.tlstripEditar.Name = "tlstripEditar";
+            this.tlstripEditar.Size = new System.Drawing.Size(180, 22);
+            this.tlstripEditar.Text = "Editar";
+            this.tlstripEditar.Click += new System.EventHandler(this.tlstripEditar_Click);
+            // 
+            // tlstripEliminar
+            // 
+            this.tlstripEliminar.Name = "tlstripEliminar";
+            this.tlstripEliminar.Size = new System.Drawing.Size(180, 22);
+            this.tlstripEliminar.Text = "Eliminar";
+            this.tlstripEliminar.Click += new System.EventHandler(this.tlstripEliminar_Click);
+            // 
+            // tlstripPropiedades
+            // 
+            this.tlstripPropiedades.Name = "tlstripPropiedades";
+            this.tlstripPropiedades.Size = new System.Drawing.Size(180, 22);
+            this.tlstripPropiedades.Text = "Propiedades...";
+            // 
+            // clmEtiquetaPresentacionTipo
+            // 
+            this.clmEtiquetaPresentacionTipo.ContextMenuStrip = this.cntxMenuAcciones;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            this.clmEtiquetaPresentacionTipo.DefaultCellStyle = dataGridViewCellStyle2;
+            this.clmEtiquetaPresentacionTipo.HeaderText = "Etiqueta de Presentación";
+            this.clmEtiquetaPresentacionTipo.Name = "clmEtiquetaPresentacionTipo";
+            this.clmEtiquetaPresentacionTipo.ReadOnly = true;
+            // 
+            // clmPadreTipo
+            // 
+            this.clmPadreTipo.ContextMenuStrip = this.cntxMenuAcciones;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            this.clmPadreTipo.DefaultCellStyle = dataGridViewCellStyle3;
+            this.clmPadreTipo.HeaderText = "Padre";
+            this.clmPadreTipo.Name = "clmPadreTipo";
+            this.clmPadreTipo.ReadOnly = true;
             // 
             // panel3
             // 
@@ -453,6 +515,17 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(653, 35);
             this.panel3.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.Location = new System.Drawing.Point(171, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(13, 22);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "|";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // btnModeloNav
             // 
@@ -491,100 +564,6 @@
             this.btnVolverModelosNav.UseVisualStyleBackColor = true;
             this.btnVolverModelosNav.Click += new System.EventHandler(this.btnVolverModelos_Click);
             // 
-            // cntxMenuAcciones
-            // 
-            this.cntxMenuAcciones.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tlstripCrearTipo,
-            this.tlstripEditar,
-            this.tlstripEliminar,
-            this.tlstripPropiedades});
-            this.cntxMenuAcciones.Name = "cntxMenuAccionesModelo";
-            this.cntxMenuAcciones.Size = new System.Drawing.Size(168, 92);
-            // 
-            // tlstripCrearTipo
-            // 
-            this.tlstripCrearTipo.Name = "tlstripCrearTipo";
-            this.tlstripCrearTipo.Size = new System.Drawing.Size(180, 22);
-            this.tlstripCrearTipo.Text = "Crear Nuevo Tipo";
-            this.tlstripCrearTipo.Click += new System.EventHandler(this.tlstripCrearTipo_Click);
-            // 
-            // tlstripEditar
-            // 
-            this.tlstripEditar.Name = "tlstripEditar";
-            this.tlstripEditar.Size = new System.Drawing.Size(180, 22);
-            this.tlstripEditar.Text = "Editar";
-            this.tlstripEditar.Click += new System.EventHandler(this.tlstripEditar_Click);
-            // 
-            // tlstripEliminar
-            // 
-            this.tlstripEliminar.Name = "tlstripEliminar";
-            this.tlstripEliminar.Size = new System.Drawing.Size(180, 22);
-            this.tlstripEliminar.Text = "Eliminar";
-            this.tlstripEliminar.Click += new System.EventHandler(this.tlstripEliminar_Click);
-            // 
-            // tlstripPropiedades
-            // 
-            this.tlstripPropiedades.Name = "tlstripPropiedades";
-            this.tlstripPropiedades.Size = new System.Drawing.Size(180, 22);
-            this.tlstripPropiedades.Text = "Propiedades...";
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.Location = new System.Drawing.Point(171, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(13, 22);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "|";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // clmNombreTipo
-            // 
-            this.clmNombreTipo.ContextMenuStrip = this.cntxMenuAcciones;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
-            this.clmNombreTipo.DefaultCellStyle = dataGridViewCellStyle6;
-            this.clmNombreTipo.HeaderText = "Nombre Tipo";
-            this.clmNombreTipo.Name = "clmNombreTipo";
-            this.clmNombreTipo.ReadOnly = true;
-            this.clmNombreTipo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.clmNombreTipo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // clmEtiquetaPresentacionTipo
-            // 
-            this.clmEtiquetaPresentacionTipo.ContextMenuStrip = this.cntxMenuAcciones;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            this.clmEtiquetaPresentacionTipo.DefaultCellStyle = dataGridViewCellStyle1;
-            this.clmEtiquetaPresentacionTipo.HeaderText = "Etiqueta de Presentación";
-            this.clmEtiquetaPresentacionTipo.Name = "clmEtiquetaPresentacionTipo";
-            this.clmEtiquetaPresentacionTipo.ReadOnly = true;
-            // 
-            // clmPadreTipo
-            // 
-            this.clmPadreTipo.ContextMenuStrip = this.cntxMenuAcciones;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            this.clmPadreTipo.DefaultCellStyle = dataGridViewCellStyle2;
-            this.clmPadreTipo.HeaderText = "Padre";
-            this.clmPadreTipo.Name = "clmPadreTipo";
-            this.clmPadreTipo.ReadOnly = true;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.dtgviewDatos, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(32, 62);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(600, 466);
-            this.tableLayoutPanel1.TabIndex = 2;
-            // 
             // cntxMenuGeneral
             // 
             this.cntxMenuGeneral.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -621,10 +600,10 @@
             this.panel5.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgviewDatos)).EndInit();
-            this.panel3.ResumeLayout(false);
-            this.cntxMenuAcciones.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgviewDatos)).EndInit();
+            this.cntxMenuAcciones.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
             this.cntxMenuGeneral.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -638,7 +617,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.Panel panelTipo;
-        private System.Windows.Forms.Button btnCerrarPlantilla;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;

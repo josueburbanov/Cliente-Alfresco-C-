@@ -14,26 +14,27 @@ namespace TrabajoTitulacion.Servicios
         /// Encapsulación del atributo ticket
         /// </summary>
         public static string Ticket { get; set; }
+        private static AutenticacionServicio servicioAuth = new AutenticacionServicio();
 
         /// <summary>
         /// Autenticación de usuario
         /// </summary>
         /// <param name="nombreUsuario">Nombre de usuario</param>
         /// <param name="contraseña">Contraseña de usuario</param>
-        public async static Task Login(string nombreUsuario, string contraseña)
-        {
-            Autenticacion servicioAutenticacion = new Autenticacion();
-            string respuestaJson = await servicioAutenticacion.Login(nombreUsuario, contraseña);
+        public async static Task<string> Login(string nombreUsuario, string contrasena)
+        {            
+            string respuestaJson = await servicioAuth.Login(nombreUsuario, contrasena);
             dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
             //Se obtiene el ticket generado a partir de la respuesta
             Ticket = respuestaDeserializada.entry.id;
+            return respuestaJson;
         }
 
-        public async static void Logout(string userId)
+        public async static Task<string> Logout(string userId)
         {
-            Autenticacion auth = new Autenticacion();
-            await auth.Logout(userId);
             Ticket = "";
+            return await servicioAuth.Logout(userId);
+            
         }
     }
 }

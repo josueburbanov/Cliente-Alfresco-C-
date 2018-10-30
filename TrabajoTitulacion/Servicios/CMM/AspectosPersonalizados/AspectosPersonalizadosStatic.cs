@@ -9,13 +9,13 @@ using TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados;
 
 namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
 {
-    class AspectosPersonalizadosServicioStatic
+    class AspectosPersonalizadosStatic
     {
         public async static Task<List<Aspect>> ObtenerAspectosPersonalizados(string nombreModelo)
         {
             List<Aspect> aspectosPersonalizados = new List<Aspect>();
             AspectosPersonalizadosServicio aspectosPersonalizadosServicio = new AspectosPersonalizadosServicio();
-            string respuestaJson = await aspectosPersonalizadosServicio.ObtenerAspectosPersonalizados(nombreModelo);
+            string respuestaJson = await aspectosPersonalizadosServicio.ObtenerAspectos(nombreModelo);
 
             //Se deserializa y luego serializa para obtener una lista de nodos (Elimina metadatos de descarga)
             dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
@@ -34,7 +34,7 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
 
         public async static Task<List<Aspect>> ObtenerAspectosActivos()
         {
-            List<Model> modelos = await ModelosPersonalizadosServicioStatic.ObtenerModelosPersonalizados();
+            List<Model> modelos = await ModelosPersonalizadosStatic.ObtenerModelosPersonalizados();
             List<Aspect> aspectosPersonalizados = new List<Aspect>();
             foreach (var modelo in modelos)
             {
@@ -50,14 +50,14 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
         {
             AspectosPersonalizadosServicio aspectosPersonalizadosServicio = new AspectosPersonalizadosServicio();
             string aspectoJson = JsonConvert.SerializeObject(aspectoCrear);
-            await aspectosPersonalizadosServicio.CrearAspectoPersonalizado(
+            await aspectosPersonalizadosServicio.CrearAspecto(
                 aspectoCrear.ModeloPerteneciente.Name, aspectoJson);
         }
         public async static Task ActualizarAspectoPersonalizado(Aspect aspectoActualizar)
         {
             AspectosPersonalizadosServicio aspectosPersonalizadosServicio = new AspectosPersonalizadosServicio();
             string aspectoJson = JsonConvert.SerializeObject(aspectoActualizar);
-            await aspectosPersonalizadosServicio.ActualizarAspectoPersonalizado(
+            await aspectosPersonalizadosServicio.ActualizarAspecto(
                 aspectoActualizar.ModeloPerteneciente.Name,
                 aspectoActualizar.Name,
                 aspectoJson);
@@ -65,13 +65,13 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
         public async static Task EliminarAspectoPersonalizado(string nombreModelo, string nombreAspecto)
         {
             AspectosPersonalizadosServicio aspectosPersonalizadosServicio = new AspectosPersonalizadosServicio();
-            await aspectosPersonalizadosServicio.EliminarAspectoPersonalizado(
+            await aspectosPersonalizadosServicio.EliminarAspecto(
                 nombreModelo, nombreAspecto);
         }
         public async static Task<Aspect> ObtenerAspectoPersonalizado(string nombreModelo, string nombreAspecto)
         {
             AspectosPersonalizadosServicio aspectosPersonalizadosServicio = new AspectosPersonalizadosServicio();
-            string respuestaJson = await aspectosPersonalizadosServicio.ObtenerAspectoPersonalizado(nombreModelo, nombreAspecto);
+            string respuestaJson = await aspectosPersonalizadosServicio.ObtenerAspecto(nombreModelo, nombreAspecto);
 
             //Se deserializa y luego serializa para obtener una lista de aspectos (Elimina metadatos de descarga)
             dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);

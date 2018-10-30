@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace TrabajoTitulacion.Servicios.CMM.TiposPersonalizados
 {
-    class TiposPersonalizadosServicio : ITiposPersonalizadosServicio
+    class TiposPersonalizadosServicio : ITiposPersonalizados
     {
         const string URL_BASE = "http://127.0.0.1:8090/alfresco/api/-default-/private/alfresco/versions/1";
         RestClient cliente = new RestClient(URL_BASE);
 
-        public async Task<string> ActualizarTipoPersonalizado(string nombreModelo, string nombreTipo, string tipo)
+        public async Task<string> ActualizarTipo(string nombreModelo, string nombreTipo, string tipo)
         {
             var solicitud = new RestRequest(Method.PUT);
             solicitud.Resource = "cmm/" + nombreModelo + "/types/"+nombreTipo;
@@ -21,7 +21,7 @@ namespace TrabajoTitulacion.Servicios.CMM.TiposPersonalizados
             return contenidoRespuesta;
         }
 
-        public async Task<string> CrearTipoPersonalizado(string nombreModelo, string tipo)
+        public async Task<string> CrearTipo(string nombreModelo, string tipo)
         {
             var solicitud = new RestRequest(Method.POST);
             solicitud.Resource = "cmm/" + nombreModelo + "/types";
@@ -33,7 +33,7 @@ namespace TrabajoTitulacion.Servicios.CMM.TiposPersonalizados
             return contenidoRespuesta;
         }
 
-        public async Task<string> EliminarTipoPersonalizado(string nombreModelo, string nombreTipo)
+        public async Task<string> EliminarTipo(string nombreModelo, string nombreTipo)
         {
             var solicitud = new RestRequest(Method.DELETE);
             solicitud.Resource = "cmm/" + nombreModelo + "/types/"+nombreTipo;
@@ -44,7 +44,7 @@ namespace TrabajoTitulacion.Servicios.CMM.TiposPersonalizados
             return contenidoRespuesta;
         }
 
-        public async Task<string> ObtenerTipoPersonalizado(string nombreModelo,string nombreTipo)
+        public async Task<string> ObtenerTipo(string nombreModelo,string nombreTipo)
         {
             var solicitud = new RestRequest(Method.GET);
             solicitud.Resource = "cmm/" + nombreModelo + "/types/"+nombreTipo;
@@ -55,7 +55,7 @@ namespace TrabajoTitulacion.Servicios.CMM.TiposPersonalizados
             return contenidoRespuesta;
         }
 
-        public async Task<string> ObtenerTiposPersonalizados(string nombreModelo)
+        public async Task<string> ObtenerTipos(string nombreModelo)
         {
             var solicitud = new RestRequest(Method.GET);
             solicitud.Resource = "cmm/"+nombreModelo+"/types";

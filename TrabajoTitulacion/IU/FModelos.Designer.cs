@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FModelos));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -42,7 +41,6 @@
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.panelModelo = new System.Windows.Forms.Panel();
-            this.btnCerrarPlantilla = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -164,7 +162,6 @@
             // panelModelo
             // 
             this.panelModelo.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.panelModelo.Controls.Add(this.btnCerrarPlantilla);
             this.panelModelo.Controls.Add(this.label7);
             this.panelModelo.Controls.Add(this.label9);
             this.panelModelo.Controls.Add(this.label8);
@@ -185,25 +182,6 @@
             this.panelModelo.Padding = new System.Windows.Forms.Padding(23, 0, 23, 0);
             this.panelModelo.Size = new System.Drawing.Size(227, 471);
             this.panelModelo.TabIndex = 0;
-            // 
-            // btnCerrarPlantilla
-            // 
-            this.btnCerrarPlantilla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCerrarPlantilla.BackColor = System.Drawing.Color.Transparent;
-            this.btnCerrarPlantilla.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCerrarPlantilla.BackgroundImage")));
-            this.btnCerrarPlantilla.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnCerrarPlantilla.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCerrarPlantilla.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.btnCerrarPlantilla.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.btnCerrarPlantilla.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.btnCerrarPlantilla.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCerrarPlantilla.Location = new System.Drawing.Point(196, 24);
-            this.btnCerrarPlantilla.Margin = new System.Windows.Forms.Padding(0);
-            this.btnCerrarPlantilla.Name = "btnCerrarPlantilla";
-            this.btnCerrarPlantilla.Size = new System.Drawing.Size(21, 22);
-            this.btnCerrarPlantilla.TabIndex = 2;
-            this.btnCerrarPlantilla.UseVisualStyleBackColor = false;
-            this.btnCerrarPlantilla.Click += new System.EventHandler(this.btnCerrarPlantilla_Click);
             // 
             // label7
             // 
@@ -659,7 +637,6 @@
         private System.Windows.Forms.ToolStripMenuItem tlstripCrearModelo;
         private System.Windows.Forms.ToolStripMenuItem tlstripEditar;
         private System.Windows.Forms.ToolStripMenuItem tlstripEliminar;
-        private System.Windows.Forms.Button btnCerrarPlantilla;
         private System.Windows.Forms.ToolStripMenuItem tlstripTiposPersonalizados;
         private System.Windows.Forms.Button btnVolverInicioNav;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmNombreModelo;

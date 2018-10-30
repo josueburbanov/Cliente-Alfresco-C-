@@ -6,10 +6,16 @@ using TrabajoTitulacion.Modelos;
 
 namespace TrabajoTitulacion.Servicios.Core.Nodos
 {
-    class NodosServicio : INodosServicio
+    class NodosServicio : INodos
     {
-        const string URL_BASE = "http://127.0.0.1:8090/alfresco/api/-default-/public/alfresco/versions/1";
-        RestClient cliente = new RestClient(URL_BASE);
+        private string URL_BASE;
+        private RestClient cliente;
+
+        public NodosServicio()
+        {
+            URL_BASE = Properties.Settings.Default.URL_SERVIDOR + "alfresco/api/-default-/public/alfresco/versions/1";
+            cliente = new RestClient(URL_BASE);
+        }
 
         public async Task<string> ActualizarContenido(string idNodo, bool majorVersion, string comment, string name, string[] include, string[] fields, byte[] contentBodyUpdate)
         {
@@ -32,7 +38,7 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
         {
             var solicitud = new RestRequest(Method.PUT);
             solicitud.Resource = "nodes/" + idNodo;
-            solicitud.AddParameter("application/json", nodoActualizar, ParameterType.RequestBody);
+            solicitud.AddParameter("application/json", nodoActualizar, ParameterType.RequestBody);            
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
             IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
             var contenidoRespuesta = respuesta.Content;
@@ -48,8 +54,7 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
             IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
             var contenidoRespuesta = respuesta.Content;
-            //if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
-            Console.WriteLine(contenidoRespuesta);
+            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();            
             return contenidoRespuesta;
         }
 
@@ -90,10 +95,11 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
         {
             var solicitud = new RestRequest(Method.GET);
             solicitud.Resource = "nodes/" + idNodo;
+            solicitud.AddParameter("include", "path");
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
-            IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
+            var respuesta = await cliente.ExecuteTaskAsync(solicitud);
             var contenidoRespuesta = respuesta.Content;
-            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            if (!respuesta.IsSuccessful) return null;
             return contenidoRespuesta;
         }
     }

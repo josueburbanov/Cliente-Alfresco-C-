@@ -47,14 +47,14 @@ namespace TrabajoTitulacion.IU
         private async Task pruebaUnitaria()
         {
             //prueba unitaria
-            Model modelo = await ModelosPersonalizadosServicioStatic.ObtenerModeloPersonalizado("testModelNueva");
+            Model modelo = await ModelosPersonalizadosStatic.ObtenerModeloPersonalizado("testModelNueva");
 
             Console.WriteLine("N " + modelo.Name);
             Console.WriteLine("M " + modelo.Author);
             Console.WriteLine("S " + modelo.Status);
             //Console.WriteLine("Types: "+modelo.Types.Count);
 
-            List<Modelos.CMM.Type> tipos = await TiposPersonalizadosServicioStatic.ObtenerTiposPersonalizados("testModelNueva");
+            List<Modelos.CMM.Type> tipos = await TiposPersonalizadosStatic.ObtenerTiposPersonalizados("testModelNueva");
             foreach (var item in tipos)
             {
                 Console.WriteLine("_--------------_Tipos___-------");
@@ -87,7 +87,7 @@ namespace TrabajoTitulacion.IU
 
                 }
             }
-            List<Aspect> aspectos = await AspectosPersonalizadosServicioStatic.ObtenerAspectosPersonalizados("testModelNueva");
+            List<Aspect> aspectos = await AspectosPersonalizadosStatic.ObtenerAspectosPersonalizados("testModelNueva");
             foreach (var aspecto in aspectos)
             {
                 Console.WriteLine("**************ASPECTOS*****************");

@@ -42,7 +42,7 @@ namespace TrabajoTitulacion.IU
         private async Task PoblarDtgv()
         {
             if (proveniente == "ASPECTOS")
-                subModelo = await AspectosPersonalizadosServicioStatic.ObtenerAspectoPersonalizado(modelo.Name, subModelo.Name);
+                subModelo = await AspectosPersonalizadosStatic.ObtenerAspectoPersonalizado(modelo.Name, subModelo.Name);
             if (proveniente == "TIPOS")
             {
 
@@ -110,7 +110,7 @@ namespace TrabajoTitulacion.IU
                 PropertiesBodyUpdate propertiesBodyCreate = new PropertiesBodyUpdate(subModelo.Name, propiedadesCrear);
                 if (proveniente == "ASPECTOS")
                 {
-                    await AspectosPersonalizadosServicioStatic.AñadirPropiedadeAspecto(
+                    await AspectosPersonalizadosStatic.AñadirPropiedadeAspecto(
                         modelo.Name,
                         subModelo.Name,
                         propertiesBodyCreate);
@@ -148,7 +148,7 @@ namespace TrabajoTitulacion.IU
 
                     if (proveniente == "ASPECTOS")
                     {
-                        await AspectosPersonalizadosServicioStatic.ActualizarPropiedadAspecto(
+                        await AspectosPersonalizadosStatic.ActualizarPropiedadAspecto(
                         modelo.Name,
                         subModelo.Name,
                         propiedadEditar.Name,
@@ -233,7 +233,7 @@ namespace TrabajoTitulacion.IU
         {
             FLoading fPrincipalLoading = new FLoading();
             fPrincipalLoading.Show();
-            await AspectosPersonalizadosServicioStatic.EliminarPropiedadAspecto(
+            await AspectosPersonalizadosStatic.EliminarPropiedadAspecto(
                 modelo.Name,
                 subModelo.Name,
                 dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());

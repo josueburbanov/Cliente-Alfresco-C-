@@ -8,6 +8,6 @@ namespace TrabajoTitulacion.Servicios.Core.Personas
 {
     interface IPersonas
     {
-        Task<string> ObtenerPersona(string idPersona);
+        Task<string> ObtenerPersona(string idUsuario);
     }
 }

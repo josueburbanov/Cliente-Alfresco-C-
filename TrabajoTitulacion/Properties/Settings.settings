@@ -14,5 +14,8 @@
   &lt;string /&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
+    <Setting Name="URL_SERVIDOR" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://127.0.0.1:8090/</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

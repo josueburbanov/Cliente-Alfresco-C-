@@ -50,5 +50,17 @@ namespace TrabajoTitulacion.Properties {
                 this["RepositoriosId"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://127.0.0.1:8090/")]
+        public string URL_SERVIDOR {
+            get {
+                return ((string)(this["URL_SERVIDOR"]));
+            }
+            set {
+                this["URL_SERVIDOR"] = value;
+            }
+        }
     }
 }

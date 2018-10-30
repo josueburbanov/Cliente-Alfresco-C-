@@ -2,7 +2,7 @@
 
 namespace TrabajoTitulacion.Servicios.Core.Nodos
 {
-    interface INodosServicio
+    interface INodos
     {
         Task<string> ObtenerListaNodosHijos(string nodoPadre);
         Task<string> ObtenerNodo(string idNodo);

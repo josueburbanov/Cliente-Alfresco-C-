@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
 {
-    class AspectosPersonalizadosServicio : IAspectosPersonalizadosServicio
+    class AspectosPersonalizadosServicio : IAspectosPersonalizados
     {
         const string URL_BASE = "http://127.0.0.1:8090/alfresco/api/-default-/private/alfresco/versions/1";
         RestClient cliente = new RestClient(URL_BASE);
 
-        public async Task<string> ObtenerAspectosPersonalizados(string nombreModelo)
+        public async Task<string> ObtenerAspectos(string nombreModelo)
         {
             var solicitud = new RestRequest(Method.GET);
             solicitud.Resource = "cmm/" + nombreModelo + "/aspects";
@@ -23,7 +23,7 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
             if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
             return contenidoRespuesta;
         }
-        public async Task<string> ActualizarAspectoPersonalizado(string nombreModelo, string nombreAspecto, string aspecto)
+        public async Task<string> ActualizarAspecto(string nombreModelo, string nombreAspecto, string aspecto)
         {
             var solicitud = new RestRequest(Method.PUT);
             solicitud.Resource = "cmm/" + nombreModelo + "/aspects/"+nombreAspecto;
@@ -35,7 +35,7 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
             return contenidoRespuesta;
         }
 
-        public async Task<string> CrearAspectoPersonalizado(string nombreModelo, string aspecto)
+        public async Task<string> CrearAspecto(string nombreModelo, string aspecto)
         {
             var solicitud = new RestRequest(Method.POST);
             solicitud.Resource = "cmm/" + nombreModelo + "/aspects";
@@ -47,7 +47,7 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
             return contenidoRespuesta;
         }
 
-        public async Task<string> EliminarAspectoPersonalizado(string nombreModelo, string nombreAspecto)
+        public async Task<string> EliminarAspecto(string nombreModelo, string nombreAspecto)
         {
             var solicitud = new RestRequest(Method.DELETE);
             solicitud.Resource = "cmm/" + nombreModelo + "/aspects/" + nombreAspecto;
@@ -58,7 +58,7 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
             return contenidoRespuesta;
         }
 
-        public async Task<string> ObtenerAspectoPersonalizado(string nombreModelo, string nombreAspecto)
+        public async Task<string> ObtenerAspecto(string nombreModelo, string nombreAspecto)
         {
             var solicitud = new RestRequest(Method.GET);
             solicitud.Resource = "cmm/" + nombreModelo + "/aspects/" + nombreAspecto;

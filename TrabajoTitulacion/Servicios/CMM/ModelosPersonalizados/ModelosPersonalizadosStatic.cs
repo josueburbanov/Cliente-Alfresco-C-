@@ -8,13 +8,13 @@ using TrabajoTitulacion.Modelos.CMM;
 
 namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
 {
-    class ModelosPersonalizadosServicioStatic
+    class ModelosPersonalizadosStatic
     {
         public static async Task<List<Model>> ObtenerModelosPersonalizados()
         {
             List<Model> modelosPersonalizados = new List<Model>();
             ModelosPersonalizadosServicio modelosPersonalizadosServicio = new ModelosPersonalizadosServicio();
-            string respuestaJson = await modelosPersonalizadosServicio.ObtenerModelosPersonalizados();
+            string respuestaJson = await modelosPersonalizadosServicio.ObtenerModelos();
 
             //Se deserializa y luego serializa para obtener una lista de nodos (Elimina metadatos de descarga)
             dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
@@ -34,7 +34,7 @@ namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
         public static async Task<Model> ObtenerModeloPersonalizado(string nombreModelo)
         {
             ModelosPersonalizadosServicio modelosPersonalizadosServicio = new ModelosPersonalizadosServicio();
-            string respuestaJson = await modelosPersonalizadosServicio.ObtenerModeloPersonalizado(nombreModelo);
+            string respuestaJson = await modelosPersonalizadosServicio.ObtenerModelo(nombreModelo);
             dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
             string modeloPersonalizadoJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);
             return JsonConvert.DeserializeObject<Model>(modeloPersonalizadoJson);
@@ -50,26 +50,26 @@ namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
         {
             ModelosPersonalizadosServicio modelosPersonalizadosServicio = new ModelosPersonalizadosServicio();
             string modeloJson = JsonConvert.SerializeObject(modelo);
-            await modelosPersonalizadosServicio.CrearModeloPersonalizado(modeloJson);
+            await modelosPersonalizadosServicio.CrearModelo(modeloJson);
         }
         public static async Task ActualizarModeloPersonalizado(Model modelo)
         {
             ModelosPersonalizadosServicio modelosPersonalizadosServicio = new ModelosPersonalizadosServicio();
             string modeloJson = JsonConvert.SerializeObject(modelo);
-            await modelosPersonalizadosServicio.ActualizarModeloPersonalizado(modelo.Name,modeloJson);
+            await modelosPersonalizadosServicio.ActualizarModelo(modelo.Name,modeloJson);
         }
         public static async Task CambiarEstadoModeloPersonalizado(Model modelo)
         {
             ModelosPersonalizadosServicio modelosPersonalizadosServicio = new ModelosPersonalizadosServicio();
             if (modelo.Status == "ACTIVE")
-                await modelosPersonalizadosServicio.DesactivarModeloPersonalizado(modelo.Name);
+                await modelosPersonalizadosServicio.DesactivarModelo(modelo.Name);
             else if (modelo.Status == "DRAFT")
-                await modelosPersonalizadosServicio.ActivarModeloPersonalizado(modelo.Name);
+                await modelosPersonalizadosServicio.ActivarModelo(modelo.Name);
         }
         public static async Task EliminarModeloPersonalizado(string nombreModelo)
         {
             ModelosPersonalizadosServicio modelosPersonalizadosServicio = new ModelosPersonalizadosServicio();
-            await modelosPersonalizadosServicio.EliminarModeloPersonalizado(nombreModelo);
+            await modelosPersonalizadosServicio.EliminarModelo(nombreModelo);
         }
     }
 }

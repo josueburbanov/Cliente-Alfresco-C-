@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace TrabajoTitulacion.Servicios
 {
-    class Autenticacion : IAutenticacion
+    class Authenticacion : IAuthenticacion
     {
         const string URLBASE = "http://127.0.0.1:8090/alfresco/api/-default-/public/authentication/versions/1";
         RestClient cliente = new RestClient(URLBASE);
@@ -33,12 +33,14 @@ namespace TrabajoTitulacion.Servicios
             return contenidoRespuesta;
         }
 
-        public async Task Logout(string userId)
+        public async Task<string> Logout(string userId)
         {
             var solicitud = new RestRequest(Method.DELETE);
             solicitud.Resource = "tickets/" + await PersonasStatic.ObtenerPersona(userId);
             IRestResponse respuesta = cliente.Execute(solicitud);
-            var contenidoRespuesta = respuesta.Content;     
+            var contenidoRespuesta = respuesta.Content;
+            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            return contenidoRespuesta;
         }
     }
 }

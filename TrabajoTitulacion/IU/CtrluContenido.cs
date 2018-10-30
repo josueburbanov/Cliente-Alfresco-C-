@@ -20,12 +20,12 @@ namespace TrabajoTitulacion.IU
         }
 
 
-        private void lnklblDescargar_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private async void lnklblDescargar_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             var path = abrirFldbrswrSeleccionarPath();
             if(path != null)
             {
-                NodosServicioStatic.ObtenerContenido(((Node)Tag).Id, path+"\\"+((Node)Tag).Name);
+                await NodosStatic.ObtenerContenido(((Node)Tag).Id, path+"\\"+((Node)Tag).Name);
             }
         }
 

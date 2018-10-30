@@ -25,9 +25,8 @@ namespace TrabajoTitulacion.IU
         private async void FDetallesContenido_Load(object sender, EventArgs e)
         {
             //Es necesario descargar el nodo de nuevo, por que el anterior no posee Propiedades
-            nodoSeleccionado = await NodosServicioStatic.ObtenerNodo(nodoSeleccionado.Id);
+            nodoSeleccionado = await NodosStatic.ObtenerNodo(nodoSeleccionado.Id);
             PresentarNodo();
-
         }
 
         private void PresentarNodo()
@@ -96,8 +95,6 @@ namespace TrabajoTitulacion.IU
             {
                 ((CtrluPropiedad)ctruPropiedad).TxtValorPropiedad.Enabled = true;
             }
-            
-
         }
 
         private async void btnAceptar_Click(object sender, EventArgs e)
@@ -126,7 +123,7 @@ namespace TrabajoTitulacion.IU
                     }
                 }
 
-                await NodosServicioStatic.ActualizarPropiedadesNodo(nodoSeleccionado);
+                await NodosStatic.ActualizarPropiedadesNodo(nodoSeleccionado);
                 MessageBox.Show("Propiedades Actualizadas", "Alfresco");
                 Close();
             }

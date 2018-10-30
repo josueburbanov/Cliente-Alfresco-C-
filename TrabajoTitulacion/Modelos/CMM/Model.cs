@@ -20,10 +20,6 @@ namespace TrabajoTitulacion.Modelos.CMM
         [JsonProperty(PropertyName = "status")]
         public string Status { get; set; }
         [JsonProperty(PropertyName = "description")]
-        public string Description { get; set; }
-        [JsonIgnore]
-        public List<Type> Types { get; set; }
-        [JsonIgnore]
-        public List<Aspect> Aspects { get; set; }
+        public string Description { get; set; }        
     }
 }

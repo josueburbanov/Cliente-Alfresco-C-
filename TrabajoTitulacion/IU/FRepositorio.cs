@@ -20,20 +20,19 @@ namespace TrabajoTitulacion.IU
 
         private async void FRepositorio_Load(object sender, EventArgs e)
         {
-                       
             try
             {
                 FLoading fPrincipalLoading = new FLoading();
 
                 //Se obtiene la lista de los nodos hijos de root (1er nivel) y el nodo root
                 List<Nodo> nodosDeRoot;
-                nodosDeRoot = await NodosServicioStatic.ObtenerListaNodosHijos("-root-");
-                nodoRoot = await NodosServicioStatic.ObtenerNodo("-root-");
+                nodoRoot = await NodosStatic.ObtenerNodo("-root-");
+                nodosDeRoot = await NodosStatic.ObtenerListaNodosHijos("-root-");
                 nodoRoot.NodosHijos = nodosDeRoot;
 
                 fPrincipalLoading.Show();
                 //Se pobla recursivamente todos los nodos
-                await NodosServicioStatic.PoblarNodosHijos(nodosDeRoot);
+                await NodosStatic.PoblarNodosHijos(nodosDeRoot);
                 
 
                 //Se agrega los nodos al treeview                
