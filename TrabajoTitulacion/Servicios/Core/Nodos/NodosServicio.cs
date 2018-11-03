@@ -2,7 +2,7 @@
 using System;
 using RestSharp.Extensions;
 using System.Threading.Tasks;
-using TrabajoTitulacion.Modelos;
+using TrabajoTitulacion.Modelos.CoreAPI;
 
 namespace TrabajoTitulacion.Servicios.Core.Nodos
 {

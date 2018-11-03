@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TrabajoTitulacion.Modelos;
+using TrabajoTitulacion.Modelos.CoreAPI;
 using TrabajoTitulacion.Modelos.Core;
 using TrabajoTitulacion.Servicios.Core.Nodos;
 

@@ -5,9 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TrabajoTitulacion.Modelos;
 using TrabajoTitulacion.Modelos.Core;
-using TrabajoTitulacion.Modelos.Utils;
+using TrabajoTitulacion.Modelos.CoreAPI;
+using TrabajoTitulacion.Modelos.Sync;
 using TrabajoTitulacion.Servicios.Core.Nodos;
 
 namespace TrabajoTitulacion.IU
@@ -20,18 +20,9 @@ namespace TrabajoTitulacion.IU
             InitializeComponent();
         }
 
-        private async void FSync_Load(object sender, EventArgs e)
+        private void FSync_Load(object sender, EventArgs e)
         {
-            try
-            {
-                await CargarRepositorio();
-                PoblarListBoxRepositoriosGuardados();
-
-            }
-            catch (UnauthorizedAccessException)
-            {
-                MessageBox.Show("Hubo un problema cargando sus archivos.");
-            }
+            
         }
 
         private async Task CargarRepositorio()
@@ -75,6 +66,8 @@ namespace TrabajoTitulacion.IU
 
         private async void btnAceptar_Click(object sender, EventArgs e)
         {
+            btnAceptar.Visible = false;
+            treeViewSync.Visible = false;
             Nodo nodoSeleccionado = (Nodo)treeViewSync.SelectedNode.Tag;
             string pathRepositorio = Environment.CurrentDirectory + "\\" + nodoSeleccionado.Name;
 
@@ -172,7 +165,7 @@ namespace TrabajoTitulacion.IU
         {
             foreach (var nodoLocal in nodosLocales)
             {
-                nodoLocal.RegresarFechaModificacionOriginal();
+                nodoLocal.RegresarFechaModifOriginal();
             }
         }
 
@@ -352,8 +345,21 @@ namespace TrabajoTitulacion.IU
             }
             archivo.Close(true);
             return idAlfrescoArchivo;
+        }
 
-
+        private async void btnAgregarRepo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnAceptar.Visible = true;
+                treeViewSync.Visible = true;
+                await CargarRepositorio();
+                PoblarListBoxRepositoriosGuardados();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("Hubo un problema cargando sus archivos.");
+            }
         }
     }
 }

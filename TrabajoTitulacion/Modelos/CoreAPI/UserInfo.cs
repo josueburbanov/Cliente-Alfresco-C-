@@ -1,7 +1,7 @@
 ﻿using Microsoft.Rest;
 using Newtonsoft.Json;
 
-namespace TrabajoTitulacion.Modelos
+namespace TrabajoTitulacion.Modelos.CoreAPI
 {
     public class UserInfo
     {

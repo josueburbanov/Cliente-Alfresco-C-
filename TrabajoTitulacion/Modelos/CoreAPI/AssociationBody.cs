@@ -2,7 +2,7 @@
 // Changes may cause incorrect behavior and will be lost if the code is
 // regenerated.
 
-namespace TrabajoTitulacion.Modelos
+namespace TrabajoTitulacion.Modelos.CoreAPI
 {
     using System;
     using System.Linq;
@@ -11,26 +11,26 @@ namespace TrabajoTitulacion.Modelos
     using Microsoft.Rest;
     using Microsoft.Rest.Serialization;
 
-    public partial class ChildAssociationBody
+    public partial class AssociationBody
     {
         /// <summary>
-        /// Initializes a new instance of the ChildAssociationBody class.
+        /// Initializes a new instance of the AssociationBody class.
         /// </summary>
-        public ChildAssociationBody() { }
+        public AssociationBody() { }
 
         /// <summary>
-        /// Initializes a new instance of the ChildAssociationBody class.
+        /// Initializes a new instance of the AssociationBody class.
         /// </summary>
-        public ChildAssociationBody(string childId, string assocType)
+        public AssociationBody(string targetId, string assocType)
         {
-            ChildId = childId;
+            TargetId = targetId;
             AssocType = assocType;
         }
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "childId")]
-        public string ChildId { get; set; }
+        [JsonProperty(PropertyName = "targetId")]
+        public string TargetId { get; set; }
 
         /// <summary>
         /// </summary>
@@ -42,9 +42,9 @@ namespace TrabajoTitulacion.Modelos
         /// </summary>
         public virtual void Validate()
         {
-            if (ChildId == null)
+            if (TargetId == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "ChildId");
+                throw new ValidationException(ValidationRules.CannotBeNull, "TargetId");
             }
             if (AssocType == null)
             {

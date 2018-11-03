@@ -12,7 +12,7 @@ using TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados;
 using TrabajoTitulacion.Servicios.CMM.TiposPersonalizados;
 using RestSharp.Extensions;
 using DSOFile;
-using TrabajoTitulacion.Modelos;
+using TrabajoTitulacion.Modelos.CoreAPI;
 using System.IO;
 
 namespace TrabajoTitulacion.Servicios.Core.Nodos

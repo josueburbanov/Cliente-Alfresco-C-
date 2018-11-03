@@ -2,7 +2,7 @@
 // Changes may cause incorrect behavior and will be lost if the code is
 // regenerated.
 
-namespace TrabajoTitulacion.Modelos
+namespace TrabajoTitulacion.Modelos.CoreAPI
 {
     using System;
     using System.Linq;
@@ -10,7 +10,7 @@ namespace TrabajoTitulacion.Modelos
     using Newtonsoft.Json;
     using Microsoft.Rest;
     using Microsoft.Rest.Serialization;
-    using TrabajoTitulacion.Modelos;
+    using TrabajoTitulacion.Modelos.CoreAPI;
 
     public partial class PermissionsBodyUpdate
     {

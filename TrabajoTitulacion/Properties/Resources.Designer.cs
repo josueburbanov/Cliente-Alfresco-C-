@@ -59,14 +59,5 @@ namespace TrabajoTitulacion.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a .
-        /// </summary>
-        internal static string URLBASE {
-            get {
-                return ResourceManager.GetString("URLBASE", resourceCulture);
-            }
-        }
     }
 }

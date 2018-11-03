@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TrabajoTitulacion.Modelos;
+using TrabajoTitulacion.Modelos.CoreAPI;
 using TrabajoTitulacion.Servicios.Core.Nodos;
 
 namespace TrabajoTitulacion.IU

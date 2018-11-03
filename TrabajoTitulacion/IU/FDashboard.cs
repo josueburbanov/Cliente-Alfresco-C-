@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TrabajoTitulacion.Modelos;
+using TrabajoTitulacion.Modelos.CoreAPI;
 using TrabajoTitulacion.Servicios;
 using TrabajoTitulacion.Servicios.Core.Personas;
 using TrabajoTitulacion.UI;

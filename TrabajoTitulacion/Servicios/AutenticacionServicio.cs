@@ -18,7 +18,7 @@ namespace TrabajoTitulacion.Servicios
 
         public AutenticacionServicio()
         {
-            URL_BASE = Properties.Settings.Default.URL_SERVIDOR + "alfresco/api/-default-/public/alfresco/versions/1";
+            URL_BASE = Properties.Settings.Default.URL_SERVIDOR + URL_BASE;
             cliente = new RestClient(URL_BASE);
         }
         /// <summary>

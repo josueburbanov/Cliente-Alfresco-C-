@@ -7,8 +7,14 @@ namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
 {
     class ModelosPersonalizadosServicio : IModelosPersonalizados
     {
-        const string URL_BASE = "http://127.0.0.1:8090/alfresco/api/-default-/private/alfresco/versions/1";
-        RestClient cliente = new RestClient(URL_BASE);
+        string URL_BASE = "/alfresco/api/-default-/private/alfresco/versions/1";
+        RestClient cliente;
+
+        public ModelosPersonalizadosServicio()
+        {
+            URL_BASE = Properties.Settings.Default.URL_SERVIDOR + URL_BASE;
+            cliente = new RestClient(URL_BASE);
+        }
 
         public async Task<string> ActivarModelo(string nombreModelo)
         {

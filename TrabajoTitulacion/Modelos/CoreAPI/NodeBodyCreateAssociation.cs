@@ -2,7 +2,7 @@
 // Changes may cause incorrect behavior and will be lost if the code is
 // regenerated.
 
-namespace TrabajoTitulacion.Modelos
+namespace TrabajoTitulacion.Modelos.CoreAPI
 {
     using System;
     using System.Linq;

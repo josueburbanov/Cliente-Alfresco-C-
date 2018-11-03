@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace TrabajoTitulacion.Modelos
+namespace TrabajoTitulacion.Modelos.CoreAPI
 {
     public class PathElement
     {

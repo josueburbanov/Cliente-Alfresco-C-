@@ -38,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.treeViewSync = new System.Windows.Forms.TreeView();
+            this.btnAgregarRepo = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tblpanelContenedor.SuspendLayout();
@@ -89,6 +90,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnAgregarRepo);
             this.panel1.Controls.Add(this.lstboxRepositoriosGuardados);
             this.panel1.Controls.Add(this.btnSincronizar);
             this.panel1.Controls.Add(this.label1);
@@ -102,7 +104,7 @@
             // lstboxRepositoriosGuardados
             // 
             this.lstboxRepositoriosGuardados.FormattingEnabled = true;
-            this.lstboxRepositoriosGuardados.Location = new System.Drawing.Point(383, 4);
+            this.lstboxRepositoriosGuardados.Location = new System.Drawing.Point(19, 20);
             this.lstboxRepositoriosGuardados.Name = "lstboxRepositoriosGuardados";
             this.lstboxRepositoriosGuardados.ScrollAlwaysVisible = true;
             this.lstboxRepositoriosGuardados.Size = new System.Drawing.Size(321, 212);
@@ -110,7 +112,7 @@
             // 
             // btnSincronizar
             // 
-            this.btnSincronizar.Location = new System.Drawing.Point(543, 261);
+            this.btnSincronizar.Location = new System.Drawing.Point(21, 253);
             this.btnSincronizar.Name = "btnSincronizar";
             this.btnSincronizar.Size = new System.Drawing.Size(75, 23);
             this.btnSincronizar.TabIndex = 4;
@@ -121,7 +123,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(305, 233);
+            this.label1.Location = new System.Drawing.Point(18, 237);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(175, 13);
             this.label1.TabIndex = 3;
@@ -129,20 +131,32 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(308, 261);
+            this.btnAceptar.Location = new System.Drawing.Point(588, 253);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 2;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Visible = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // treeViewSync
             // 
-            this.treeViewSync.Location = new System.Drawing.Point(31, 4);
+            this.treeViewSync.Location = new System.Drawing.Point(450, 20);
             this.treeViewSync.Name = "treeViewSync";
-            this.treeViewSync.Size = new System.Drawing.Size(213, 298);
+            this.treeViewSync.Size = new System.Drawing.Size(213, 212);
             this.treeViewSync.TabIndex = 1;
+            this.treeViewSync.Visible = false;
+            // 
+            // btnAgregarRepo
+            // 
+            this.btnAgregarRepo.Location = new System.Drawing.Point(265, 253);
+            this.btnAgregarRepo.Name = "btnAgregarRepo";
+            this.btnAgregarRepo.Size = new System.Drawing.Size(75, 36);
+            this.btnAgregarRepo.TabIndex = 6;
+            this.btnAgregarRepo.Text = "Agregar Repositorio";
+            this.btnAgregarRepo.UseVisualStyleBackColor = true;
+            this.btnAgregarRepo.Click += new System.EventHandler(this.btnAgregarRepo_Click);
             // 
             // FSync
             // 
@@ -175,5 +189,6 @@
         private System.Windows.Forms.TreeView treeViewSync;
         private System.Windows.Forms.Button btnSincronizar;
         private System.Windows.Forms.ListBox lstboxRepositoriosGuardados;
+        private System.Windows.Forms.Button btnAgregarRepo;
     }
 }

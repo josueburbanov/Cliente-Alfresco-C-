@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -568,28 +568,28 @@
             this.clmRequisito,
             this.clmValorDefault,
             this.clmMultiplesValores});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dtgviewDatos.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dtgviewDatos.DefaultCellStyle = dataGridViewCellStyle7;
             this.dtgviewDatos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtgviewDatos.Location = new System.Drawing.Point(0, 3);
             this.dtgviewDatos.Margin = new System.Windows.Forms.Padding(0);
             this.dtgviewDatos.MultiSelect = false;
             this.dtgviewDatos.Name = "dtgviewDatos";
             this.dtgviewDatos.ReadOnly = true;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgviewDatos.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgviewDatos.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dtgviewDatos.RowHeadersVisible = false;
             this.dtgviewDatos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dtgviewDatos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -600,9 +600,9 @@
             // clmNombreTipo
             // 
             this.clmNombreTipo.ContextMenuStrip = this.cntxMenuAcciones;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black;
-            this.clmNombreTipo.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.clmNombreTipo.DefaultCellStyle = dataGridViewCellStyle1;
             this.clmNombreTipo.HeaderText = "Nombre Tipo";
             this.clmNombreTipo.Name = "clmNombreTipo";
             this.clmNombreTipo.ReadOnly = true;
@@ -642,9 +642,9 @@
             // clmEtiquetaPresentacionTipo
             // 
             this.clmEtiquetaPresentacionTipo.ContextMenuStrip = this.cntxMenuAcciones;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            this.clmEtiquetaPresentacionTipo.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            this.clmEtiquetaPresentacionTipo.DefaultCellStyle = dataGridViewCellStyle2;
             this.clmEtiquetaPresentacionTipo.HeaderText = "Etiqueta de Presentación";
             this.clmEtiquetaPresentacionTipo.Name = "clmEtiquetaPresentacionTipo";
             this.clmEtiquetaPresentacionTipo.ReadOnly = true;
@@ -652,9 +652,9 @@
             // clmTipoDato
             // 
             this.clmTipoDato.ContextMenuStrip = this.cntxMenuAcciones;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            this.clmTipoDato.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            this.clmTipoDato.DefaultCellStyle = dataGridViewCellStyle3;
             this.clmTipoDato.HeaderText = "Tipo de Dato";
             this.clmTipoDato.Name = "clmTipoDato";
             this.clmTipoDato.ReadOnly = true;
@@ -662,9 +662,9 @@
             // clmRequisito
             // 
             this.clmRequisito.ContextMenuStrip = this.cntxMenuAcciones;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            this.clmRequisito.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            this.clmRequisito.DefaultCellStyle = dataGridViewCellStyle4;
             this.clmRequisito.HeaderText = "Requerido";
             this.clmRequisito.Name = "clmRequisito";
             this.clmRequisito.ReadOnly = true;
@@ -672,9 +672,9 @@
             // clmValorDefault
             // 
             this.clmValorDefault.ContextMenuStrip = this.cntxMenuAcciones;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            this.clmValorDefault.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            this.clmValorDefault.DefaultCellStyle = dataGridViewCellStyle5;
             this.clmValorDefault.HeaderText = "Valor por Defecto";
             this.clmValorDefault.Name = "clmValorDefault";
             this.clmValorDefault.ReadOnly = true;
@@ -682,9 +682,9 @@
             // clmMultiplesValores
             // 
             this.clmMultiplesValores.ContextMenuStrip = this.cntxMenuAcciones;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
-            this.clmMultiplesValores.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.InactiveBorder;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            this.clmMultiplesValores.DefaultCellStyle = dataGridViewCellStyle6;
             this.clmMultiplesValores.HeaderText = "Múltiples Valores";
             this.clmMultiplesValores.Name = "clmMultiplesValores";
             this.clmMultiplesValores.ReadOnly = true;

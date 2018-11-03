@@ -10,8 +10,14 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
 {
     class AspectosPersonalizadosServicio : IAspectosPersonalizados
     {
-        const string URL_BASE = "http://127.0.0.1:8090/alfresco/api/-default-/private/alfresco/versions/1";
-        RestClient cliente = new RestClient(URL_BASE);
+        string URL_BASE = "/alfresco/api/-default-/private/alfresco/versions/1";
+        RestClient cliente;
+
+        public AspectosPersonalizadosServicio()
+        {
+            URL_BASE = Properties.Settings.Default.URL_SERVIDOR + URL_BASE;
+            cliente = new RestClient(URL_BASE);
+        }
 
         public async Task<string> ObtenerAspectos(string nombreModelo)
         {
