@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrabajoTitulacion.Modelos.CoreAPI;
@@ -41,28 +35,34 @@ namespace TrabajoTitulacion.IU
             catch(UnauthorizedAccessException)
             {                
                 MessageBox.Show("Lo sentimos, ocurrió un error al cargar sus datos");
-                Logout();
+                await Logout();
             }
         }
 
 
 
         /// <summary>
-        /// Añade los formularios hijos al formulario principal, asigna indices a cada form, 0:Inicio, 1:Repositorio, etc
+        /// Añade los formularios hijos al formulario principal, asigna indices a cada form, 
+        /// 0:Inicio, 1:Repositorio, etc. Para evitar crear múltiples veces y mantener el estado.
         /// </summary>
         private void AñadirFormsHijos()
         {
             FInicio fInicio = new FInicio();
             fInicio.MdiParent = this;
-            FRepositorio fRespositorio = new FRepositorio();            
+            FRepositorio fRespositorio = new FRepositorio();
             fRespositorio.MdiParent = this;
             FGestorModelos fGestorModelos = new FGestorModelos();
             fGestorModelos.MdiParent = this;
             FSync fSync = new FSync();
             fSync.MdiParent = this;
+            FBusqueda fBusqueda = new FBusqueda();
+            fBusqueda.MdiParent = this;
             //forms to add            
         }
-
+                
+        /// <summary>
+        /// Abre el formulario de FInicio
+        /// </summary>
         public void AbrirInicio()
         {
             EsconderFormsNoActuales(0);
@@ -70,18 +70,28 @@ namespace TrabajoTitulacion.IU
             MdiChildren[0].Show();
         }
 
+        /// <summary>
+        /// Abre el repositorio de Usuario (FRepositorio)
+        /// </summary>
         public void AbrirRepositorio()
         {
             EsconderFormsNoActuales(1);
             MdiChildren[1].Dock = DockStyle.Fill;
             MdiChildren[1].Show();
         }
+
+        /// <summary>
+        /// Abre el gestor de modelos (FModelos) y esconde los demás
+        /// </summary>
         public void AbrirGestorModelos()
         {
             EsconderFormsNoActuales(2);
             MdiChildren[2].Dock = DockStyle.Fill;
             MdiChildren[2].Show();
         }
+        /// <summary>
+        /// Abre el formulario de sincronización (FSync)
+        /// </summary>
         public void AbrirSincronizacion()
         {
             EsconderFormsNoActuales(3);
@@ -89,6 +99,17 @@ namespace TrabajoTitulacion.IU
             MdiChildren[3].Show();
         }
 
+        public void AbrirBusqueda()
+        {
+            EsconderFormsNoActuales(4);
+            MdiChildren[4].Dock = DockStyle.Fill;
+            MdiChildren[4].Show();
+        }
+
+        /// <summary>
+        /// Esconde los formularios que no han sido seleccionados, mantiene su estado
+        /// </summary>
+        /// <param name="indiceForm"></param>
         private void EsconderFormsNoActuales(int indiceForm)
         {
             foreach (var formHijo in MdiChildren)
@@ -99,11 +120,16 @@ namespace TrabajoTitulacion.IU
         }
 
 
-        private void Logout()
+        /// <summary>
+        /// Se elimina ticket de autenticación local y remoto
+        /// </summary>
+        /// <returns></returns>
+        private async Task Logout()
         {
             try
             {
-                AutenticacionStatic.Logout(idPersona);
+                //Se envía petición para cerrar sesión
+                await AutenticacionStatic.Logout(idPersona);
                 MessageBox.Show("Su sesión ha sido finalizada correctamente");
 
             }
@@ -113,16 +139,17 @@ namespace TrabajoTitulacion.IU
             }
             finally
             {
-                FPrincipal fprincipal = new FPrincipal();
+                //De cualquier manera, cuando se cierra sesión, se abre el FPrincipal (De inicio de sesión)
+                FLogin fprincipal = new FLogin();
                 Hide();
                 fprincipal.ShowDialog();
                 Close();
             }
         }
 
-        private void cerrarSesiónToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private async Task cerrarSesiónToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            Logout();
+            await Logout();
         }
 
 
@@ -145,6 +172,11 @@ namespace TrabajoTitulacion.IU
         private void tlstripMenuSincronizacion_Click(object sender, EventArgs e)
         {
             AbrirSincronizacion();
+        }
+
+        private void tlstripMenuBusqueda_Click(object sender, EventArgs e)
+        {
+            AbrirBusqueda();
         }
     }
 }

@@ -10,9 +10,6 @@ namespace TrabajoTitulacion.Servicios
     class AutenticacionStatic
     {
 
-        /// <summary>
-        /// Encapsulación del atributo ticket
-        /// </summary>
         public static string Ticket { get; set; }
         private static AutenticacionServicio servicioAuth = new AutenticacionServicio();
 
@@ -30,10 +27,15 @@ namespace TrabajoTitulacion.Servicios
             return respuestaJson;
         }
 
-        public async static Task<string> Logout(string userId)
+        /// <summary>
+        /// Logout. Se elimina el token local y remoto
+        /// </summary>
+        /// <param name="nombreUsuario">Nombre de usuario</param>
+        /// <returns></returns>
+        public async static Task<string> Logout(string nombreUsuario)
         {
             Ticket = "";
-            return await servicioAuth.Logout(userId);
+            return await servicioAuth.Logout(nombreUsuario);
             
         }
     }

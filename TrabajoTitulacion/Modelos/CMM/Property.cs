@@ -12,7 +12,7 @@ namespace TrabajoTitulacion.Modelos.CMM
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
         [JsonProperty(PropertyName = "title")]
-        public string Title { get; set; }//Etiqueta de presentación
+        public string Title { get; set; }
         [JsonProperty(PropertyName = "dataType")]
         public string Datatype { get; set; }
         [JsonProperty(PropertyName = "indexed")]
@@ -57,6 +57,11 @@ namespace TrabajoTitulacion.Modelos.CMM
             Title = title;
             Description = description;
             Datatype = datatype;
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

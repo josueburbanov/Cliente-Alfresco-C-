@@ -1,6 +1,6 @@
 ﻿namespace TrabajoTitulacion.UI
 {
-    partial class FPrincipal
+    partial class FLogin
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FPrincipal));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FLogin));
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblErrorAutenticacion = new System.Windows.Forms.Label();
             this.btnIngresar = new System.Windows.Forms.Button();

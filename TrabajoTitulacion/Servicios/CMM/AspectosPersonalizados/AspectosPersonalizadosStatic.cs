@@ -75,8 +75,8 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
 
             //Se deserializa y luego serializa para obtener una lista de aspectos (Elimina metadatos de descarga)
             dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
-            string tipoPersonalizadoJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);
-            return JsonConvert.DeserializeObject<Aspect>(tipoPersonalizadoJson);
+            string aspectoPersonalizadoJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);
+            return JsonConvert.DeserializeObject<Aspect>(aspectoPersonalizadoJson);
         }
         public async static Task AñadirPropiedadeAspecto(string nombreModelo, string nombreAspecto, PropertiesBodyUpdate propertiesBodyCreate)
         {

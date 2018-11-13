@@ -16,7 +16,7 @@ namespace TrabajoTitulacion.Servicios.Core.Personas
         public PersonasServicio()
         {
             URL_BASE = Properties.Settings.Default.URL_SERVIDOR + "alfresco/api/-default-/public/alfresco/versions/1";
-            RestClient cliente = new RestClient(URL_BASE);
+            cliente = new RestClient(URL_BASE);
         }
 
         /// <summary>

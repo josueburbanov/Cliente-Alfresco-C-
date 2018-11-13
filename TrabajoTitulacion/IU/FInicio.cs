@@ -36,7 +36,8 @@ namespace TrabajoTitulacion.IU
 
         private void btnBusqueda_Click(object sender, EventArgs e)
         {
-
+            var mdiParent = MdiParent as FDashboard;
+            mdiParent.AbrirBusqueda();
         }
 
         private async void FInicio_Load(object sender, EventArgs e)

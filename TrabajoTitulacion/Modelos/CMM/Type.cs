@@ -25,5 +25,10 @@ namespace TrabajoTitulacion.Modelos.CMM
         {
             ModeloPerteneciente = new Model();
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

@@ -164,6 +164,7 @@
             this.tlstripMenuBusqueda.Name = "tlstripMenuBusqueda";
             this.tlstripMenuBusqueda.Size = new System.Drawing.Size(93, 21);
             this.tlstripMenuBusqueda.Text = "Búsqueda";
+            this.tlstripMenuBusqueda.Click += new System.EventHandler(this.tlstripMenuBusqueda_Click);
             // 
             // tlstripMenuSincronizacion
             // 

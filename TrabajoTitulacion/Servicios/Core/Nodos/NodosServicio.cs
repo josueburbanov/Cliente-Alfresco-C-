@@ -17,6 +17,17 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
             cliente = new RestClient(URL_BASE);
         }
 
+        /// <summary>
+        /// Actualiza el contenido de un Nodo
+        /// </summary>
+        /// <param name="idNodo">Id del nodo</param>
+        /// <param name="majorVersion">True inicia una versión, false es mantiene el subversionamiento anterior</param>
+        /// <param name="comment">Comentario de la nueva versión</param>
+        /// <param name="name">Nuevo nombre del contenido</param>
+        /// <param name="include"></param>
+        /// <param name="fields"></param>
+        /// <param name="contentBodyUpdate">Contenido del nodo a actualizar</param>
+        /// <returns></returns>
         public async Task<string> ActualizarContenido(string idNodo, bool majorVersion, string comment, string name, string[] include, string[] fields, byte[] contentBodyUpdate)
         {
             var solicitud = new RestRequest(Method.PUT);
@@ -34,6 +45,12 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
             return contenidoRespuesta;
         }
 
+        /// <summary>
+        /// Actualiza un nodo
+        /// </summary>
+        /// <param name="idNodo">Id del nodo</param>
+        /// <param name="nodoActualizar">Nodo a actualizar en formato JSON</param>
+        /// <returns></returns>
         public async Task<string> ActualizarNodo(string idNodo, string nodoActualizar)
         {
             var solicitud = new RestRequest(Method.PUT);
@@ -46,6 +63,12 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
             return contenidoRespuesta;
         }
 
+        /// <summary>
+        /// Crea un nodo
+        /// </summary>
+        /// <param name="idNodoPadre">Id del nodo padre</param>
+        /// <param name="nodoCreate">nodo JSON a crear</param>
+        /// <returns></returns>
         public async Task<string> CrearNodo(string idNodoPadre, string nodoCreate)
         {
             var solicitud = new RestRequest(Method.POST);

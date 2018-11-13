@@ -120,5 +120,10 @@ namespace TrabajoTitulacion.Modelos.CMM
             aspects.Add(authorAspect);
             return aspects;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

@@ -39,6 +39,11 @@ namespace TrabajoTitulacion.Servicios
             return contenidoRespuesta;
         }
 
+        /// <summary>
+        /// Elimina un token autenticado
+        /// </summary>
+        /// <param name="userId">Nombre de usuario</param>
+        /// <returns></returns>
         public async Task<string> Logout(string userId)
         {
             var solicitud = new RestRequest(Method.DELETE);

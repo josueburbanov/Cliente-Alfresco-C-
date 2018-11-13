@@ -20,6 +20,11 @@ namespace TrabajoTitulacion.Modelos.CMM
         [JsonProperty(PropertyName = "status")]
         public string Status { get; set; }
         [JsonProperty(PropertyName = "description")]
-        public string Description { get; set; }        
+        public string Description { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

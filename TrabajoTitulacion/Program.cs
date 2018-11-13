@@ -13,7 +13,7 @@ namespace TrabajoTitulacion.UI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FPrincipal());
+            Application.Run(new FLogin());
         }
     }
 }

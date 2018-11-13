@@ -9,7 +9,9 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
         Task<byte[]> ObtenerContenido(string idNodo);
         Task<string> ActualizarNodo(string idNodo, string nodoJson);
         Task<string> CrearNodo(string idNodoPadre, string nodoCreate);
-        Task<string> ActualizarContenido(string idNodo, bool majorVersion, string comment, string name, string[] include, string[] fields, byte[] contentBodyUpdate);
+        Task<string> ActualizarContenido(string idNodo, bool majorVersion, 
+            string comment, string name, string[] include, string[] fields, byte[] contentBodyUpdate);
         Task<string> EliminarNodo(string idNodo);
     }
 }
+

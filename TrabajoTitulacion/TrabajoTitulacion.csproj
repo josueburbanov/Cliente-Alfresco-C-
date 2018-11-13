@@ -143,6 +143,12 @@
     <Compile Include="IU\FAspectos.Designer.cs">
       <DependentUpon>FAspectos.cs</DependentUpon>
     </Compile>
+    <Compile Include="IU\FBusqueda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IU\FBusqueda.Designer.cs">
+      <DependentUpon>FBusqueda.cs</DependentUpon>
+    </Compile>
     <Compile Include="IU\FDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,11 +179,11 @@
     <Compile Include="IU\FModelos.Designer.cs">
       <DependentUpon>FModelos.cs</DependentUpon>
     </Compile>
-    <Compile Include="IU\FPrincipal.cs">
+    <Compile Include="IU\FLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="IU\FPrincipal.Designer.cs">
-      <DependentUpon>FPrincipal.cs</DependentUpon>
+    <Compile Include="IU\FLogin.Designer.cs">
+      <DependentUpon>FLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="IU\FLoading.cs">
       <SubType>Form</SubType>
@@ -232,6 +238,53 @@
     <Compile Include="Modelos\CoreAPI\PermissionsInfo.cs" />
     <Compile Include="Modelos\CoreAPI\Person.cs" />
     <Compile Include="Modelos\CoreAPI\UserInfo.cs" />
+    <Compile Include="Modelos\SearchAPI\ContentInfo.cs" />
+    <Compile Include="Modelos\SearchAPI\Error.cs" />
+    <Compile Include="Modelos\SearchAPI\ErrorError.cs" />
+    <Compile Include="Modelos\SearchAPI\ErrorException.cs" />
+    <Compile Include="Modelos\SearchAPI\GenericBucket.cs" />
+    <Compile Include="Modelos\SearchAPI\GenericBucketBucketInfo.cs" />
+    <Compile Include="Modelos\SearchAPI\GenericFacetResponse.cs" />
+    <Compile Include="Modelos\SearchAPI\GenericMetric.cs" />
+    <Compile Include="Modelos\SearchAPI\Node.cs" />
+    <Compile Include="Modelos\SearchAPI\Pagination.cs" />
+    <Compile Include="Modelos\SearchAPI\PathElement.cs" />
+    <Compile Include="Modelos\SearchAPI\PathInfo.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestDefaults.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestFacetField.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestFacetFields.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestFacetIntervals.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestFacetIntervalsIntervalsItem.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestFacetQueriesItem.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestFacetSet.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestFilterQueriesItem.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestHighlight.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestHighlightFieldsItem.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestLimits.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestLocalization.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestPagination.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestPivot.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestQuery.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestRange.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestScope.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestSortDefinitionItem.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestSpellcheck.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestStats.cs" />
+    <Compile Include="Modelos\SearchAPI\RequestTemplatesItem.cs" />
+    <Compile Include="Modelos\SearchAPI\ResponseConsistency.cs" />
+    <Compile Include="Modelos\SearchAPI\ResultBuckets.cs" />
+    <Compile Include="Modelos\SearchAPI\ResultBucketsBucketsItem.cs" />
+    <Compile Include="Modelos\SearchAPI\ResultNode.cs" />
+    <Compile Include="Modelos\SearchAPI\ResultSetContext.cs" />
+    <Compile Include="Modelos\SearchAPI\ResultSetContextFacetQueriesItem.cs" />
+    <Compile Include="Modelos\SearchAPI\ResultSetContextSpellcheckItem.cs" />
+    <Compile Include="Modelos\SearchAPI\ResultSetPaging.cs" />
+    <Compile Include="Modelos\SearchAPI\ResultSetPagingList.cs" />
+    <Compile Include="Modelos\SearchAPI\ResultSetRowEntry.cs" />
+    <Compile Include="Modelos\SearchAPI\SearchEntry.cs" />
+    <Compile Include="Modelos\SearchAPI\SearchEntryHighlightItem.cs" />
+    <Compile Include="Modelos\SearchAPI\SearchRequest.cs" />
+    <Compile Include="Modelos\SearchAPI\UserInfo.cs" />
     <Compile Include="Modelos\Sync\NodoLocal.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -253,6 +306,9 @@
     <Compile Include="Servicios\Core\Personas\PersonasServicio.cs" />
     <Compile Include="Servicios\Core\Personas\PersonasStatic.cs" />
     <Compile Include="Servicios\IAutenticacion.cs" />
+    <Compile Include="Servicios\Search\BusquedaServicio.cs" />
+    <Compile Include="Servicios\Search\BusquedaStatic.cs" />
+    <Compile Include="Servicios\Search\IBusqueda.cs" />
     <Compile Include="Settings.cs" />
     <EmbeddedResource Include="IU\CtrluContenido.resx">
       <DependentUpon>CtrluContenido.cs</DependentUpon>
@@ -262,6 +318,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IU\FAspectos.resx">
       <DependentUpon>FAspectos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IU\FBusqueda.resx">
+      <DependentUpon>FBusqueda.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IU\FDashboard.resx">
       <DependentUpon>FDashboard.cs</DependentUpon>
@@ -278,8 +337,8 @@
     <EmbeddedResource Include="IU\FModelos.resx">
       <DependentUpon>FModelos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IU\FPrincipal.resx">
-      <DependentUpon>FPrincipal.cs</DependentUpon>
+    <EmbeddedResource Include="IU\FLogin.resx">
+      <DependentUpon>FLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IU\FLoading.resx">
       <DependentUpon>FLoading.cs</DependentUpon>

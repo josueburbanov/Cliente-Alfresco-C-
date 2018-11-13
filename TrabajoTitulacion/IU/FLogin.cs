@@ -6,10 +6,10 @@ using TrabajoTitulacion.Servicios;
 
 namespace TrabajoTitulacion.UI
 {
-    public partial class FPrincipal : Form
+    public partial class FLogin : Form
     {
         FLoading fPrincipalLoading = new FLoading();
-        public FPrincipal()
+        public FLogin()
         {
             InitializeComponent();
         }
@@ -27,6 +27,26 @@ namespace TrabajoTitulacion.UI
             IngresarDashboard();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private async Task Login()
+        {
+            try
+            {
+                //autenticación asíncrona
+                await AutenticacionStatic.Login(txtNombreUsuario.Text, txtContraseña.Text);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                //Autenticación no exitosa. Mensaje de error y limpieza de campos
+                lblErrorAutenticacion.Visible = true;
+                txtContraseña.Clear();
+                txtNombreUsuario.Clear();
+            }
+        }
+        
         private async void txtNombreUsuario_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -44,20 +64,7 @@ namespace TrabajoTitulacion.UI
             }
         }
 
-        private async Task Login()
-        {
-            try
-            {
-                await AutenticacionStatic.Login(txtNombreUsuario.Text, txtContraseña.Text);
-            }
-            catch (UnauthorizedAccessException)
-            {
-                lblErrorAutenticacion.Visible = true;
-                txtContraseña.Clear();
-                txtNombreUsuario.Clear();
-            }
-        }
-
+       
         private void IngresarDashboard()
         {
             lblErrorAutenticacion.Visible = false;

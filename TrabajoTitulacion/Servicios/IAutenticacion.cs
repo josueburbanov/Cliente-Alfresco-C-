@@ -12,3 +12,4 @@ namespace TrabajoTitulacion.Servicios
         Task<string> Logout(string idUsuario);
     }
 }
+
