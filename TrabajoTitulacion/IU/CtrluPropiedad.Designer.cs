@@ -33,16 +33,20 @@ namespace TrabajoTitulacion.IU
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblNombrePropiedad = new System.Windows.Forms.Label();
             this.txtValorPropiedad = new System.Windows.Forms.TextBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.dtpValorPropiedad = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 351F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.lblNombrePropiedad, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.txtValorPropiedad, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -59,7 +63,7 @@ namespace TrabajoTitulacion.IU
             this.lblNombrePropiedad.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombrePropiedad.Location = new System.Drawing.Point(3, 0);
             this.lblNombrePropiedad.Name = "lblNombrePropiedad";
-            this.lblNombrePropiedad.Size = new System.Drawing.Size(127, 14);
+            this.lblNombrePropiedad.Size = new System.Drawing.Size(107, 14);
             this.lblNombrePropiedad.TabIndex = 0;
             this.lblNombrePropiedad.Text = "Nombre Propiedad:";
             // 
@@ -70,11 +74,29 @@ namespace TrabajoTitulacion.IU
             this.txtValorPropiedad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtValorPropiedad.Enabled = false;
             this.txtValorPropiedad.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtValorPropiedad.Location = new System.Drawing.Point(136, 3);
+            this.txtValorPropiedad.Location = new System.Drawing.Point(3, 3);
             this.txtValorPropiedad.Name = "txtValorPropiedad";
             this.txtValorPropiedad.Size = new System.Drawing.Size(345, 21);
             this.txtValorPropiedad.TabIndex = 1;
             this.txtValorPropiedad.Text = "Valor Propiedad";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.txtValorPropiedad);
+            this.flowLayoutPanel1.Controls.Add(this.dtpValorPropiedad);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(116, 3);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(345, 33);
+            this.flowLayoutPanel1.TabIndex = 2;
+            // 
+            // dtpValorPropiedad
+            // 
+            this.dtpValorPropiedad.Location = new System.Drawing.Point(3, 30);
+            this.dtpValorPropiedad.Name = "dtpValorPropiedad";
+            this.dtpValorPropiedad.Size = new System.Drawing.Size(345, 20);
+            this.dtpValorPropiedad.TabIndex = 2;
+            this.dtpValorPropiedad.Visible = false;
             // 
             // CtrluPropiedad
             // 
@@ -85,6 +107,8 @@ namespace TrabajoTitulacion.IU
             this.Size = new System.Drawing.Size(484, 39);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -94,6 +118,8 @@ namespace TrabajoTitulacion.IU
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label lblNombrePropiedad;
         private System.Windows.Forms.TextBox txtValorPropiedad;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private DateTimePicker dtpValorPropiedad;
 
         public Label LblNombrePropiedad { get => lblNombrePropiedad; set => lblNombrePropiedad = value; }
         public TextBox TxtValorPropiedad { get => txtValorPropiedad; set => txtValorPropiedad = value; }

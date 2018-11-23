@@ -9,7 +9,11 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrabajoTitulacion.Modelos.CMM;
+using TrabajoTitulacion.Modelos.CoreAPI;
+using TrabajoTitulacion.Modelos.Utils;
 using TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados;
+using TrabajoTitulacion.Servicios.Core.Personas;
+using TrabajoTitulacion.Servicios.Group;
 
 namespace TrabajoTitulacion.IU
 {
@@ -23,74 +27,142 @@ namespace TrabajoTitulacion.IU
         public FModelos(FGestorModelos formPrincipal)
         {
             InitializeComponent();
-            this.fgestorModelos= formPrincipal;
+            this.fgestorModelos = formPrincipal;
         }
 
 
         private async void FModelos_Load(object sender, EventArgs e)
         {
-            await PoblarDtgvModelos();
+            await PoblarDtgvModelos("Sin filtro");
         }
         /// <summary>
         /// Pobla el datagridView con los modelos de usuario
         /// </summary>
         /// <returns></returns>
-        private async Task PoblarDtgvModelos()
+        private async Task PoblarDtgvModelos(string filtro)
         {
-            List<Model> modelos = await ModelosPersonalizadosStatic.ObtenerModelosPersonalizados();
+            List<Model> modelos = new List<Model>();
+            if (filtro == "Autor")
+            {
+                modelos = await ModelosPersonalizadosStatic.ObtenerModelosPersonalizadosxAuthor();
+                lblFiltradoPor.Text = "Filtrado por: Mis modelos";
+            }
+            else if (filtro == "Sin filtro")
+            {
+                modelos = await ModelosPersonalizadosStatic.ObtenerModelosPersonalizados();
+                lblFiltradoPor.Text = "Filtrado por: Sin filtro";
+            }
+            else if (filtro == "Activos")
+            {
+                modelos = await ModelosPersonalizadosStatic.ObtenerModelosPersonalizados();
+                List<Model> modelosActivos = new List<Model>();
+                foreach (var item in modelos)
+                {
+                    if (item.Status == "ACTIVE")
+                    {
+                        modelosActivos.Add(item);
+                    }
+                }
+                modelos = modelosActivos;
+                lblFiltradoPor.Text = "Filtrado por: Activos";
+            }
+            else if (filtro == "Desactivados")
+            {
+                modelos = await ModelosPersonalizadosStatic.ObtenerModelosPersonalizados();
+                List<Model> modelosActivos = new List<Model>();
+                foreach (var item in modelos)
+                {
+                    if (item.Status != "ACTIVE")
+                    {
+                        modelosActivos.Add(item);
+                    }
+                }
+                modelos = modelosActivos;
+                lblFiltradoPor.Text = "Filtrado por: Desactivados";
+            }
+
             dtgviewDatos.AutoGenerateColumns = false;
             dtgviewDatos.DataSource = modelos;
             dtgviewDatos.Columns["clmNombreModelo"].DataPropertyName = "Name";
             dtgviewDatos.Columns["clmEspacioNombres"].DataPropertyName = "NamespaceUri";
+            dtgviewDatos.Columns["clmAuthor"].DataPropertyName = "Author";
             dtgviewDatos.Columns["clmEstadoModelo"].DataPropertyName = "Status";
         }
 
         private async void btnAceptarModelo_Click(object sender, EventArgs e)
         {
-            if (btnAceptarModelo.Text == "Crear")
+            if (string.IsNullOrEmpty(txtNombreModelo.Text) || string.IsNullOrEmpty(txtEspacioModelo.Text) || string.IsNullOrEmpty(txtPrefijoModelo.Text))
             {
-                Model modelo = new Model();
-                modelo.Name = txtNombreModelo.Text;
-                modelo.NamespaceUri = txtEspacioModelo.Text;
-                modelo.NamespacePrefix = txtPrefijoModelo.Text;
-                modelo.Description = txtDescripcionModelo.Text;
-                var mdiParent = MdiParent as FDashboard;
-                string autorModelo = mdiParent.PersonaActual.FirstName + mdiParent.PersonaActual.LastName;
-                modelo.Author = autorModelo;
-                modelo.Status = "DRAFT";
-                FLoading fPrincipalLoading = new FLoading();
-                fPrincipalLoading.Show();
-                await ModelosPersonalizadosStatic.CrearModeloPersonalizado(modelo);
-                fPrincipalLoading.Close();
-                MessageBox.Show("El nuevo modelo ha sido creado con éxito");
-                await PoblarDtgvModelos();
-                dtgviewDatos.Refresh();
-                panelModelo.Visible = false;
+                MessageBox.Show("Es obligatorio llenar los campos: Nombre, Espacio de Nombres y Prefijo ", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
             }
-            else if (btnAceptarModelo.Text == "Editar")
+
+            else
             {
-                Model modelo = new Model();
-                modelo.Name = txtNombreModelo.Text;
-                modelo.NamespaceUri = txtEspacioModelo.Text;
-                modelo.NamespacePrefix = txtPrefijoModelo.Text;
-                modelo.Description = txtDescripcionModelo.Text;
-                var mdiParent = MdiParent as FDashboard;
-                FLoading fPrincipalLoading = new FLoading();
-                fPrincipalLoading.Show();
-                await ModelosPersonalizadosStatic.ActualizarModeloPersonalizado(modelo);
-                fPrincipalLoading.Close();
-                MessageBox.Show("El modelo " + modelo.Name + " ha sido actualizado con éxito");
-                await PoblarDtgvModelos();
-                dtgviewDatos.Refresh();
-                panelModelo.Visible = false;
-                PlantillaNuevoModelo();
+                if (btnAceptarModelo.Text == "Crear")
+                {
+                    FLoading fPrincipalLoading = new FLoading();
+                    try
+                    {
+                        Model modelo = new Model();
+                        modelo.Name = txtNombreModelo.Text;
+                        modelo.NamespaceUri = txtEspacioModelo.Text;
+                        modelo.NamespacePrefix = txtPrefijoModelo.Text;
+                        modelo.Description = txtDescripcionModelo.Text;
+                        var mdiParent = MdiParent as FDashboard;
+                        string autorModelo = PersonasStatic.PersonaAutenticada.FirstName + PersonasStatic.PersonaAutenticada.LastName;
+                        modelo.Author = autorModelo;
+                        modelo.Status = "DRAFT";
+                        fPrincipalLoading.Show();
+                        await ModelosPersonalizadosStatic.CrearModeloPersonalizado(modelo);
+                        fPrincipalLoading.Close();
+                        MessageBox.Show("El nuevo modelo ha sido creado con éxito");
+                        await PoblarDtgvModelos("Sin filtro");
+                        dtgviewDatos.Refresh();
+                        panelModelo.Visible = false;
+                    }
+                    catch (ModelException exception)
+                    {
+                        if (exception.Codigo == 409)
+                        {
+                            MessageBox.Show("Uno de los nombres especificados ya se está utlizando", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            fPrincipalLoading.Close();
+                        }
+                    }
+
+                }
+                else if (btnAceptarModelo.Text == "Editar")
+                {
+                    FLoading fPrincipalLoading = new FLoading();
+                    try
+                    {
+                        Model modelo = new Model();
+                        modelo.Name = txtNombreModelo.Text;
+                        modelo.NamespaceUri = txtEspacioModelo.Text;
+                        modelo.NamespacePrefix = txtPrefijoModelo.Text;
+                        modelo.Description = txtDescripcionModelo.Text;
+                        var mdiParent = MdiParent as FDashboard;
+                        fPrincipalLoading.Show();
+                        await ModelosPersonalizadosStatic.ActualizarModeloPersonalizado(modelo);
+                        fPrincipalLoading.Close();
+                        MessageBox.Show("El modelo " + modelo.Name + " ha sido actualizado con éxito");
+                        await PoblarDtgvModelos("Sin filtro");
+                        dtgviewDatos.Refresh();
+                        panelModelo.Visible = false;
+                        PlantillaNuevoModelo();
+                    }
+                    catch (ModelException exception)
+                    {
+                        if (exception.Codigo == 409)
+                        {
+                            MessageBox.Show("Uno de los nombres especificados ya se está utlizando", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            fPrincipalLoading.Close();
+                        }
+                    }
+                }
             }
         }
 
-        private void btnNuevoModelo_Click(object sender, EventArgs e)
-        {
-            PlantillaNuevoModelo();
-        }
         private void PlantillaNuevoModelo()
         {
             txtNombreModelo.Enabled = true;
@@ -103,14 +175,30 @@ namespace TrabajoTitulacion.IU
             txtDescripcionModelo.Clear();
         }
 
-        private void tlstripCrearModelo_Click(object sender, EventArgs e)
+        private async void tlstripCrearModelo_Click(object sender, EventArgs e)
         {
-            PlantillaNuevoModelo();
+            List<GroupMember> groupMembers = await GruposStatic.ObtenerMiembrosGrupoAdministradorModelos();
+            if (!(groupMembers.Find(x => x.Id == PersonasStatic.PersonaAutenticada.Id) is null))
+            {
+                PlantillaNuevoModelo();
+            }
+            else
+            {
+                MessageBox.Show("No tiene los permisos suficientes para realizar esta acción. Usted no pertenece al grupo ALFRESCO_MODEL_ADMINISTRATORS.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
-        private void tlstripEditar_Click(object sender, EventArgs e)
+        private async void tlstripEditar_Click(object sender, EventArgs e)
         {
-            PlantillaEditarModelo();
+            List<GroupMember> groupMembers = await GruposStatic.ObtenerMiembrosGrupoAdministradorModelos();
+            if (!(groupMembers.Find(x => x.Id == PersonasStatic.PersonaAutenticada.Id) is null))
+            {
+                PlantillaEditarModelo();
+            }
+            else
+            {
+                MessageBox.Show("No tiene los permisos suficientes para realizar esta acción. Usted no pertenece al grupo ALFRESCO_MODEL_ADMINISTRATORS.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
         private async void PlantillaEditarModelo()
         {
@@ -153,25 +241,29 @@ namespace TrabajoTitulacion.IU
             await ModelosPersonalizadosStatic.CambiarEstadoModeloPersonalizado(modeloCambiarEstado);
             fPrincipalLoading.Close();
             MessageBox.Show("El modelo " + modeloCambiarEstado.Name + " ha sido cambiado de estado");
-            await PoblarDtgvModelos();
+            await PoblarDtgvModelos("Sin filtro");
             dtgviewDatos.Refresh();
         }
 
         private async void tlstripEliminar_Click(object sender, EventArgs e)
         {
-            FLoading fPrincipalLoading = new FLoading();
-            fPrincipalLoading.Show();
-            await ModelosPersonalizadosStatic.EliminarModeloPersonalizado(
-                dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
-            fPrincipalLoading.Close();
-            MessageBox.Show("El modelo ha sido eliminado");
-            await PoblarDtgvModelos();
-            dtgviewDatos.Refresh();
-        }
+            List<GroupMember> groupMembers = await GruposStatic.ObtenerMiembrosGrupoAdministradorModelos();
+            if (!(groupMembers.Find(x => x.Id == PersonasStatic.PersonaAutenticada.Id) is null))
+            {
+                FLoading fPrincipalLoading = new FLoading();
+                fPrincipalLoading.Show();
+                await ModelosPersonalizadosStatic.EliminarModeloPersonalizado(
+                    dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
+                fPrincipalLoading.Close();
+                MessageBox.Show("El modelo ha sido eliminado exitosamente", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                await PoblarDtgvModelos("Sin filtro");
+                dtgviewDatos.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("No tiene los permisos suficientes para realizar esta acción. Usted no pertenece al grupo ALFRESCO_MODEL_ADMINISTRATORS.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
-        private void btnCerrarPlantilla_Click(object sender, EventArgs e)
-        {
-            panelModelo.Visible = false;
         }
 
         private async void tlstripTiposPersonalizados_Click(object sender, EventArgs e)
@@ -179,11 +271,6 @@ namespace TrabajoTitulacion.IU
             Model modeloSeleccionado = await ModelosPersonalizadosStatic.ObtenerModeloPersonalizado(
                 dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
             fgestorModelos.AbrirTipos(modeloSeleccionado);
-        }
-
-        private void btnNuevoModeloNav_Click(object sender, EventArgs e)
-        {
-            PlantillaNuevoModelo();
         }
 
         private void btnVolverInicio_Click(object sender, EventArgs e)
@@ -207,13 +294,76 @@ namespace TrabajoTitulacion.IU
 
         private void txtNombreModelo_TextChanged(object sender, EventArgs e)
         {
-            if ((new Regex("^(?!(.*[\\\"\\*\\\\\\>\\<\\?\\/\\:\\|]+.*) | (.*[\\.]?.*[\\.] +$)| (.*[ ] +$))")).IsMatch(txtNombreModelo.Text))
+
+        }
+
+        private async void tlstripCrearAspecto_Click(object sender, EventArgs e)
+        {
+            List<GroupMember> groupMembers = await GruposStatic.ObtenerMiembrosGrupoAdministradorModelos();
+            if (!(groupMembers.Find(x => x.Id == PersonasStatic.PersonaAutenticada.Id) is null))
             {
-                txtNombreModelo.ForeColor = Color.Black;
+                PlantillaNuevoModelo();
             }
             else
             {
-                txtNombreModelo.ForeColor = Color.Red;
+                MessageBox.Show("No tiene los permisos suficientes para realizar esta acción. Usted no pertenece al grupo ALFRESCO_MODEL_ADMINISTRATORS.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private async void autorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await PoblarDtgvModelos("Autor");
+        }
+
+        private async void sinFiltrosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await PoblarDtgvModelos("Sin filtro");
+        }
+
+        private async void activosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await PoblarDtgvModelos("Activos");
+        }
+
+        private async void desactivadosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await PoblarDtgvModelos("Desactivados");
+        }
+
+        private void txtNombreModelo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //permite el ingreso solo de numeros, letras mayusculas y minusculas, tecla de borrar , signo - y _
+            if ((e.KeyChar >= 48 && e.KeyChar <= 57) || (e.KeyChar >= 97 && e.KeyChar <= 122) || (e.KeyChar >= 65 && e.KeyChar <= 90) || (e.KeyChar == 8) || e.KeyChar == '-' || e.KeyChar == '_')
+                e.Handled = false;
+            else
+            {
+                MessageBox.Show("Utilice números, letras, guiones (-) y guiones bajos (_) solamente", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                e.Handled = true;
+                return;
+            }
+        }
+        private void txtPrefijoModelo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //permite el ingreso solo de numeros, letras mayusculas y minusculas, tecla de borrar , signo - y _
+            if ((e.KeyChar >= 48 && e.KeyChar <= 57) || (e.KeyChar >= 97 && e.KeyChar <= 122) || (e.KeyChar >= 65 && e.KeyChar <= 90) || (e.KeyChar == 8) || e.KeyChar == '-' || e.KeyChar == '_')
+                e.Handled = false;
+            else
+            {
+                MessageBox.Show("Utilice números, letras, guiones (-) y guiones bajos (_) solamente", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                e.Handled = true;
+                return;
+            }
+        }
+        private void txtEspacioModelo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //permite el ingreso solo de numeros, letras mayusculas y minusculas, tecla de borrar , signo - y _ además el punto '.'
+            if ((e.KeyChar >= 48 && e.KeyChar <= 57) || (e.KeyChar >= 97 && e.KeyChar <= 122) || (e.KeyChar >= 65 && e.KeyChar <= 90) || (e.KeyChar == 8) || e.KeyChar == '-' || e.KeyChar == '_' || e.KeyChar == '.')
+                e.Handled = false;
+            else
+            {
+                MessageBox.Show("Utilice números, letras y caracteres URI solamente", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                e.Handled = true;
+                return;
             }
         }
     }

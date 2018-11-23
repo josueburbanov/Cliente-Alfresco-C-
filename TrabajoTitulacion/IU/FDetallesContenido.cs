@@ -70,7 +70,7 @@ namespace TrabajoTitulacion.IU
 
                 //Propiedades(Metadatos):
 
-                //Del nodo:            
+                //Del nodo (principales):            
                 DibujarPropiedad("Nombre", nodoSeleccionado.Name, "ATRIBUTO");
 
                 if (!(nodoSeleccionado.Content is null))

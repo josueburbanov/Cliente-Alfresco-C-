@@ -1,4 +1,6 @@
-﻿namespace TrabajoTitulacion.IU
+﻿using System;
+
+namespace TrabajoTitulacion.IU
 {
     partial class FTipos
     {
@@ -181,6 +183,7 @@
             this.panelTipo.Padding = new System.Windows.Forms.Padding(23, 0, 23, 0);
             this.panelTipo.Size = new System.Drawing.Size(227, 466);
             this.panelTipo.TabIndex = 0;
+            this.panelTipo.Visible = false;
             // 
             // cmbxPadre
             // 
@@ -243,7 +246,7 @@
             // 
             this.btnAceptarTipo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAceptarTipo.Location = new System.Drawing.Point(77, 389);
+            this.btnAceptarTipo.Location = new System.Drawing.Point(77, 400);
             this.btnAceptarTipo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnAceptarTipo.Name = "btnAceptarTipo";
             this.btnAceptarTipo.Size = new System.Drawing.Size(90, 33);
@@ -318,6 +321,7 @@
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(89, 23);
             this.txtNombre.TabIndex = 0;
+            this.txtNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombre_KeyPress);
             // 
             // panel5
             // 
@@ -482,6 +486,7 @@
             this.tlstripPropiedades.Name = "tlstripPropiedades";
             this.tlstripPropiedades.Size = new System.Drawing.Size(180, 22);
             this.tlstripPropiedades.Text = "Propiedades...";
+            this.tlstripPropiedades.Click += new System.EventHandler(this.tlstripPropiedades_Click);
             // 
             // clmEtiquetaPresentacionTipo
             // 
@@ -532,6 +537,7 @@
             this.btnModeloNav.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.btnModeloNav.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnModeloNav.Enabled = false;
             this.btnModeloNav.FlatAppearance.BorderColor = System.Drawing.SystemColors.ButtonFace;
             this.btnModeloNav.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnModeloNav.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ButtonFace;
@@ -544,7 +550,7 @@
             this.btnModeloNav.Text = "Modelo";
             this.btnModeloNav.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnModeloNav.UseVisualStyleBackColor = true;
-            this.btnModeloNav.Click += new System.EventHandler(this.btnCrearTipo_Click);
+            this.btnModeloNav.Click += new System.EventHandler(this.btnModeloNav_Click);
             // 
             // btnVolverModelosNav
             // 
@@ -577,6 +583,7 @@
             this.tlstripCrearAspecto.Name = "tlstripCrearAspecto";
             this.tlstripCrearAspecto.Size = new System.Drawing.Size(129, 22);
             this.tlstripCrearAspecto.Text = "Crear Tipo";
+            this.tlstripCrearAspecto.Click += new System.EventHandler(this.tlstripCrearAspecto_Click);
             // 
             // FTipos
             // 
@@ -608,6 +615,8 @@
             this.ResumeLayout(false);
 
         }
+
+
 
         #endregion
 

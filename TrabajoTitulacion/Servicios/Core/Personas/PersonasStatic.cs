@@ -10,14 +10,16 @@ namespace TrabajoTitulacion.Servicios.Core.Personas
 {
     class PersonasStatic
     {
-        static PersonasServicio servicioPersonas = new PersonasServicio();
+        public static PersonasServicio servicioPersonas = new PersonasServicio();
+        public static Person PersonaAutenticada { get; set; }
         public async static Task<Person> ObtenerPersona(string idUsuario)
         {
             //Se serializa y deserializa con el fin de mapear correctamente los campos de Persona
             string respuestaJson = await servicioPersonas.ObtenerPersona(idUsuario);
             dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
-            string personaJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);            
-            return JsonConvert.DeserializeObject<Person>(personaJson);
+            string personaJson = JsonConvert.SerializeObject(respuestaDeserializada.entry);
+            PersonaAutenticada = JsonConvert.DeserializeObject<Person>(personaJson);
+            return PersonaAutenticada;
             
         }
     }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TrabajoTitulacion.Modelos.CMM;
 using TrabajoTitulacion.Modelos.Utils;
+using TrabajoTitulacion.Servicios.Core.Personas;
 
 namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
 {
@@ -30,6 +31,36 @@ namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
                 modelosPersonalizados.Add(modeloLimpio);
             }
             return modelosPersonalizados;
+        }
+
+        public static async Task<List<Model>> ObtenerModelosPersonalizadosxAuthor()
+        {
+            List<Model> modelosPersonalizados = new List<Model>();
+            ModelosPersonalizadosServicio modelosPersonalizadosServicio = new ModelosPersonalizadosServicio();
+            string respuestaJson = await modelosPersonalizadosServicio.ObtenerModelos();
+
+            //Se deserializa y luego serializa para obtener una lista de nodos (Elimina metadatos de descarga)
+            dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
+            string modelosPersonalizadosJson = JsonConvert.SerializeObject(respuestaDeserializada.list.entries);
+            dynamic modelosNoMapeados = JsonConvert.DeserializeObject(modelosPersonalizadosJson);
+
+            //Nota: No se deserializa directo, porque hay que eliminar metadatos de descarga de cada nodo
+            foreach (var modelo in modelosNoMapeados)
+            {
+                string modeloJson = JsonConvert.SerializeObject(modelo.entry);
+                Model modeloLimpio = JsonConvert.DeserializeObject<Model>(modeloJson);
+                modelosPersonalizados.Add(modeloLimpio);
+            }
+
+            List<Model> modelosPersonalizadosxNombre = new List<Model>();
+            foreach (var item in modelosPersonalizados)
+            {
+                if(item.Author == PersonasStatic.PersonaAutenticada.FirstName + PersonasStatic.PersonaAutenticada.LastName)
+                {
+                    modelosPersonalizadosxNombre.Add(item);
+                }
+            }
+            return modelosPersonalizadosxNombre;
         }
 
         public static async Task<Model> ObtenerModeloPersonalizado(string nombreModelo)

@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace TrabajoTitulacion.Modelos.Utils
 {
-    class ModelException : Exception
+    class TypeException : Exception
     {
         public int Codigo { get; set; }
-        public ModelException(string message)
+        public TypeException(string message)
             : base(message)
         { }
-        public ModelException(int codigo)
+
+        public TypeException(int codigo)
         {
             Codigo = codigo;
         }

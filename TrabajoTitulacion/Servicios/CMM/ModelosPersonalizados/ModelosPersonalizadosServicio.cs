@@ -61,7 +61,12 @@ namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
             IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
             var contenidoRespuesta = respuesta.Content;
-            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            HttpStatusCode statusCode = respuesta.StatusCode;
+            int numericStatusCode = (int)statusCode;
+            if (numericStatusCode == 409)
+            {
+                throw new ModelException(409);
+            }
             return contenidoRespuesta;
         }
 

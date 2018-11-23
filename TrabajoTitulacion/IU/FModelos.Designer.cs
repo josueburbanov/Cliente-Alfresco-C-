@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -68,12 +69,19 @@
             this.tlstripEliminar = new System.Windows.Forms.ToolStripMenuItem();
             this.tlstripTiposPersonalizados = new System.Windows.Forms.ToolStripMenuItem();
             this.aspectosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clmAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmEspacioNombres = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmEstadoModelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.lblFiltradoPor = new System.Windows.Forms.Label();
             this.btnVolverInicioNav = new System.Windows.Forms.Button();
             this.cntxMenuGeneral = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tlstripCrearAspecto = new System.Windows.Forms.ToolStripMenuItem();
+            this.filtrarPorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.activosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.desactivadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sinFiltrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -182,6 +190,7 @@
             this.panelModelo.Padding = new System.Windows.Forms.Padding(23, 0, 23, 0);
             this.panelModelo.Size = new System.Drawing.Size(227, 471);
             this.panelModelo.TabIndex = 0;
+            this.panelModelo.Visible = false;
             // 
             // label7
             // 
@@ -258,6 +267,7 @@
             this.txtDescripcionModelo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescripcionModelo.Location = new System.Drawing.Point(77, 343);
             this.txtDescripcionModelo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtDescripcionModelo.MaxLength = 100;
             this.txtDescripcionModelo.Name = "txtDescripcionModelo";
             this.txtDescripcionModelo.Size = new System.Drawing.Size(89, 23);
             this.txtDescripcionModelo.TabIndex = 6;
@@ -277,9 +287,11 @@
             this.txtPrefijoModelo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPrefijoModelo.Location = new System.Drawing.Point(77, 253);
             this.txtPrefijoModelo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtPrefijoModelo.MaxLength = 40;
             this.txtPrefijoModelo.Name = "txtPrefijoModelo";
             this.txtPrefijoModelo.Size = new System.Drawing.Size(89, 23);
             this.txtPrefijoModelo.TabIndex = 4;
+            this.txtPrefijoModelo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrefijoModelo_KeyPress);
             // 
             // label4
             // 
@@ -296,9 +308,11 @@
             this.txtEspacioModelo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtEspacioModelo.Location = new System.Drawing.Point(77, 163);
             this.txtEspacioModelo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtEspacioModelo.MaxLength = 20;
             this.txtEspacioModelo.Name = "txtEspacioModelo";
             this.txtEspacioModelo.Size = new System.Drawing.Size(89, 23);
             this.txtEspacioModelo.TabIndex = 2;
+            this.txtEspacioModelo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEspacioModelo_KeyPress);
             // 
             // lblNombre
             // 
@@ -315,10 +329,12 @@
             this.txtNombreModelo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNombreModelo.Location = new System.Drawing.Point(77, 69);
             this.txtNombreModelo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtNombreModelo.MaxLength = 20;
             this.txtNombreModelo.Name = "txtNombreModelo";
             this.txtNombreModelo.Size = new System.Drawing.Size(89, 23);
             this.txtNombreModelo.TabIndex = 0;
             this.txtNombreModelo.TextChanged += new System.EventHandler(this.txtNombreModelo_TextChanged);
+            this.txtNombreModelo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombreModelo_KeyPress);
             // 
             // panel5
             // 
@@ -401,17 +417,18 @@
             this.dtgviewDatos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dtgviewDatos.BackgroundColor = System.Drawing.Color.White;
             this.dtgviewDatos.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgviewDatos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgviewDatos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dtgviewDatos.ColumnHeadersHeight = 50;
             this.dtgviewDatos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmNombreModelo,
+            this.clmAuthor,
             this.clmEspacioNombres,
             this.clmEstadoModelo});
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -428,14 +445,14 @@
             this.dtgviewDatos.MultiSelect = false;
             this.dtgviewDatos.Name = "dtgviewDatos";
             this.dtgviewDatos.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgviewDatos.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgviewDatos.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dtgviewDatos.RowHeadersVisible = false;
             this.dtgviewDatos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dtgviewDatos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -447,9 +464,9 @@
             // clmNombreModelo
             // 
             this.clmNombreModelo.ContextMenuStrip = this.cntxMenuAcciones;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            this.clmNombreModelo.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black;
+            this.clmNombreModelo.DefaultCellStyle = dataGridViewCellStyle9;
             this.clmNombreModelo.HeaderText = "Nombre Modelo";
             this.clmNombreModelo.Name = "clmNombreModelo";
             this.clmNombreModelo.ReadOnly = true;
@@ -510,6 +527,16 @@
             this.aspectosToolStripMenuItem.Text = "Aspectos...";
             this.aspectosToolStripMenuItem.Click += new System.EventHandler(this.aspectosToolStripMenuItem_Click);
             // 
+            // clmAuthor
+            // 
+            this.clmAuthor.ContextMenuStrip = this.cntxMenuAcciones;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            this.clmAuthor.DefaultCellStyle = dataGridViewCellStyle2;
+            this.clmAuthor.HeaderText = "Autor";
+            this.clmAuthor.Name = "clmAuthor";
+            this.clmAuthor.ReadOnly = true;
+            // 
             // clmEspacioNombres
             // 
             this.clmEspacioNombres.ContextMenuStrip = this.cntxMenuAcciones;
@@ -533,6 +560,7 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.panel3.Controls.Add(this.lblFiltradoPor);
             this.panel3.Controls.Add(this.btnVolverInicioNav);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 0);
@@ -540,6 +568,17 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(653, 34);
             this.panel3.TabIndex = 4;
+            // 
+            // lblFiltradoPor
+            // 
+            this.lblFiltradoPor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblFiltradoPor.AutoSize = true;
+            this.lblFiltradoPor.Location = new System.Drawing.Point(445, 9);
+            this.lblFiltradoPor.Name = "lblFiltradoPor";
+            this.lblFiltradoPor.Size = new System.Drawing.Size(74, 17);
+            this.lblFiltradoPor.TabIndex = 2;
+            this.lblFiltradoPor.Text = "Filtrado por:";
             // 
             // btnVolverInicioNav
             // 
@@ -562,9 +601,10 @@
             // cntxMenuGeneral
             // 
             this.cntxMenuGeneral.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tlstripCrearAspecto});
+            this.tlstripCrearAspecto,
+            this.filtrarPorToolStripMenuItem});
             this.cntxMenuGeneral.Name = "cntxMenuGeneral";
-            this.cntxMenuGeneral.Size = new System.Drawing.Size(147, 26);
+            this.cntxMenuGeneral.Size = new System.Drawing.Size(147, 48);
             this.cntxMenuGeneral.Text = "Crear Aspecto";
             // 
             // tlstripCrearAspecto
@@ -572,6 +612,46 @@
             this.tlstripCrearAspecto.Name = "tlstripCrearAspecto";
             this.tlstripCrearAspecto.Size = new System.Drawing.Size(146, 22);
             this.tlstripCrearAspecto.Text = "Crear Modelo";
+            this.tlstripCrearAspecto.Click += new System.EventHandler(this.tlstripCrearAspecto_Click);
+            // 
+            // filtrarPorToolStripMenuItem
+            // 
+            this.filtrarPorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.autorToolStripMenuItem,
+            this.activosToolStripMenuItem,
+            this.desactivadosToolStripMenuItem,
+            this.sinFiltrosToolStripMenuItem});
+            this.filtrarPorToolStripMenuItem.Name = "filtrarPorToolStripMenuItem";
+            this.filtrarPorToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.filtrarPorToolStripMenuItem.Text = "Filtrar por...";
+            // 
+            // autorToolStripMenuItem
+            // 
+            this.autorToolStripMenuItem.Name = "autorToolStripMenuItem";
+            this.autorToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.autorToolStripMenuItem.Text = "Mis Modelos";
+            this.autorToolStripMenuItem.Click += new System.EventHandler(this.autorToolStripMenuItem_Click);
+            // 
+            // activosToolStripMenuItem
+            // 
+            this.activosToolStripMenuItem.Name = "activosToolStripMenuItem";
+            this.activosToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.activosToolStripMenuItem.Text = "Activos";
+            this.activosToolStripMenuItem.Click += new System.EventHandler(this.activosToolStripMenuItem_Click);
+            // 
+            // desactivadosToolStripMenuItem
+            // 
+            this.desactivadosToolStripMenuItem.Name = "desactivadosToolStripMenuItem";
+            this.desactivadosToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.desactivadosToolStripMenuItem.Text = "Desactivados";
+            this.desactivadosToolStripMenuItem.Click += new System.EventHandler(this.desactivadosToolStripMenuItem_Click);
+            // 
+            // sinFiltrosToolStripMenuItem
+            // 
+            this.sinFiltrosToolStripMenuItem.Name = "sinFiltrosToolStripMenuItem";
+            this.sinFiltrosToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.sinFiltrosToolStripMenuItem.Text = "Sin filtros";
+            this.sinFiltrosToolStripMenuItem.Click += new System.EventHandler(this.sinFiltrosToolStripMenuItem_Click);
             // 
             // FModelos
             // 
@@ -600,6 +680,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgviewDatos)).EndInit();
             this.cntxMenuAcciones.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.cntxMenuGeneral.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -639,12 +720,19 @@
         private System.Windows.Forms.ToolStripMenuItem tlstripEliminar;
         private System.Windows.Forms.ToolStripMenuItem tlstripTiposPersonalizados;
         private System.Windows.Forms.Button btnVolverInicioNav;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmNombreModelo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmEspacioNombres;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmEstadoModelo;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ToolStripMenuItem aspectosToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip cntxMenuGeneral;
         private System.Windows.Forms.ToolStripMenuItem tlstripCrearAspecto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmNombreModelo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmAuthor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmEspacioNombres;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmEstadoModelo;
+        private System.Windows.Forms.ToolStripMenuItem filtrarPorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem autorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sinFiltrosToolStripMenuItem;
+        private System.Windows.Forms.Label lblFiltradoPor;
+        private System.Windows.Forms.ToolStripMenuItem activosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem desactivadosToolStripMenuItem;
     }
 }

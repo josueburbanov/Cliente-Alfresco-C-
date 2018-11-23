@@ -3,8 +3,10 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using TrabajoTitulacion.Modelos.Utils;
 
 namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
 {
@@ -32,12 +34,21 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
         public async Task<string> ActualizarAspecto(string nombreModelo, string nombreAspecto, string aspecto)
         {
             var solicitud = new RestRequest(Method.PUT);
-            solicitud.Resource = "cmm/" + nombreModelo + "/aspects/"+nombreAspecto;
+            solicitud.Resource = "cmm/" + nombreModelo + "/aspects/" + nombreAspecto;
             solicitud.AddParameter("application/json", aspecto, ParameterType.RequestBody);
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
             IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
             var contenidoRespuesta = respuesta.Content;
-            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            HttpStatusCode statusCode = respuesta.StatusCode;
+            int numericStatusCode = (int)statusCode;
+            if (numericStatusCode == 403)
+            {
+                throw new AspectException(403);
+            }
+            else if (numericStatusCode == 409)
+            {
+                throw new AspectException(409);
+            }
             return contenidoRespuesta;
         }
 
@@ -49,7 +60,16 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
             IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
             var contenidoRespuesta = respuesta.Content;
-            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            HttpStatusCode statusCode = respuesta.StatusCode;
+            int numericStatusCode = (int)statusCode;
+            if (numericStatusCode == 403)
+            {
+                throw new AspectException(403);
+            }
+            else if (numericStatusCode == 409)
+            {
+                throw new AspectException(409);
+            }
             return contenidoRespuesta;
         }
 
@@ -60,7 +80,12 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
             IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
             var contenidoRespuesta = respuesta.Content;
-            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            HttpStatusCode statusCode = respuesta.StatusCode;
+            int numericStatusCode = (int)statusCode;
+            if (numericStatusCode == 403)
+            {
+                throw new AspectException("Permiso denegado");
+            }
             return contenidoRespuesta;
         }
 
@@ -106,7 +131,7 @@ namespace TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados
         {
             var solicitud = new RestRequest(Method.PUT);
             solicitud.Resource = "cmm/" + nombreModelo + "/aspects/" + nombreAspecto;
-            solicitud.AddParameter("application/octect-stream", JsonConvert.SerializeObject(new { name = nombreAspecto}), ParameterType.RequestBody);
+            solicitud.AddParameter("application/octect-stream", JsonConvert.SerializeObject(new { name = nombreAspecto }), ParameterType.RequestBody);
             solicitud.AddQueryParameter("select", "props");
             solicitud.AddQueryParameter("delete", nombrePropiedad);
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
