@@ -39,7 +39,6 @@ namespace TrabajoTitulacion.IU
             //Se pobla recursivamente todos los nodos
             await NodosStatic.PoblarNodosHijos(nodosDeRoot);
 
-
             //Se agrega los nodos al treeview                
             treeViewSync.Nodes.Add(nodoRoot.Id, "Mis archivos");
             treeViewSync.Nodes[nodoRoot.Id].Tag = nodoRoot;
@@ -97,6 +96,12 @@ namespace TrabajoTitulacion.IU
             lstboxRepositoriosGuardados.Refresh();
         }
 
+        /// <summary>
+        /// Pobla recursivamente la carpeta local con los nodos remotos
+        /// </summary>
+        /// <param name="carpetaSeleccionada">Nodo remoto del cual se quiere extraer</param>
+        /// <param name="pathLocal">Ubicación local donde se poblarán los nodos</param>
+        /// <returns></returns>
         private async Task PoblarCarpeta(Nodo carpetaSeleccionada, string pathLocal)
         {
             foreach (var nodoHijo in carpetaSeleccionada.NodosHijos)
@@ -169,13 +174,22 @@ namespace TrabajoTitulacion.IU
             }
         }
 
+        /// <summary>
+        /// Compara los nodos de la PC contra los de Alfresco
+        /// </summary>
+        /// <param name="repositorioSeleccionado">Carpeta donde se encuentran los Nodos ha 
+        /// compararse</param>
+        /// <param name="nodoSync">Carpeta remota contra la que se va comparar</param>
+        /// <returns></returns>
         private async Task SincronizacionPcAlfresco(string repositorioSeleccionado, Nodo nodoSync)
         {
+            //Se obtiene y añade los nodos hijos al nodo remoto a sincronizar
             List<Nodo> nodosHijosSync = await NodosStatic.ObtenerListaNodosHijos(nodoSync.Id);
             nodoSync.NodosHijos = nodosHijosSync;
             await NodosStatic.PoblarNodosHijos(nodosHijosSync);
             await NodosStatic.CompletarNodos(nodoSync);
 
+            //Se mapea los nodos presentes en la PC a objetos C#
             List<NodoLocal> nodosLocales = MapearNodosLocales(repositorioSeleccionado);
             RevisarProcesoLibre(nodosLocales);
 
@@ -233,11 +247,16 @@ namespace TrabajoTitulacion.IU
                     await SincronizacionPcAlfresco(nodoLocal.PathLocal, archivoAlfresco);
                     await nodoLocal.ActualizarFechasLocales(archivoAlfresco);
                 }
-
             }
-            await SincronizarAlfrescoPc(repositorioSeleccionado, nodoSync, nodosLocales);
+            
         }
 
+        /// <summary>
+        /// Verifica si el nodo Local pertenece al padre seleccionado
+        /// Soluciona problema de nodos con Id copiados desde otra ubicación
+        /// </summary>
+        /// <param name="nodoLocal"></param>
+        /// <returns></returns>
         private async Task<bool> VerificarPath(NodoLocal nodoLocal)
         {
             Nodo nodoRemoto = await NodosStatic.ObtenerNodo(nodoLocal.IdAlfresco);
@@ -313,6 +332,11 @@ namespace TrabajoTitulacion.IU
         }
 
 
+        /// <summary>
+        /// Elimina el id de nodos copiados
+        /// Soluciona el problema de los nodos copiados
+        /// </summary>
+        /// <param name="nodosLocales"></param>
         private void LimpiarIdNodosCopiados(List<NodoLocal> nodosLocales)
         {
             var gruposNodosDuplicados = (nodosLocales

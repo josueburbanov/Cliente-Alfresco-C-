@@ -43,6 +43,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -98,6 +99,7 @@
             this.treeViewRepositorio.SelectedImageIndex = 0;
             this.treeViewRepositorio.Size = new System.Drawing.Size(204, 420);
             this.treeViewRepositorio.TabIndex = 1;
+            this.treeViewRepositorio.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treeViewRepositorio_AfterExpand);
             this.treeViewRepositorio.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewRepositorio_AfterSelect);
             this.treeViewRepositorio.Click += new System.EventHandler(this.treeViewRepositorio_Click);
             // 
@@ -204,6 +206,7 @@
             this.btnSubirNivel.Size = new System.Drawing.Size(19, 27);
             this.btnSubirNivel.TabIndex = 0;
             this.btnSubirNivel.UseVisualStyleBackColor = false;
+            this.btnSubirNivel.Click += new System.EventHandler(this.btnSubirNivel_Click);
             // 
             // pictureBox1
             // 
@@ -241,6 +244,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.panel1.Controls.Add(this.btnRefresh);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(61, 123);
@@ -249,6 +253,24 @@
             this.panel1.Padding = new System.Windows.Forms.Padding(30, 5, 0, 5);
             this.panel1.Size = new System.Drawing.Size(901, 25);
             this.panel1.TabIndex = 3;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRefresh.FlatAppearance.BorderColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnRefresh.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRefresh.Location = new System.Drawing.Point(785, 0);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(113, 25);
+            this.btnRefresh.TabIndex = 0;
+            this.btnRefresh.Text = "Refrescar";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.FRepositorio_Load);
             // 
             // button1
             // 
@@ -307,5 +329,6 @@
         private System.Windows.Forms.ImageList imageListTV;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }

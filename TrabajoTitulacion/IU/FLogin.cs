@@ -20,7 +20,7 @@ namespace TrabajoTitulacion.UI
             fPrincipalLoading.Show();
 
             //Llamada asíncrona a Login
-            await Login();
+            await IniciarSesion();
 
             //Una vez logueado elimina la ventana de carga e ingresa al dashboard
             fPrincipalLoading.Close();
@@ -28,15 +28,15 @@ namespace TrabajoTitulacion.UI
         }
 
         /// <summary>
-        /// 
+        /// Inicia sesión
         /// </summary>
         /// <returns></returns>
-        private async Task Login()
+        private async Task IniciarSesion()
         {
             try
             {
                 //autenticación asíncrona
-                await AutenticacionStatic.Login(txtNombreUsuario.Text, txtContraseña.Text);
+                await AutenticacionStatic.IniciarSesion(txtNombreUsuario.Text, txtContraseña.Text);
             }
             catch (UnauthorizedAccessException)
             {
@@ -55,7 +55,7 @@ namespace TrabajoTitulacion.UI
                 fPrincipalLoading.Show();
 
                 //Llamada asíncrona a Login
-                await Login();
+                await IniciarSesion();
 
                 //Una vez logueado elimina la ventana de carga e ingresa al dashboard
                 fPrincipalLoading.Close();
@@ -82,7 +82,7 @@ namespace TrabajoTitulacion.UI
                 fPrincipalLoading.Show();
 
                 //Llamada asíncrona a Login
-                await Login();
+                await IniciarSesion();
 
                 //Una vez logueado elimina la ventana de carga e ingresa al dashboard
                 fPrincipalLoading.Close();

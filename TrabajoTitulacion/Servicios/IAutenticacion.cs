@@ -8,8 +8,8 @@ namespace TrabajoTitulacion.Servicios
 {
     interface IAutenticacion
     {
-        Task<string> Login(string idUsuario, string contrasena);
-        Task<string> Logout(string idUsuario);
+        Task<string> IniciarSesion(string idUsuario, string contrasena);
+        Task<string> CerrarSesion(string idUsuario);
     }
 }
 

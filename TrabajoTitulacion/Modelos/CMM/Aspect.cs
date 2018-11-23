@@ -100,6 +100,60 @@ namespace TrabajoTitulacion.Modelos.CMM
             Properties.Add(new Property("cm:author", "Author", "d:text"));
         }
 
+        public void CopiedFrom()
+        {
+            Name = "cm:copiedfrom";
+            Title = "Copied From";
+            Showable = false;
+            Properties = new List<Property>();
+            Properties.Add(new Property("cm:lastThumbnailModification", "Last thumbnail modifcation data", "d:text"));
+        }
+
+        public void AppinlineEditable()
+        {
+            Name = "app:inlineeditable";
+            Showable = false;
+            Properties = new List<Property>();
+            Properties.Add(new Property("app:editInline", "Edit in line", "d:bool"));
+        }
+
+        public void Renditioned()
+        {
+            Name = "rn:renditioned";
+            Title = "Renditioned";
+            Showable = false;
+            Properties = new List<Property>();
+            Properties.Add(new Property("cm:lastThumbnailModification", "Last thumbnail modifcation data", "d:text"));
+        }
+
+        public void ThumbNailModification()
+        {
+            Name = "cm:thumbnailModification";
+            Title = "Thumbnail Modification Data";
+            Showable = false;
+            Properties = new List<Property>();
+            Properties.Add(new Property("cm:lastThumbnailModification", "Last thumbnail modifcation data", "d:text"));
+        }
+
+        public void Taggable()
+        {
+            Name = "cm:taggable";
+            Title = "Taggable";
+            Showable = false;
+            ParentName = "cm:classifiable";
+            Properties = new List<Property>();
+            Properties.Add(new Property("cm:taggable", "Tags", "d:category"));
+        }
+
+        public void Classificable()
+        {
+            Name = "cm:generalclassifiable";
+            Title = "General Classifiable";
+            ParentName = "cm:classifiable";
+            Showable = false;
+            Properties = new List<Property>();
+            Properties.Add(new Property("cm:categories", "Categories", "d:category"));
+        }
         public static List<Aspect> Aspects()
         {
             List<Aspect> aspects = new List<Aspect>();
@@ -118,6 +172,24 @@ namespace TrabajoTitulacion.Modelos.CMM
             Aspect authorAspect = new Aspect();
             authorAspect.Author();
             aspects.Add(authorAspect);
+            Aspect copiedFromAspect = new Aspect();
+            copiedFromAspect.CopiedFrom();
+            aspects.Add(copiedFromAspect);
+            Aspect appinlineeditableAspect = new Aspect();
+            appinlineeditableAspect.AppinlineEditable();
+            aspects.Add(appinlineeditableAspect);
+            Aspect renditionedAspect = new Aspect();
+            renditionedAspect.Renditioned();
+            aspects.Add(renditionedAspect);
+            Aspect thumbnailModificationAspect = new Aspect();
+            thumbnailModificationAspect.ThumbNailModification();
+            aspects.Add(thumbnailModificationAspect);
+            Aspect taggableAspect = new Aspect();
+            taggableAspect.Taggable();
+            aspects.Add(taggableAspect);
+            Aspect classificableAspect = new Aspect();
+            classificableAspect.Classificable();
+            aspects.Add(classificableAspect);
             return aspects;
         }
 

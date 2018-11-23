@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FBusqueda));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tblpanelContenedor = new System.Windows.Forms.TableLayoutPanel();
-            this.flwlypanelNodosHijos = new System.Windows.Forms.FlowLayoutPanel();
+            this.flwlypanelNodos = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlFiltros = new System.Windows.Forms.Panel();
             this.dtpkrValor = new System.Windows.Forms.DateTimePicker();
             this.cmbxValor = new System.Windows.Forms.ComboBox();
@@ -83,7 +83,7 @@
             this.tblpanelContenedor.ColumnCount = 2;
             this.tblpanelContenedor.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tblpanelContenedor.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblpanelContenedor.Controls.Add(this.flwlypanelNodosHijos, 1, 0);
+            this.tblpanelContenedor.Controls.Add(this.flwlypanelNodos, 1, 0);
             this.tblpanelContenedor.Controls.Add(this.pnlFiltros, 0, 0);
             this.tblpanelContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblpanelContenedor.Location = new System.Drawing.Point(53, 102);
@@ -93,18 +93,18 @@
             this.tblpanelContenedor.Size = new System.Drawing.Size(734, 335);
             this.tblpanelContenedor.TabIndex = 1;
             // 
-            // flwlypanelNodosHijos
+            // flwlypanelNodos
             // 
-            this.flwlypanelNodosHijos.AutoScroll = true;
-            this.flwlypanelNodosHijos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.flwlypanelNodosHijos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flwlypanelNodosHijos.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flwlypanelNodosHijos.Location = new System.Drawing.Point(370, 4);
-            this.flwlypanelNodosHijos.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.flwlypanelNodosHijos.Name = "flwlypanelNodosHijos";
-            this.flwlypanelNodosHijos.Size = new System.Drawing.Size(361, 327);
-            this.flwlypanelNodosHijos.TabIndex = 1;
-            this.flwlypanelNodosHijos.WrapContents = false;
+            this.flwlypanelNodos.AutoScroll = true;
+            this.flwlypanelNodos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.flwlypanelNodos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flwlypanelNodos.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flwlypanelNodos.Location = new System.Drawing.Point(370, 4);
+            this.flwlypanelNodos.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.flwlypanelNodos.Name = "flwlypanelNodos";
+            this.flwlypanelNodos.Size = new System.Drawing.Size(361, 327);
+            this.flwlypanelNodos.TabIndex = 1;
+            this.flwlypanelNodos.WrapContents = false;
             // 
             // pnlFiltros
             // 
@@ -375,7 +375,7 @@
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tblpanelContenedor;
-        private System.Windows.Forms.FlowLayoutPanel flwlypanelNodosHijos;
+        private System.Windows.Forms.FlowLayoutPanel flwlypanelNodos;
         private System.Windows.Forms.Panel pnlFiltros;
         private System.Windows.Forms.ComboBox cmbxPropiedad;
         private System.Windows.Forms.ComboBox cmbxTipoAspecto;

@@ -28,7 +28,7 @@ namespace TrabajoTitulacion.Modelos.CMM
 
         public override string ToString()
         {
-            return Name;
+            return PrefixedName;
         }
     }
 }

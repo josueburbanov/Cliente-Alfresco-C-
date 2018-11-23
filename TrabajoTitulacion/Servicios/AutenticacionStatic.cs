@@ -18,9 +18,9 @@ namespace TrabajoTitulacion.Servicios
         /// </summary>
         /// <param name="nombreUsuario">Nombre de usuario</param>
         /// <param name="contraseña">Contraseña de usuario</param>
-        public async static Task<string> Login(string nombreUsuario, string contrasena)
+        public async static Task<string> IniciarSesion(string nombreUsuario, string contrasena)
         {            
-            string respuestaJson = await servicioAuth.Login(nombreUsuario, contrasena);
+            string respuestaJson = await servicioAuth.IniciarSesion(nombreUsuario, contrasena);
             dynamic respuestaDeserializada = JsonConvert.DeserializeObject(respuestaJson);
             //Se obtiene el ticket generado a partir de la respuesta
             Ticket = respuestaDeserializada.entry.id;
@@ -32,11 +32,10 @@ namespace TrabajoTitulacion.Servicios
         /// </summary>
         /// <param name="nombreUsuario">Nombre de usuario</param>
         /// <returns></returns>
-        public async static Task<string> Logout(string nombreUsuario)
+        public async static Task<string> CerrarSesion(string nombreUsuario)
         {
             Ticket = "";
-            return await servicioAuth.Logout(nombreUsuario);
-            
+            return await servicioAuth.CerrarSesion(nombreUsuario);
         }
     }
 }

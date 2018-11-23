@@ -98,6 +98,9 @@ namespace TrabajoTitulacion.Modelos.Sync
             return "";
         }
 
+        /// <summary>
+        /// Elimina un nodo local
+        /// </summary>
         public void Eliminar()
         {
             if (EsArchivo)
@@ -178,6 +181,11 @@ namespace TrabajoTitulacion.Modelos.Sync
             }
         }
 
+        /// <summary>
+        /// Actualiza las fechas de los nodos locales
+        /// </summary>
+        /// <param name="nodoCreado">Nodo remoto</param>
+        /// <returns></returns>
         public async Task ActualizarFechasLocales(Nodo nodoCreado)
         {
             nodoCreado = await NodosStatic.ObtenerNodo(nodoCreado.Id);
@@ -201,7 +209,9 @@ namespace TrabajoTitulacion.Modelos.Sync
         {
             try
             {
-                List<string> extOfficeDocs = new List<string> { ".docx", ".docm", ".dotx", ".dotm", ".docb", ".xlsx", ".xlsm", ".xltx", ".xltm", ".pptx", "pptm", ".potx", "potm", ".ppam", ".ppsm", ".sldx", ".sldm" };
+                List<string> extOfficeDocs = new List<string> { ".docx", ".docm", ".dotx", ".dotm",
+                    ".docb", ".xlsx", ".xlsm", ".xltx", ".xltm", ".pptx", "pptm", ".potx", "potm",
+                    ".ppam", ".ppsm", ".sldx", ".sldm" };
                 if (extOfficeDocs.Contains(Path.GetExtension(PathLocal)))
                 {
                     SetCustomProperty(PathLocal, "IdAlfresco", idRemoto, PropertyTypes.Text, Path.GetExtension(PathLocal));

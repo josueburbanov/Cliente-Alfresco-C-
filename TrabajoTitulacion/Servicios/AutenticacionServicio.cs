@@ -27,7 +27,7 @@ namespace TrabajoTitulacion.Servicios
         /// <param name="userId">Nombre de usuario</param>
         /// <param name="password">Contraseña</param>
         /// <returns>ticket de autenticacion</returns>
-        public async Task<string> Login(string idUsuario, string contrasena)
+        public async Task<string> IniciarSesion(string idUsuario, string contrasena)
         {
             var solicitud = new RestRequest(Method.POST);
             solicitud.Resource = "tickets/";
@@ -44,7 +44,7 @@ namespace TrabajoTitulacion.Servicios
         /// </summary>
         /// <param name="userId">Nombre de usuario</param>
         /// <returns></returns>
-        public async Task<string> Logout(string userId)
+        public async Task<string> CerrarSesion(string userId)
         {
             var solicitud = new RestRequest(Method.DELETE);
             solicitud.Resource = "tickets/" + await PersonasStatic.ObtenerPersona(userId);

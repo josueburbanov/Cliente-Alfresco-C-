@@ -21,5 +21,8 @@ namespace TrabajoTitulacion.Modelos.Core
         public List<Nodo> NodosHijos { get; set; }
         [JsonIgnore]
         public CMM.Type TipoNodo { get;  set; }
+        [JsonIgnore]
+        public byte[] Contenido { get; set; }
+
     }
 }

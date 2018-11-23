@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrabajoTitulacion.Modelos.CMM;
 using TrabajoTitulacion.Servicios.CMM.AspectosPersonalizados;
+using TrabajoTitulacion.Servicios.CMM.TiposPersonalizados;
 
 namespace TrabajoTitulacion.IU
 {
@@ -45,9 +46,8 @@ namespace TrabajoTitulacion.IU
                 subModelo = await AspectosPersonalizadosStatic.ObtenerAspectoPersonalizado(modelo.Name, subModelo.Name);
             if (proveniente == "TIPOS")
             {
-
+                subModelo = await TiposPersonalizadosStatic.ObtenerTipoPersonalizado(modelo.Name, subModelo.Name);
             }
-
             dtgviewDatos.AutoGenerateColumns = false;
             dtgviewDatos.DataSource = subModelo.Properties;
             dtgviewDatos.Columns["clmNombreTipo"].DataPropertyName = "Name";
@@ -56,7 +56,6 @@ namespace TrabajoTitulacion.IU
             dtgviewDatos.Columns["clmRequisito"].DataPropertyName = "Mandatory";
             dtgviewDatos.Columns["clmValorDefault"].DataPropertyName = "DefaultValue";
             dtgviewDatos.Columns["clmMultiplesValores"].DataPropertyName = "Multiple";
-
         }
 
         private void lnklblVolverNav_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

@@ -31,6 +31,10 @@ namespace TrabajoTitulacion.IU
         {
             await PoblarDtgvModelos();
         }
+        /// <summary>
+        /// Pobla el datagridView con los modelos de usuario
+        /// </summary>
+        /// <returns></returns>
         private async Task PoblarDtgvModelos()
         {
             List<Model> modelos = await ModelosPersonalizadosStatic.ObtenerModelosPersonalizados();

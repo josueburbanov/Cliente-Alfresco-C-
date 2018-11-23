@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
 using System;
+using System.Net;
 using System.Threading.Tasks;
+using TrabajoTitulacion.Modelos.Utils;
 
 namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
 {
@@ -82,7 +84,12 @@ namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
             IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
             var contenidoRespuesta = respuesta.Content;
-            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            HttpStatusCode statusCode = respuesta.StatusCode;
+            int numericStatusCode = (int)statusCode;
+            if(numericStatusCode == 404)
+            {
+                throw new ModelException("No se ha encontrado el Modelo solicitado");
+            }
             return contenidoRespuesta;
         }
 

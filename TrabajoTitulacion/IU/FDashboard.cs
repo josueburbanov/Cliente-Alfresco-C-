@@ -129,7 +129,7 @@ namespace TrabajoTitulacion.IU
             try
             {
                 //Se envía petición para cerrar sesión
-                await AutenticacionStatic.Logout(idPersona);
+                await AutenticacionStatic.CerrarSesion(idPersona);
                 MessageBox.Show("Su sesión ha sido finalizada correctamente");
 
             }

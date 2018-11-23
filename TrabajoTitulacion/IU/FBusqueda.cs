@@ -229,7 +229,7 @@ namespace TrabajoTitulacion.IU
         private async void btnBuscar_Click(object sender, EventArgs e)
         {
             lblNotFound.Visible = false;
-            flwlypanelNodosHijos.Controls.Clear();
+            flwlypanelNodos.Controls.Clear();
 
             List<Nodo> nodosEncontrados = new List<Nodo>();
             if (cmbxPropiedad.SelectedItem is null && !chkboxValor.Checked && radioBtnAspecto.Checked)
@@ -335,7 +335,7 @@ namespace TrabajoTitulacion.IU
                 nodo.ModifiedAt.ToShortDateString() + " por: " + nodo.ModifiedByUser.DisplayName;
             //ctrluContenido.LblDescripcion.Text = nodoHijo.Properties.ToString();
             ctrluContenido.Tag = nodo;
-            flwlypanelNodosHijos.Controls.Add(ctrluContenido);
+            flwlypanelNodos.Controls.Add(ctrluContenido);
             ctrluContenido.LnklblDescargar.MouseClick += LnklblDescargar_MouseClick;
             ctrluContenido.LnklblNombre.MouseClick += LnklblNombre_MouseClick;
             ctrluContenido.LnklblPropiedades.MouseClick += LnklblPropiedades_MouseClick;
@@ -343,7 +343,7 @@ namespace TrabajoTitulacion.IU
         private void LnklblDescargar_MouseClick(object sender, MouseEventArgs e)
         {
             //Nota: El código de este evento también está en el evento del control de usuario
-            flwlypanelNodosHijos.Controls.Clear();
+            flwlypanelNodos.Controls.Clear();
         }
         private void LnklblNombre_MouseClick(object sender, MouseEventArgs e)
         {

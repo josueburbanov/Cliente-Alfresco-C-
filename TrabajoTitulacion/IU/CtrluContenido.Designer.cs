@@ -135,6 +135,7 @@ namespace TrabajoTitulacion.IU
             this.Controls.Add(this.pctboxTipoContenido);
             this.Name = "CtrluContenido";
             this.Size = new System.Drawing.Size(786, 106);
+            this.Load += new System.EventHandler(this.CtrluContenido_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pctboxTipoContenido)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

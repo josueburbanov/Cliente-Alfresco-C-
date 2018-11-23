@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrabajoTitulacion.Modelos.CMM;
+using TrabajoTitulacion.Modelos.Utils;
 
 namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
 {

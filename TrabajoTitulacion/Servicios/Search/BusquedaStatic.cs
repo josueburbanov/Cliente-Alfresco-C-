@@ -12,7 +12,7 @@ namespace TrabajoTitulacion.Servicios.Search
 {
     class BusquedaStatic
     {
-        static BusquedaServicio busquedaServicio = new BusquedaServicio();
+        private static BusquedaServicio busquedaServicio = new BusquedaServicio();
 
         public static async Task<List<Nodo>> BuscarNodosPorAspecto(Aspect aspecto)
         {
@@ -55,22 +55,27 @@ namespace TrabajoTitulacion.Servicios.Search
             return DeserializarArrayJson(respuestaJson);
         }
 
-        public static async Task<List<Nodo>> BuscarNodosPor1Propiedad(dynamic aspectoTipo, Property propiedad, string valorPropiedad1, string operacion)
+        public static async Task<List<Nodo>> BuscarNodosPor1Propiedad(dynamic aspectoTipo, 
+            Property propiedad, string valorPropiedad1, string operacion)
         {
             string query = "";
             switch (operacion)
             {
                 case "Menor que":
-                    query = "select * from " + aspectoTipo.PrefixedName + " where " + propiedad.PrefixedName + "<'" + valorPropiedad1 + "'";
+                    query = "select * from " + aspectoTipo.PrefixedName + " where " +
+                        propiedad.PrefixedName + "<'" + valorPropiedad1 + "'";
                     break;
                 case "Mayor que":
-                    query = "select * from " + aspectoTipo.PrefixedName + " where " + propiedad.PrefixedName + ">'" + valorPropiedad1 + "'";
+                    query = "select * from " + aspectoTipo.PrefixedName + " where " + 
+                        propiedad.PrefixedName + ">'" + valorPropiedad1 + "'";
                     break;
                 case "Mayor o igual que":
-                    query = "select * from " + aspectoTipo.PrefixedName + " where " + propiedad.PrefixedName + ">='" + valorPropiedad1 + "'";
+                    query = "select * from " + aspectoTipo.PrefixedName + " where " + 
+                        propiedad.PrefixedName + ">='" + valorPropiedad1 + "'";
                     break;
                 case "Menor o igual que":
-                    query = "select * from " + aspectoTipo.PrefixedName + " where " + propiedad.PrefixedName + "<='" + valorPropiedad1 + "'";
+                    query = "select * from " + aspectoTipo.PrefixedName + " where " +
+                        propiedad.PrefixedName + "<='" + valorPropiedad1 + "'";
                     break;
                 default:
                     break;
