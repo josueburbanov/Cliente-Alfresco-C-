@@ -73,6 +73,7 @@ namespace TrabajoTitulacion.IU
         }
         private void NuevaPlantilla()
         {
+            txtNombre.Enabled = true;
             flwlypanelPropiedades.Visible = true;
             txtNombre.Clear();
             txtTitulo.Clear();

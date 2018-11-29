@@ -108,8 +108,9 @@
             // 
             this.toolStripMenuItem5.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem5.Text = "Cerrar Sesión";
+            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
             // menuStripTopLeft
             // 

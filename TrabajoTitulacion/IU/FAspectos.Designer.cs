@@ -39,7 +39,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.panelTipo = new System.Windows.Forms.Panel();
+            this.panelAspecto = new System.Windows.Forms.Panel();
             this.cmbxPadre = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -77,7 +77,7 @@
             this.panel1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
-            this.panelTipo.SuspendLayout();
+            this.panelAspecto.SuspendLayout();
             this.panel5.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -148,7 +148,7 @@
             // 
             this.tableLayoutPanel5.ColumnCount = 1;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Controls.Add(this.panelTipo, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.panelAspecto, 0, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(15, 60);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(3, 0, 3, 4);
@@ -160,28 +160,28 @@
             // 
             // panelTipo
             // 
-            this.panelTipo.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.panelTipo.Controls.Add(this.cmbxPadre);
-            this.panelTipo.Controls.Add(this.label7);
-            this.panelTipo.Controls.Add(this.label9);
-            this.panelTipo.Controls.Add(this.label8);
-            this.panelTipo.Controls.Add(this.label3);
-            this.panelTipo.Controls.Add(this.btnAceptar);
-            this.panelTipo.Controls.Add(this.label6);
-            this.panelTipo.Controls.Add(this.txtDescripcion);
-            this.panelTipo.Controls.Add(this.label5);
-            this.panelTipo.Controls.Add(this.txtTitulo);
-            this.panelTipo.Controls.Add(this.label4);
-            this.panelTipo.Controls.Add(this.lblNombre);
-            this.panelTipo.Controls.Add(this.txtNombre);
-            this.panelTipo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTipo.Location = new System.Drawing.Point(0, 0);
-            this.panelTipo.Margin = new System.Windows.Forms.Padding(0);
-            this.panelTipo.Name = "panelTipo";
-            this.panelTipo.Padding = new System.Windows.Forms.Padding(23, 0, 23, 0);
-            this.panelTipo.Size = new System.Drawing.Size(227, 466);
-            this.panelTipo.TabIndex = 0;
-            this.panelTipo.Visible = false;
+            this.panelAspecto.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panelAspecto.Controls.Add(this.cmbxPadre);
+            this.panelAspecto.Controls.Add(this.label7);
+            this.panelAspecto.Controls.Add(this.label9);
+            this.panelAspecto.Controls.Add(this.label8);
+            this.panelAspecto.Controls.Add(this.label3);
+            this.panelAspecto.Controls.Add(this.btnAceptar);
+            this.panelAspecto.Controls.Add(this.label6);
+            this.panelAspecto.Controls.Add(this.txtDescripcion);
+            this.panelAspecto.Controls.Add(this.label5);
+            this.panelAspecto.Controls.Add(this.txtTitulo);
+            this.panelAspecto.Controls.Add(this.label4);
+            this.panelAspecto.Controls.Add(this.lblNombre);
+            this.panelAspecto.Controls.Add(this.txtNombre);
+            this.panelAspecto.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelAspecto.Location = new System.Drawing.Point(0, 0);
+            this.panelAspecto.Margin = new System.Windows.Forms.Padding(0);
+            this.panelAspecto.Name = "panelTipo";
+            this.panelAspecto.Padding = new System.Windows.Forms.Padding(23, 0, 23, 0);
+            this.panelAspecto.Size = new System.Drawing.Size(227, 466);
+            this.panelAspecto.TabIndex = 0;
+            this.panelAspecto.Visible = false;
             // 
             // cmbxPadre
             // 
@@ -586,8 +586,8 @@
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
-            this.panelTipo.ResumeLayout(false);
-            this.panelTipo.PerformLayout();
+            this.panelAspecto.ResumeLayout(false);
+            this.panelAspecto.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
@@ -609,7 +609,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        private System.Windows.Forms.Panel panelTipo;
+        private System.Windows.Forms.Panel panelAspecto;
         private System.Windows.Forms.ComboBox cmbxPadre;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label9;

@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using TrabajoTitulacion.Modelos.CoreAPI;
 using TrabajoTitulacion.Modelos.Core;
 using TrabajoTitulacion.Servicios.Core.Nodos;
+using System.IO;
+using TrabajoTitulacion.Modelos.Sync;
 
 namespace TrabajoTitulacion.IU
 {
@@ -19,6 +21,11 @@ namespace TrabajoTitulacion.IU
         }
 
         private async void FRepositorio_Load(object sender, EventArgs e)
+        {
+            await CargaInicial();
+        }
+
+        private async Task CargaInicial()
         {
             try
             {
@@ -249,14 +256,14 @@ namespace TrabajoTitulacion.IU
             flwlypanelNavegacion.Controls.Clear();
             Nodo nodoSeleccionado = (Nodo)(((LinkLabel)sender).Parent).Tag;
             nodoSeleccionado.NodosHijos = await NodosStatic.ObtenerListaNodosHijos(nodoSeleccionado.Id);
-            if (!nodoSeleccionado.IsFile )
+            if (!nodoSeleccionado.IsFile)
             {
                 treeViewRepositorio.SelectedNode = treeViewRepositorio.Nodes.Find(nodoSeleccionado.Id, true)[0];
-                if(nodoSeleccionado.NodosHijos.Count != 0)
+                if (nodoSeleccionado.NodosHijos.Count != 0)
                 {
                     treeViewRepositorio.Nodes.Find(nodoSeleccionado.Id, true)[0].Expand();
                 }
-                
+
             }
         }
 
@@ -265,6 +272,81 @@ namespace TrabajoTitulacion.IU
             Nodo nodoSeleccionado = (Nodo)(((LinkLabel)sender).Parent).Tag;
             treeViewRepositorio.SelectedNode = treeViewRepositorio.Nodes.Find(nodoSeleccionado.Id, true)[0];
         }
+
+        private async void flwlypanelNodosHijos_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                {
+                    string[] FileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+                    Nodo nodo = (Nodo)(treeViewRepositorio.SelectedNode.Tag);
+                    await SubirMasivamente(FileList, nodo.Id);
+                }
+            }
+        }
+        private async Task SubirMasivamente(string[] FileList, string idPadre)
+        {
+            foreach (var item in FileList)
+            {
+                await CrearNodoRemoto(idPadre, item);
+            }
+            await CargaInicial();
+            MessageBox.Show("Se han cargado todos sus archivos", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        public async Task CrearNodoRemoto(string nodoPadre, string PathLocal)
+        {
+            Nodo nodo = new Nodo();
+            bool EsArchivo;
+            if (File.Exists(PathLocal))
+            {
+                EsArchivo = true;
+            }
+            else
+            {
+                EsArchivo = false;
+            }
+
+            nodo.Name = Path.GetFileName(PathLocal) ?? Path.GetDirectoryName(PathLocal);
+
+            if (EsArchivo)
+            {
+                nodo.NodeType = "cm:content";
+                Nodo nodoCreado = await NodosStatic.CrearNodoContenido(nodoPadre, nodo, File.ReadAllBytes(PathLocal));
+
+            }
+            else
+            {
+                nodo.NodeType = "cm:folder";
+                Nodo nodoCreado = await NodosStatic.CrearNodo(nodoPadre, nodo);
+                if (!(Directory.GetFiles(PathLocal) is null))
+                {
+                    foreach (var item in Directory.GetFiles(PathLocal))
+                    {
+                        await CrearNodoRemoto(nodoCreado.Id, item);
+                    }
+
+                }
+                if (!(Directory.GetDirectories(PathLocal) is null))
+                {
+                    foreach (var item in Directory.GetDirectories(PathLocal))
+                    {
+                        await CrearNodoRemoto(nodoCreado.Id, item);
+                    }
+                }
+            }
+        }
+
+        private void flwlypanelNodosHijos_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Copy;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+
     }
 }
 

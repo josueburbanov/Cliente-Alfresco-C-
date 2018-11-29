@@ -54,6 +54,8 @@ namespace TrabajoTitulacion.IU
 
         private async void NuevaPlantilla()
         {
+            txtNombre.Enabled = true;
+            panelTipo.Visible = true;
             txtNombre.Clear();
             txtTitulo.Clear();
             txtDescripcion.Clear();
@@ -64,6 +66,7 @@ namespace TrabajoTitulacion.IU
 
         private async Task cargarCmbxPadres()
         {
+            cmbxPadre.Items.Clear();
             List<Modelos.CMM.Type> tiposActivos = await TiposPersonalizadosStatic.ObtenerTiposActivos();
             foreach (var tipo in tiposActivos)
             {
@@ -92,40 +95,76 @@ namespace TrabajoTitulacion.IU
                 {
                     if (btnAceptarTipo.Text == "Crear")
                     {
-                        Modelos.CMM.Type tipoCrear = new Modelos.CMM.Type();
-                        tipoCrear.Name = txtNombre.Text;
-                        tipoCrear.ParentName = cmbxPadre.SelectedItem.ToString();
-                        tipoCrear.Description = txtDescripcion.Text;
-                        tipoCrear.Title = txtTitulo.Text;
-                        tipoCrear.ModeloPerteneciente.Name = modelo.Name;
-                        await TiposPersonalizadosStatic.CrearTipoPersonalizado(tipoCrear);
-                        MessageBox.Show("El tipo ha sido creado exitosamente.", "Creado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        await PoblarDtgv();
+                        try
+                        {
+                            Modelos.CMM.Type tipoCrear = new Modelos.CMM.Type();
+                            tipoCrear.Name = txtNombre.Text;
+                            tipoCrear.ParentName = cmbxPadre.SelectedItem.ToString();
+                            tipoCrear.Description = txtDescripcion.Text;
+                            tipoCrear.Title = txtTitulo.Text;
+                            tipoCrear.ModeloPerteneciente.Name = modelo.Name;
+                            fPrincipalLoading.Show();
+                            await TiposPersonalizadosStatic.CrearTipoPersonalizado(tipoCrear);
+                            MessageBox.Show("El tipo ha sido creado exitosamente.", "Creado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            await PoblarDtgv();
+                        }
+                        catch (TypeException exception)
+                        {
+                            fPrincipalLoading.Close();
+                            NuevaPlantilla();
+                            if (exception.Codigo == 409)
+                            {
+                                MessageBox.Show("Uno de los nombres especificados ya se está utilizando", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Transacción abortada, hubo un error.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+
                     }
                     else if (btnAceptarTipo.Text == "Editar")
                     {
-                        Modelos.CMM.Type tipoActualizar = new Modelos.CMM.Type();
-                        tipoActualizar.Name = txtNombre.Text;
-                        tipoActualizar.ParentName = cmbxPadre.SelectedItem.ToString();
-                        tipoActualizar.Description = txtDescripcion.Text;
-                        tipoActualizar.Title = txtTitulo.Text;
-                        tipoActualizar.ModeloPerteneciente.Name = modelo.Name;
-                        await TiposPersonalizadosStatic.ActualizarTipoPersonalizado(tipoActualizar);
-                        MessageBox.Show("El tipo ha sido actualizado exitosamente.", "Actualizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        await PoblarDtgv();
-                        NuevaPlantilla();
+                        try
+                        {
+                            Modelos.CMM.Type tipoActualizar = new Modelos.CMM.Type();
+                            tipoActualizar.Name = txtNombre.Text;
+                            tipoActualizar.ParentName = cmbxPadre.SelectedItem.ToString();
+                            tipoActualizar.Description = txtDescripcion.Text;
+                            tipoActualizar.Title = txtTitulo.Text;
+                            tipoActualizar.ModeloPerteneciente.Name = modelo.Name;
+                            fPrincipalLoading.Show();
+                            await TiposPersonalizadosStatic.ActualizarTipoPersonalizado(tipoActualizar);
+                            MessageBox.Show("El tipo ha sido actualizado exitosamente.", "Actualizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            await PoblarDtgv();
+                            NuevaPlantilla();
+                        }
+                        catch (TypeException exception)
+                        {
+                            fPrincipalLoading.Close();
+                            NuevaPlantilla();
+                            if (exception.Codigo == 409)
+                            {
+                                MessageBox.Show("No se puede cambiar el padre de un Tipo activo que se está utilizando.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Transacción abortada, hubo un error.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
                     }
                 }
                 catch (TypeException exception)
                 {
-                    if (exception.Codigo == 409)
-                    {
-                        MessageBox.Show("Uno de los nombres especificados ya se está utlizando", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        fPrincipalLoading.Close();
-                    }else if(exception.Codigo == 403)
+                    fPrincipalLoading.Close();
+                    NuevaPlantilla();
+                    if (exception.Codigo == 403)
                     {
                         MessageBox.Show("Permisos insuficientes", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        fPrincipalLoading.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Transacción abortada, hubo un error.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -192,22 +231,38 @@ namespace TrabajoTitulacion.IU
 
         private async void tlstripEliminar_Click(object sender, EventArgs e)
         {
-            List<GroupMember> groupMembers = await GruposStatic.ObtenerMiembrosGrupoAdministradorModelos();
-            if (!(groupMembers.Find(x => x.Id == PersonasStatic.PersonaAutenticada.Id) is null))
+            FLoading fPrincipalLoading = new FLoading();
+            try
             {
-                FLoading fPrincipalLoading = new FLoading();
-                fPrincipalLoading.Show();
-                await TiposPersonalizadosStatic.EliminarTipoPersonalizado(modelo.Name,
-                    dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
+                List<GroupMember> groupMembers = await GruposStatic.ObtenerMiembrosGrupoAdministradorModelos();
+                if (!(groupMembers.Find(x => x.Id == PersonasStatic.PersonaAutenticada.Id) is null))
+                {
+                    
+                    fPrincipalLoading.Show();
+                    await TiposPersonalizadosStatic.EliminarTipoPersonalizado(modelo.Name,
+                        dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
+                    MessageBox.Show("El tipo ha sido eliminado exitosamente.", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    fPrincipalLoading.Close();
+                    await PoblarDtgv();
+                    dtgviewDatos.Refresh();
+                }
+                else
+                {
+                    MessageBox.Show("No tiene los permisos suficientes para realizar esta acción. Usted no pertenece al grupo ALFRESCO_MODEL_ADMINISTRATORS.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (TypeException exception)
+            {
                 fPrincipalLoading.Close();
-                MessageBox.Show("El tipo ha sido eliminado exitosamente.", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                await PoblarDtgv();
-                dtgviewDatos.Refresh();
-            }
-            else
-            {
-                MessageBox.Show("No tiene los permisos suficientes para realizar esta acción. Usted no pertenece al grupo ALFRESCO_MODEL_ADMINISTRATORS.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+                if (exception.Codigo == 409)
+                {
+                    MessageBox.Show("El tipo debe estar inactivo para poder eliminarse", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Transacción abortada, hubo un error.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }            
         }
 
         private async void tlstripCrearAspecto_Click(object sender, EventArgs e)

@@ -32,8 +32,8 @@ namespace TrabajoTitulacion.IU
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblNombrePropiedad = new System.Windows.Forms.Label();
-            this.txtValorPropiedad = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.txtValorPropiedad = new System.Windows.Forms.TextBox();
             this.dtpValorPropiedad = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -67,19 +67,6 @@ namespace TrabajoTitulacion.IU
             this.lblNombrePropiedad.TabIndex = 0;
             this.lblNombrePropiedad.Text = "Nombre Propiedad:";
             // 
-            // txtValorPropiedad
-            // 
-            this.txtValorPropiedad.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtValorPropiedad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtValorPropiedad.Enabled = false;
-            this.txtValorPropiedad.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtValorPropiedad.Location = new System.Drawing.Point(3, 3);
-            this.txtValorPropiedad.Name = "txtValorPropiedad";
-            this.txtValorPropiedad.Size = new System.Drawing.Size(345, 21);
-            this.txtValorPropiedad.TabIndex = 1;
-            this.txtValorPropiedad.Text = "Valor Propiedad";
-            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.txtValorPropiedad);
@@ -90,13 +77,27 @@ namespace TrabajoTitulacion.IU
             this.flowLayoutPanel1.Size = new System.Drawing.Size(345, 33);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
+            // txtValorPropiedad
+            // 
+            this.txtValorPropiedad.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtValorPropiedad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtValorPropiedad.Enabled = false;
+            this.txtValorPropiedad.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtValorPropiedad.Location = new System.Drawing.Point(3, 3);
+            this.txtValorPropiedad.Name = "txtValorPropiedad";
+            this.txtValorPropiedad.Size = new System.Drawing.Size(331, 21);
+            this.txtValorPropiedad.TabIndex = 1;
+            // 
             // dtpValorPropiedad
             // 
+            this.dtpValorPropiedad.Enabled = false;
             this.dtpValorPropiedad.Location = new System.Drawing.Point(3, 30);
             this.dtpValorPropiedad.Name = "dtpValorPropiedad";
             this.dtpValorPropiedad.Size = new System.Drawing.Size(345, 20);
             this.dtpValorPropiedad.TabIndex = 2;
             this.dtpValorPropiedad.Visible = false;
+            this.dtpValorPropiedad.ValueChanged += new System.EventHandler(this.dtpValorPropiedad_ValueChanged);
             // 
             // CtrluPropiedad
             // 
@@ -123,5 +124,6 @@ namespace TrabajoTitulacion.IU
 
         public Label LblNombrePropiedad { get => lblNombrePropiedad; set => lblNombrePropiedad = value; }
         public TextBox TxtValorPropiedad { get => txtValorPropiedad; set => txtValorPropiedad = value; }
+        public DateTimePicker DtpValorPropiedad { get => dtpValorPropiedad; set => dtpValorPropiedad = value; }
     }
 }

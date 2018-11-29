@@ -23,11 +23,13 @@ namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
             var solicitud = new RestRequest(Method.PUT);
             solicitud.Resource = "cmm/" + nombreModelo;
             solicitud.AddQueryParameter("select", "status");
-            solicitud.AddParameter("application/octect-stream", JsonConvert.SerializeObject(new {status="ACTIVE"}), ParameterType.RequestBody);
+            solicitud.AddParameter("application/octect-stream", JsonConvert.SerializeObject(new { status = "ACTIVE" }), ParameterType.RequestBody);
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
             IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
             var contenidoRespuesta = respuesta.Content;
-            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            HttpStatusCode statusCode = respuesta.StatusCode;
+            int numericStatusCode = (int)statusCode;
+            ValidacionRespuesta(respuesta, numericStatusCode);
             return contenidoRespuesta;
         }
         public async Task<string> DesactivarModelo(string nombreModelo)
@@ -38,21 +40,42 @@ namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
             solicitud.AddParameter("application/octect-stream", JsonConvert.SerializeObject(new { status = "DRAFT" }), ParameterType.RequestBody);
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
             IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
+            HttpStatusCode statusCode = respuesta.StatusCode;
+            int numericStatusCode = (int)statusCode;
             var contenidoRespuesta = respuesta.Content;
-            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            ValidacionRespuesta(respuesta, numericStatusCode);
             return contenidoRespuesta;
         }
         public async Task<string> ActualizarModelo(string nombreModelo, string modelo)
         {
             var solicitud = new RestRequest(Method.PUT);
-            solicitud.Resource = "cmm/"+nombreModelo;
+            solicitud.Resource = "cmm/" + nombreModelo;
             solicitud.AddParameter("application/json", modelo, ParameterType.RequestBody);
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
             IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
             var contenidoRespuesta = respuesta.Content;
-            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            HttpStatusCode statusCode = respuesta.StatusCode;
+            int numericStatusCode = (int)statusCode;
+            ValidacionRespuesta(respuesta, numericStatusCode);
             return contenidoRespuesta;
         }
+
+        private static void ValidacionRespuesta(IRestResponse respuesta, int numericStatusCode)
+        {
+            if (numericStatusCode == 404)
+            {
+                throw new ModelException(404);
+            }
+            else if (numericStatusCode == 409)
+            {
+                throw new ModelException(409);
+            }
+            else if (!respuesta.IsSuccessful)
+            {
+                throw new ModelException("Error desconocido");
+            }
+        }
+
         public async Task<string> CrearModelo(string modelo)
         {
             var solicitud = new RestRequest(Method.POST);
@@ -63,10 +86,7 @@ namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
             var contenidoRespuesta = respuesta.Content;
             HttpStatusCode statusCode = respuesta.StatusCode;
             int numericStatusCode = (int)statusCode;
-            if (numericStatusCode == 409)
-            {
-                throw new ModelException(409);
-            }
+            ValidacionRespuesta(respuesta, numericStatusCode);
             return contenidoRespuesta;
         }
 
@@ -74,11 +94,13 @@ namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
         public async Task<string> ObtenerModelo(string nombreModelo)
         {
             var solicitud = new RestRequest(Method.GET);
-            solicitud.Resource = "cmm/"+nombreModelo;
+            solicitud.Resource = "cmm/" + nombreModelo;
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
             IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
             var contenidoRespuesta = respuesta.Content;
-            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            HttpStatusCode statusCode = respuesta.StatusCode;
+            int numericStatusCode = (int)statusCode;
+            ValidacionRespuesta(respuesta, numericStatusCode);
             return contenidoRespuesta;
         }
 
@@ -91,21 +113,20 @@ namespace TrabajoTitulacion.Servicios.CMM.ModelosPersonalizados
             var contenidoRespuesta = respuesta.Content;
             HttpStatusCode statusCode = respuesta.StatusCode;
             int numericStatusCode = (int)statusCode;
-            if(numericStatusCode == 404)
-            {
-                throw new ModelException("No se ha encontrado el Modelo solicitado");
-            }
+            ValidacionRespuesta(respuesta, numericStatusCode);
             return contenidoRespuesta;
         }
 
         public async Task<string> EliminarModelo(string nombreModelo)
         {
             var solicitud = new RestRequest(Method.DELETE);
-            solicitud.Resource = "cmm/"+nombreModelo;
+            solicitud.Resource = "cmm/" + nombreModelo;
             solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
             IRestResponse respuesta = await cliente.ExecuteTaskAsync(solicitud);
             var contenidoRespuesta = respuesta.Content;
-            if (!respuesta.IsSuccessful) throw new UnauthorizedAccessException();
+            HttpStatusCode statusCode = respuesta.StatusCode;
+            int numericStatusCode = (int)statusCode;
+            ValidacionRespuesta(respuesta, numericStatusCode);
             return contenidoRespuesta;
         }
     }

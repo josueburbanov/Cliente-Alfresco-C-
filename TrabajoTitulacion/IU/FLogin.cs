@@ -16,15 +16,12 @@ namespace TrabajoTitulacion.UI
 
         private async void btnIngresar_Click(object sender, EventArgs e)
         {
-            //Muestra la ventana de loading...
-            fPrincipalLoading.Show();
+            
 
             //Llamada asíncrona a Login
             await IniciarSesion();
 
-            //Una vez logueado elimina la ventana de carga e ingresa al dashboard
-            fPrincipalLoading.Close();
-            IngresarDashboard();
+            
         }
 
         /// <summary>
@@ -35,15 +32,21 @@ namespace TrabajoTitulacion.UI
         {
             try
             {
+                //Muestra la ventana de loading...
+                fPrincipalLoading.Show();
                 //autenticación asíncrona
                 await AutenticacionStatic.IniciarSesion(txtNombreUsuario.Text, txtContraseña.Text);
+                fPrincipalLoading.Close();
+                IngresarDashboard();
+                //Una vez logueado elimina la ventana de carga e ingresa al dashboard
+                
             }
             catch (UnauthorizedAccessException)
             {
                 //Autenticación no exitosa. Mensaje de error y limpieza de campos
                 lblErrorAutenticacion.Visible = true;
                 txtContraseña.Clear();
-                txtNombreUsuario.Clear();
+                txtNombreUsuario.Clear();                
             }
         }
         
@@ -51,19 +54,10 @@ namespace TrabajoTitulacion.UI
         {
             if (e.KeyCode == Keys.Enter)
             {
-                //Muestra la ventana de loading...
-                fPrincipalLoading.Show();
-
                 //Llamada asíncrona a Login
                 await IniciarSesion();
-
-                //Una vez logueado elimina la ventana de carga e ingresa al dashboard
-                fPrincipalLoading.Close();
-                IngresarDashboard();
-
             }
         }
-
        
         private void IngresarDashboard()
         {
@@ -78,16 +72,8 @@ namespace TrabajoTitulacion.UI
         {
             if (e.KeyCode == Keys.Enter)
             {
-                //Muestra la ventana de loading...
-                fPrincipalLoading.Show();
-
                 //Llamada asíncrona a Login
                 await IniciarSesion();
-
-                //Una vez logueado elimina la ventana de carga e ingresa al dashboard
-                fPrincipalLoading.Close();
-                IngresarDashboard();
-
             }
         }
 

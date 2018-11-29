@@ -48,6 +48,7 @@ namespace TrabajoTitulacion.Servicios
         {
             var solicitud = new RestRequest(Method.DELETE);
             solicitud.Resource = "tickets/" + await PersonasStatic.ObtenerPersona(userId);
+            solicitud.AddQueryParameter("alf_ticket", AutenticacionStatic.Ticket);
             IRestResponse respuesta = cliente.Execute(solicitud);
             var contenidoRespuesta = respuesta.Content;
             return contenidoRespuesta;

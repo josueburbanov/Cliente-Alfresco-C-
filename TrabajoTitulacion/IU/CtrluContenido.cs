@@ -11,6 +11,7 @@ using TrabajoTitulacion.Modelos.CoreAPI;
 using TrabajoTitulacion.Servicios.Core.Nodos;
 using TrabajoTitulacion.Modelos.Core;
 using System.IO;
+using TrabajoTitulacion.Modelos.Sync;
 
 namespace TrabajoTitulacion.IU
 {
@@ -115,6 +116,78 @@ namespace TrabajoTitulacion.IU
                 pctboxTipoContenido.Image = Properties.Resources.pdf2;
             }
 
+        }
+
+        private async void CtrluContenido_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] FileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+                Nodo nodo = (Nodo)((CtrluContenido)sender).Tag;
+                await SubirMasivamente(FileList, nodo.ParentId);
+            }
+        }
+
+        private async Task SubirMasivamente(string[] FileList, string idPadre)
+        {
+            foreach (var item in FileList)
+            {
+                await CrearNodoRemoto(idPadre, item);
+            }
+            MessageBox.Show("Se han cargado todos sus archivos", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        public async Task CrearNodoRemoto(string nodoPadre, string PathLocal)
+        {
+            Nodo nodo = new Nodo();
+            bool EsArchivo;
+            if (File.Exists(PathLocal))
+            {
+                EsArchivo = true;
+            }
+            else
+            {
+                EsArchivo = false;
+            }
+
+            nodo.Name = Path.GetFileName(PathLocal) ?? Path.GetDirectoryName(PathLocal);
+
+            if (EsArchivo)
+            {
+                nodo.NodeType = "cm:content";
+                Nodo nodoCreado = await NodosStatic.CrearNodoContenido(nodoPadre, nodo, File.ReadAllBytes(PathLocal));
+
+            }
+            else
+            {
+                nodo.NodeType = "cm:folder";
+                Nodo nodoCreado = await NodosStatic.CrearNodo(nodoPadre, nodo);
+                if (!(Directory.GetFiles(PathLocal) is null))
+                {
+                    foreach (var item in Directory.GetFiles(PathLocal))
+                    {
+                        NodoLocal nodoLocalHijo = new NodoLocal(item, true);
+                        await nodoLocalHijo.CrearNodoRemoto(nodoCreado.Id);
+                    }
+
+                }
+                if (!(Directory.GetDirectories(PathLocal) is null))
+                {
+                    foreach (var item in Directory.GetDirectories(PathLocal))
+                    {
+                        NodoLocal nodoLocalHijo = new NodoLocal(item, false);
+                        await nodoLocalHijo.CrearNodoRemoto(nodoCreado.Id);
+                    }
+                }
+            }
+        }
+
+        private void CtrluContenido_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Copy;
+            else
+                e.Effect = DragDropEffects.None;
         }
     }
 }

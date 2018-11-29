@@ -123,6 +123,7 @@ namespace TrabajoTitulacion.IU
             // 
             // CtrluContenido
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
@@ -136,6 +137,8 @@ namespace TrabajoTitulacion.IU
             this.Name = "CtrluContenido";
             this.Size = new System.Drawing.Size(786, 106);
             this.Load += new System.EventHandler(this.CtrluContenido_Load);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.CtrluContenido_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.CtrluContenido_DragEnter);
             ((System.ComponentModel.ISupportInitialize)(this.pctboxTipoContenido)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

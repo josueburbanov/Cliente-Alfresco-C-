@@ -80,14 +80,14 @@ namespace TrabajoTitulacion.Modelos.Sync
                     if ((!(archivo.CustomProperties.Count == 0)))
                     {
                         foreach (CustomProperty property in archivo.CustomProperties)
-                        {                            
+                        {
                             if (property.Name == "IdAlfresco")
                             {
-                                idAlfrescoArchivo =property.get_Value();                                
+                                idAlfrescoArchivo = property.get_Value();
                             }
                         }
                     }
-                    archivo.Close(true);                    
+                    archivo.Close(true);
                 }
                 return idAlfrescoArchivo;
             }
@@ -109,7 +109,7 @@ namespace TrabajoTitulacion.Modelos.Sync
             }
             else
             {
-                Directory.Delete(PathLocal,true);
+                Directory.Delete(PathLocal, true);
             }
         }
 
@@ -134,6 +134,23 @@ namespace TrabajoTitulacion.Modelos.Sync
                 AñadirIdAlfrescoLocal(nodoCreado.Id);
                 await AñadirIdRemoto(nodoCreado);
                 await ActualizarFechasLocales(nodoCreado);
+                if (!(Directory.GetFiles(PathLocal) is null))
+                {
+                    foreach (var item in Directory.GetFiles(PathLocal))
+                    {
+                        NodoLocal nodoLocalHijo = new NodoLocal(item, true);
+                        await nodoLocalHijo.CrearNodoRemoto(nodoCreado.Id);
+                    }
+
+                }
+                if (!(Directory.GetDirectories(PathLocal) is null))
+                {
+                    foreach (var item in Directory.GetDirectories(PathLocal))
+                    {
+                        NodoLocal nodoLocalHijo = new NodoLocal(item, false);
+                        await nodoLocalHijo.CrearNodoRemoto(nodoCreado.Id);
+                    }
+                }
             }
 
 
@@ -218,16 +235,16 @@ namespace TrabajoTitulacion.Modelos.Sync
                 }
                 else
                 {
-                    OleDocumentProperties archivo = new OleDocumentProperties();
-                    archivo.Open(PathLocal);
-                    archivo.CustomProperties.Add("IdAlfresco", idRemoto);
-                    archivo.Save();
-                    archivo.Close(true);
+                    OleDocumentProperties myFile = new DSOFile.OleDocumentProperties();
+                    myFile.Open(PathLocal, false, DSOFile.dsoFileOpenOptions.dsoOptionDefault);
+                    myFile.CustomProperties.Add("IdAlfresco", idRemoto);
+                    myFile.Save();
+                    myFile.Close(true);
                 }
             }
             catch (System.Runtime.InteropServices.COMException)
             {
-
+                Console.WriteLine("Error de escritura del id");
             }
         }
 
@@ -245,7 +262,7 @@ namespace TrabajoTitulacion.Modelos.Sync
             }
             else
             {
-                await NodosStatic.ActualizarNodo(archivoAlfresco);                                
+                await NodosStatic.ActualizarNodo(archivoAlfresco);
                 Nodo nodoCreado = await NodosStatic.ObtenerNodo(idRemoto);
                 await ActualizarFechasLocales(nodoCreado);
             }
@@ -267,7 +284,7 @@ namespace TrabajoTitulacion.Modelos.Sync
             {
                 Directory.SetCreationTime(PathLocal, Directory.GetCreationTime(PathLocal));
             }
-            
+
         }
 
         public enum PropertyTypes : int

@@ -39,8 +39,6 @@ namespace TrabajoTitulacion.IU
             }
         }
 
-
-
         /// <summary>
         /// Añade los formularios hijos al formulario principal, asigna indices a cada form, 
         /// 0:Inicio, 1:Repositorio, etc. Para evitar crear múltiples veces y mantener el estado.
@@ -130,12 +128,12 @@ namespace TrabajoTitulacion.IU
             {
                 //Se envía petición para cerrar sesión
                 await AutenticacionStatic.CerrarSesion(idPersona);
-                MessageBox.Show("Su sesión ha sido finalizada correctamente");
+                MessageBox.Show("Su sesión ha finalizado", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
             catch (UnauthorizedAccessException)
             {
-                MessageBox.Show("Hubo un problema cerrando su sesión");
+                MessageBox.Show("Hubo un problema cerrando su sesión", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -177,6 +175,11 @@ namespace TrabajoTitulacion.IU
         private void tlstripMenuBusqueda_Click(object sender, EventArgs e)
         {
             AbrirBusqueda();
+        }
+
+        private async void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            await Logout();
         }
     }
 }

@@ -125,8 +125,8 @@ namespace TrabajoTitulacion.IU
                     {
                         if (exception.Codigo == 409)
                         {
-                            MessageBox.Show("Uno de los nombres especificados ya se está utlizando", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             fPrincipalLoading.Close();
+                            MessageBox.Show("Uno de los nombres especificados ya se está utlizando", "Nombres duplicados", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
 
@@ -145,7 +145,7 @@ namespace TrabajoTitulacion.IU
                         fPrincipalLoading.Show();
                         await ModelosPersonalizadosStatic.ActualizarModeloPersonalizado(modelo);
                         fPrincipalLoading.Close();
-                        MessageBox.Show("El modelo " + modelo.Name + " ha sido actualizado con éxito");
+                        MessageBox.Show("El modelo " + modelo.Name + " ha sido actualizado con éxito", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         await PoblarDtgvModelos("Sin filtro");
                         dtgviewDatos.Refresh();
                         panelModelo.Visible = false;
@@ -155,8 +155,8 @@ namespace TrabajoTitulacion.IU
                     {
                         if (exception.Codigo == 409)
                         {
-                            MessageBox.Show("Uno de los nombres especificados ya se está utlizando", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             fPrincipalLoading.Close();
+                            MessageBox.Show("Uno de los nombres especificados ya se está utlizando", "Nombres duplicados", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
@@ -184,7 +184,7 @@ namespace TrabajoTitulacion.IU
             }
             else
             {
-                MessageBox.Show("No tiene los permisos suficientes para realizar esta acción. Usted no pertenece al grupo ALFRESCO_MODEL_ADMINISTRATORS.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No tiene los permisos suficientes para realizar esta acción. Usted no pertenece al grupo ALFRESCO_MODEL_ADMINISTRATORS.", "Permiso denegado", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -197,7 +197,7 @@ namespace TrabajoTitulacion.IU
             }
             else
             {
-                MessageBox.Show("No tiene los permisos suficientes para realizar esta acción. Usted no pertenece al grupo ALFRESCO_MODEL_ADMINISTRATORS.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No tiene los permisos suficientes para realizar esta acción. Usted no pertenece al grupo ALFRESCO_MODEL_ADMINISTRATORS.", "Permiso denegado", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private async void PlantillaEditarModelo()
@@ -234,36 +234,60 @@ namespace TrabajoTitulacion.IU
 
         private async void tlstripActivarDesactivar_Click(object sender, EventArgs e)
         {
-            Model modeloCambiarEstado = await ModelosPersonalizadosStatic.ObtenerModeloPersonalizado(
-                dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
             FLoading fPrincipalLoading = new FLoading();
-            fPrincipalLoading.Show();
-            await ModelosPersonalizadosStatic.CambiarEstadoModeloPersonalizado(modeloCambiarEstado);
-            fPrincipalLoading.Close();
-            MessageBox.Show("El modelo " + modeloCambiarEstado.Name + " ha sido cambiado de estado");
-            await PoblarDtgvModelos("Sin filtro");
-            dtgviewDatos.Refresh();
+            try
+            {
+                Model modeloCambiarEstado = await ModelosPersonalizadosStatic.ObtenerModeloPersonalizado(
+                dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
+                fPrincipalLoading.Show();
+                await ModelosPersonalizadosStatic.CambiarEstadoModeloPersonalizado(modeloCambiarEstado);
+                fPrincipalLoading.Close();
+                MessageBox.Show("El modelo " + modeloCambiarEstado.Name + " ha sido cambiado de estado", "Cambio de estado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                await PoblarDtgvModelos("Sin filtro");
+                dtgviewDatos.Refresh();
+            }
+            catch (ModelException exception)
+            {
+                if (exception.Codigo == 409)
+                {
+                    fPrincipalLoading.Close();
+                    MessageBox.Show("No se puede cambiar el estado. El modelo se está utilizando, o un tipo o aspecto de este modelo es padre de algún tipo o aspecto que se está utilizando", "Conflicto", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private async void tlstripEliminar_Click(object sender, EventArgs e)
         {
-            List<GroupMember> groupMembers = await GruposStatic.ObtenerMiembrosGrupoAdministradorModelos();
-            if (!(groupMembers.Find(x => x.Id == PersonasStatic.PersonaAutenticada.Id) is null))
+            FLoading fPrincipalLoading = new FLoading();
+            try
             {
-                FLoading fPrincipalLoading = new FLoading();
-                fPrincipalLoading.Show();
-                await ModelosPersonalizadosStatic.EliminarModeloPersonalizado(
-                    dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
+                List<GroupMember> groupMembers = await GruposStatic.ObtenerMiembrosGrupoAdministradorModelos();
+                if (!(groupMembers.Find(x => x.Id == PersonasStatic.PersonaAutenticada.Id) is null))
+                {
+                    fPrincipalLoading.Show();
+                    await ModelosPersonalizadosStatic.EliminarModeloPersonalizado(
+                        dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
+                    fPrincipalLoading.Close();
+                    MessageBox.Show("El modelo ha sido eliminado exitosamente", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    await PoblarDtgvModelos("Sin filtro");
+                    dtgviewDatos.Refresh();
+                }
+                else
+                {
+                    MessageBox.Show("No tiene los permisos suficientes para realizar esta acción. Usted no pertenece al grupo ALFRESCO_MODEL_ADMINISTRATORS.", "Permiso denegado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }catch(ModelException exception)
+            {
                 fPrincipalLoading.Close();
-                MessageBox.Show("El modelo ha sido eliminado exitosamente", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                await PoblarDtgvModelos("Sin filtro");
-                dtgviewDatos.Refresh();
+                if (exception.Codigo == 409)
+                {
+                    MessageBox.Show("El modelo debe estar inactivo para poder eliminarse", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Transacción abortada, hubo un error.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
-            {
-                MessageBox.Show("No tiene los permisos suficientes para realizar esta acción. Usted no pertenece al grupo ALFRESCO_MODEL_ADMINISTRATORS.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-
         }
 
         private async void tlstripTiposPersonalizados_Click(object sender, EventArgs e)
@@ -306,7 +330,7 @@ namespace TrabajoTitulacion.IU
             }
             else
             {
-                MessageBox.Show("No tiene los permisos suficientes para realizar esta acción. Usted no pertenece al grupo ALFRESCO_MODEL_ADMINISTRATORS.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No tiene los permisos suficientes para realizar esta acción. Usted no pertenece al grupo ALFRESCO_MODEL_ADMINISTRATORS.", "Permiso denegado", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -365,6 +389,16 @@ namespace TrabajoTitulacion.IU
                 e.Handled = true;
                 return;
             }
+        }
+
+        private void ascendenteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dtgviewDatos.Sort(dtgviewDatos.Columns["clmNombreModelo"], ListSortDirection.Ascending);
+        }
+
+        private void descendenteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dtgviewDatos.Sort(dtgviewDatos.Columns["clmNombreModelo"], ListSortDirection.Descending);
         }
     }
 }

@@ -30,8 +30,45 @@ namespace TrabajoTitulacion.IU
         private async void FDetallesContenido_Load(object sender, EventArgs e)
         {
             await PresentarNodo();
+            CargarIconos();
+
         }
 
+        private void CargarIconos()
+        {
+            if (nodoSeleccionado.Content is null)
+            {
+                pctboxTipoContenido.Image = Properties.Resources.folder_icon;
+            }
+            else if (nodoSeleccionado.Content.MimeTypeName == "Plain Text")
+            {
+                pctboxTipoContenido.Image = Properties.Resources.txt_icon_256;
+            }
+            else if (nodoSeleccionado.Content.MimeTypeName == "Microsoft PowerPoint 2007")
+            {
+                pctboxTipoContenido.Image = Properties.Resources.ppt_icon;
+            }
+            else if (nodoSeleccionado.Content.MimeTypeName == "Microsoft Excel 2007")
+            {
+                pctboxTipoContenido.Image = Properties.Resources.spreadsheet;
+            }
+            else if (nodoSeleccionado.Content.MimeTypeName == "ZIP")
+            {
+                pctboxTipoContenido.Image = Properties.Resources.compress;
+            }
+            else if (nodoSeleccionado.Content.MimeTypeName == "Microsoft Word 2007")
+            {
+                pctboxTipoContenido.Image = Properties.Resources.doc_icon;
+            }
+            else if (nodoSeleccionado.Content.MimeTypeName == "PNG Image")
+            {
+                pctboxTipoContenido.Image = Properties.Resources.imagen_icon;
+            }
+            else if (nodoSeleccionado.Content.MimeType == "application/pdf")
+            {
+                pctboxTipoContenido.Image = Properties.Resources.pdf2;
+            }
+        }
 
         private async Task PresentarNodo()
         {
@@ -75,7 +112,7 @@ namespace TrabajoTitulacion.IU
 
                 if (!(nodoSeleccionado.Content is null))
                 {
-                    DibujarPropiedad("Tipo MIME", nodoSeleccionado.Content.MimeType, "ATRIBUTO");
+                    DibujarPropiedad("Tipo", nodoSeleccionado.Content.MimeTypeName, "ATRIBUTO");
                 }
 
                 //De los aspectos del nodo:
@@ -87,36 +124,32 @@ namespace TrabajoTitulacion.IU
                         {
                             foreach (var propiedad in aspecto.Properties)
                             {
-                                if (!(propiedad.Title is null))
-                                {
-                                    DibujarPropiedad(propiedad.Title, propiedad.Value, "ASPECTO");
-                                }
+                                DibujarPropiedad(propiedad, "ASPECTO");
                             }
                         }
                     }
-                }
 
-                //Del tipo de nodo(NodeType)
-                if (!(nodoSeleccionado.TipoNodo is null))
-                {
-                    if (!(nodoSeleccionado.TipoNodo.Properties is null))
+                    //Del tipo de nodo(NodeType)
+                    if (!(nodoSeleccionado.TipoNodo is null))
                     {
-                        foreach (var propiedad in nodoSeleccionado.TipoNodo.Properties)
+                        if (!(nodoSeleccionado.TipoNodo.Properties is null))
                         {
-                            if (!(propiedad.Title is null))
+                            foreach (var propiedad in nodoSeleccionado.TipoNodo.Properties)
                             {
-                                DibujarPropiedad(propiedad.Title, propiedad.Value, "TIPO");
+                                DibujarPropiedad(propiedad, "TIPO");
                             }
                         }
                     }
-                }
 
+                }
             }
             catch (ModelException)
             {
                 MessageBox.Show("Se ha producido un error al cargar un modelo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
 
         private void CargarListBoxAspectosPropios()
         {
@@ -140,13 +173,13 @@ namespace TrabajoTitulacion.IU
                 await CargarAspectos(item);
                 await CargarTipos(item);
             }
-            CargarTiposXDefecto();            
+            CargarTiposXDefecto();
             modelosDisponibles.Clear();
         }
 
         private async Task CargarTipos(Model modeloSeleccionado)
         {
-            List<Modelos.CMM.Type> tipos = await TiposPersonalizadosStatic.ObtenerTiposPersonalizados(modeloSeleccionado.Name);            
+            List<Modelos.CMM.Type> tipos = await TiposPersonalizadosStatic.ObtenerTiposPersonalizados(modeloSeleccionado.Name);
 
             if (nodoSeleccionado.IsFile)
             {
@@ -168,33 +201,33 @@ namespace TrabajoTitulacion.IU
                     }
                 }
             }
-            
+
         }
 
         private void CargarTiposXDefecto()
         {
-                if (!nodoSeleccionado.IsFile && nodoSeleccionado.NodeType != "cm:folder")
+            if (!nodoSeleccionado.IsFile && nodoSeleccionado.NodeType != "cm:folder")
+            {
+                Modelos.CMM.Type carpetaXDefecto = new Modelos.CMM.Type()
                 {
-                    Modelos.CMM.Type carpetaXDefecto = new Modelos.CMM.Type()
-                    {
-                        Name = "cm:folder",
-                        ParentName = "cm:cmobject",
-                        Title = "Folder",
-                        PrefixedName = "cm:folder"
-                    };
-                    cmbxTipos.Items.Add(carpetaXDefecto);
-                }
-                else if(nodoSeleccionado.NodeType != "cm:content" && nodoSeleccionado.IsFile)
+                    Name = "cm:folder",
+                    ParentName = "cm:cmobject",
+                    Title = "Folder",
+                    PrefixedName = "cm:folder"
+                };
+                cmbxTipos.Items.Add(carpetaXDefecto);
+            }
+            else if (nodoSeleccionado.NodeType != "cm:content" && nodoSeleccionado.IsFile)
+            {
+                Modelos.CMM.Type archivoXDefecto = new Modelos.CMM.Type()
                 {
-                    Modelos.CMM.Type archivoXDefecto = new Modelos.CMM.Type()
-                    {
-                        Name = "cm:content",
-                        ParentName = "cm:cmobject",
-                        Title = "Content",
-                        PrefixedName = "cm:content"
-                    };
-                    cmbxTipos.Items.Add(archivoXDefecto);
-                }
+                    Name = "cm:content",
+                    ParentName = "cm:cmobject",
+                    Title = "Content",
+                    PrefixedName = "cm:content"
+                };
+                cmbxTipos.Items.Add(archivoXDefecto);
+            }
 
         }
 
@@ -218,11 +251,60 @@ namespace TrabajoTitulacion.IU
             {
                 if ((nodoSeleccionado.Aspectos.Find(x => x.PrefixedName == item.PrefixedName) is null))
                 {
-                    if(item.PrefixedName == "sync:Sincronizable")continue;
+                    if (item.PrefixedName == "sync:Sincronizable") continue;
                     cmbxAspectos.Items.Add(item);
                 }
-
             }
+        }
+
+        private void DibujarPropiedad(Property propiedad, string proveniente)
+        {
+            CtrluPropiedad ctrluPropiedad = new CtrluPropiedad();
+            ctrluPropiedad.LblNombrePropiedad.Text = propiedad.Title ?? propiedad.Name;
+            if (!(propiedad.Value is null))
+            {
+                if (propiedad.Datatype == "d:date")
+                {
+                    ctrluPropiedad.DtpValorPropiedad.Visible = true;
+                    ctrluPropiedad.TxtValorPropiedad.Visible = false;
+                    ctrluPropiedad.DtpValorPropiedad.Value = DateTime.ParseExact(Convert.ToString(propiedad.Value), "dd/MM/yyyy H:mm:ss", null);
+                    ctrluPropiedad.DtpValorPropiedad.Format = DateTimePickerFormat.Custom;
+                    ctrluPropiedad.DtpValorPropiedad.CustomFormat = "yyyy-MM-dd";
+                }
+                else if (propiedad.Datatype == "d:datetime")
+                {
+                    ctrluPropiedad.DtpValorPropiedad.Visible = true;
+                    ctrluPropiedad.TxtValorPropiedad.Visible = false;
+                    ctrluPropiedad.DtpValorPropiedad.Value = DateTime.ParseExact(Convert.ToString(propiedad.Value), "dd/MM/yyyy H:mm:ss", null);
+                    ctrluPropiedad.DtpValorPropiedad.Format = DateTimePickerFormat.Custom;
+                    ctrluPropiedad.DtpValorPropiedad.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+                }
+                else
+                {
+                    ctrluPropiedad.TxtValorPropiedad.Text = propiedad.Value.ToString();
+                }
+            }
+            ctrluPropiedad.Name = propiedad.Title ?? propiedad.Name;
+            ctrluPropiedad.Tag = proveniente;
+
+            if (propiedad.Datatype == "d:date")
+            {
+                ctrluPropiedad.DtpValorPropiedad.Visible = true;
+                ctrluPropiedad.TxtValorPropiedad.Visible = false;
+                ctrluPropiedad.Tipo = "d:date";
+            }
+            else if (propiedad.Datatype == "d:datetime")
+            {
+                ctrluPropiedad.DtpValorPropiedad.Visible = true;
+                ctrluPropiedad.TxtValorPropiedad.Visible = false;
+                ctrluPropiedad.Tipo = "d:datetime";
+            }
+            else
+            {
+                ctrluPropiedad.Tipo = "Text";
+            }
+
+            flwypanelPropiedades.Controls.Add(ctrluPropiedad);
         }
 
         private void DibujarPropiedad(string tituloPropiedad, object valorPropiedad, string proveniente)
@@ -232,6 +314,7 @@ namespace TrabajoTitulacion.IU
             if (!(valorPropiedad is null)) ctrluPropiedad.TxtValorPropiedad.Text = valorPropiedad.ToString();
             ctrluPropiedad.Name = tituloPropiedad;
             ctrluPropiedad.Tag = proveniente;
+            ctrluPropiedad.Tipo = "Text";
             flwypanelPropiedades.Controls.Add(ctrluPropiedad);
         }
 
@@ -240,8 +323,17 @@ namespace TrabajoTitulacion.IU
             editable = true;
             foreach (var ctruPropiedad in flwypanelPropiedades.Controls)
             {
-                if(((CtrluPropiedad)ctruPropiedad).LblNombrePropiedad.Text != "Tipo MIME"){
-                    ((CtrluPropiedad)ctruPropiedad).TxtValorPropiedad.Enabled = true;
+                CtrluPropiedad ctrluPropiedad = (CtrluPropiedad)ctruPropiedad;
+                if (ctrluPropiedad.LblNombrePropiedad.Text != "Tipo MIME")
+                {
+                    if (ctrluPropiedad.Tipo == "Text")
+                    {
+                        ctrluPropiedad.TxtValorPropiedad.Enabled = true;
+                    }
+                    else if (ctrluPropiedad.Tipo == "d:datetime" || ctrluPropiedad.Tipo == "d:date")
+                    {
+                        ctrluPropiedad.DtpValorPropiedad.Enabled = true;
+                    }
                 }
             }
         }
@@ -250,7 +342,7 @@ namespace TrabajoTitulacion.IU
         {
             if (editable)
             {
-                nodoSeleccionado.Name = ((CtrluPropiedad)(flwypanelPropiedades.Controls.Find("Nombre", false)[0])).TxtValorPropiedad.Text;                
+                nodoSeleccionado.Name = ((CtrluPropiedad)(flwypanelPropiedades.Controls.Find("Nombre", false)[0])).TxtValorPropiedad.Text;
 
                 foreach (var control in flwypanelPropiedades.Controls)
                 {
@@ -259,21 +351,38 @@ namespace TrabajoTitulacion.IU
                     {
                         var propiedadBuscada = (from aspecto in nodoSeleccionado.Aspectos
                                                 from propiedad in aspecto.Properties
-                                                where propiedad.Title == controlPropiedad.Name
+                                                where propiedad.Name == controlPropiedad.Name || propiedad.Title == controlPropiedad.Name
                                                 select propiedad).FirstOrDefault();
                         propiedadBuscada.Value = controlPropiedad.TxtValorPropiedad.Text;
+
+                        if (controlPropiedad.TxtValorPropiedad.Text != "")
+                        {
+                            propiedadBuscada.Value = controlPropiedad.TxtValorPropiedad.Text;
+                        }
+                        else
+                        {
+                            propiedadBuscada.Value = null;
+                        }
                     }
                     else if (controlPropiedad.Tag.Equals("TIPO"))
                     {
                         var propiedadBuscada = (from propiedad in nodoSeleccionado.TipoNodo.Properties
-                                                where propiedad.Title == controlPropiedad.Name
+                                                where propiedad.Name == controlPropiedad.Name || propiedad.Title == controlPropiedad.Name
                                                 select propiedad).FirstOrDefault();
-                        propiedadBuscada.Value = controlPropiedad.TxtValorPropiedad.Text;
+
+                        if (controlPropiedad.TxtValorPropiedad.Text != "")
+                        {
+                            propiedadBuscada.Value = controlPropiedad.TxtValorPropiedad.Text;
+                        }
+                        else
+                        {
+                            propiedadBuscada.Value = null;
+                        }
                     }
                 }
 
                 await NodosStatic.ActualizarPropiedadesNodo(nodoSeleccionado);
-                MessageBox.Show("Propiedades Actualizadas", "Alfresco");
+                MessageBox.Show("Propiedades Actualizadas", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Close();
             }
         }
@@ -374,7 +483,6 @@ namespace TrabajoTitulacion.IU
                     await PresentarNodo();
                 }
             }
-
         }
     }
 }

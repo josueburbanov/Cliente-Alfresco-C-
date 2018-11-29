@@ -22,7 +22,7 @@ namespace TrabajoTitulacion.IU
 
         private void FSync_Load(object sender, EventArgs e)
         {
-            
+            PoblarListBoxRepositoriosGuardados();
         }
 
         private async Task CargarRepositorio()
@@ -89,6 +89,7 @@ namespace TrabajoTitulacion.IU
 
         private void PoblarListBoxRepositoriosGuardados()
         {
+            lstboxRepositoriosGuardados.Items.Clear();
             foreach (var item in Properties.Settings.Default.RepositoriosPath)
             {
                 lstboxRepositoriosGuardados.Items.Add(item);
@@ -127,7 +128,7 @@ namespace TrabajoTitulacion.IU
 
         private async void btnSincronizar_Click(object sender, EventArgs e)
         {
-            //Se obtiene repositorio seleccionado y se descarga estructura árbol del repositorio seleccionado
+            //Se obtiene el repositorio seleccionado y se descarga estructura árbol del repositorio seleccionado
             string repositorioSeleccionado = lstboxRepositoriosGuardados.SelectedItem.ToString();
             int indexOfRepositorio = Properties.Settings.Default.RepositoriosPath.IndexOf(repositorioSeleccionado);
             string idRepositorioSeleccionado = Properties.Settings.Default.RepositoriosId[indexOfRepositorio];

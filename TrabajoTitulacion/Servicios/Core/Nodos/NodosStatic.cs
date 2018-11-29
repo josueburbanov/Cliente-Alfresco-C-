@@ -355,7 +355,23 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
                 {
                     foreach (var propiedad in aspecto.Properties)
                     {
-                        propiedadesJson.Add(propiedad.PrefixedName, propiedad.Value);
+                        if(!(propiedad.Value is null))
+                        {
+                            if (propiedad.Datatype == "d:date")
+                            {
+                                DateTime dt = DateTime.ParseExact(Convert.ToString(propiedad.Value), "dd/MM/yyyy H:mm:ss", null);
+                                propiedad.Value = propiedad.Value = dt.ToString("yyyy-MM-dd");
+                            }
+                            else if (propiedad.Datatype == "d:date")
+                            {
+                                DateTime dt = DateTime.ParseExact(Convert.ToString(propiedad.Value), "dd/MM/yyyy H:mm:ss", null);
+                                propiedad.Value = dt.ToString("yyyy-MM-dd HH:mm:ss");
+                                
+                            }
+                            else if (!(propiedad.Datatype == "d:text" || propiedad.Datatype == "d:mltext")) propiedad.Value = Convert.ToString(propiedad.Value);                            
+                            
+                            propiedadesJson.Add(propiedad.PrefixedName, propiedad.Value);
+                        }
                     }
                 }
             }
@@ -365,7 +381,10 @@ namespace TrabajoTitulacion.Servicios.Core.Nodos
             {
                 foreach (var propiedad in nodoActualizar.TipoNodo.Properties)
                 {
-                    propiedadesJson.Add(propiedad.PrefixedName, propiedad.Value);
+                    if (!(propiedad.Value is null))
+                    {
+                        propiedadesJson.Add(propiedad.PrefixedName, propiedad.Value);
+                    }
                 }
             }
             nodoActualizar.Properties = propiedadesJson;

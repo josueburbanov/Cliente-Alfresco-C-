@@ -44,10 +44,12 @@ namespace TrabajoTitulacion.IU
 
         private void btnCerrarPlantilla_Click(object sender, EventArgs e)
         {
-            panelTipo.Visible = false;
+            panelAspecto.Visible = false;
         }
         private async void NuevaPlantilla()
         {
+            txtNombre.Enabled = true;
+            panelAspecto.Visible = true;
             txtNombre.Clear();
             txtTitulo.Clear();
             txtDescripcion.Clear();
@@ -58,6 +60,7 @@ namespace TrabajoTitulacion.IU
 
         private async Task cargarCmbxPadres()
         {
+            cmbxPadre.Items.Clear();
             List<Aspect> aspectosActivos = await AspectosPersonalizadosStatic.ObtenerAspectosActivos();
             foreach (var aspecto in aspectosActivos)
             {
@@ -65,6 +68,7 @@ namespace TrabajoTitulacion.IU
             }
             cmbxPadre.Items.Add("gd2:editingInGoogle");
             cmbxPadre.Items.Add("gd2:sharedInGoogle");
+            cmbxPadre.Items.Add("Ninguno");
         }
 
         private async void tlstripCrear_Click(object sender, EventArgs e)
@@ -115,34 +119,56 @@ namespace TrabajoTitulacion.IU
         {
             Aspect aspectoEditar = await AspectosPersonalizadosStatic.ObtenerAspectoPersonalizado(
                 modelo.Name, dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
-            panelTipo.Visible = true;
+            panelAspecto.Visible = true;
             btnAceptar.Text = "Editar";
             lblEstado.Text = "Editando Tipo";
             txtNombre.Text = aspectoEditar.Name;
             txtNombre.Enabled = false;
             await cargarCmbxPadres();
-            cmbxPadre.SelectedIndex = cmbxPadre.Items.IndexOf(aspectoEditar.ParentName);
+            if(aspectoEditar.ParentName is null || aspectoEditar.ParentName == "")
+            {
+                cmbxPadre.SelectedIndex = cmbxPadre.Items.IndexOf("Ninguno");
+            }
+            else
+            {
+                cmbxPadre.SelectedIndex = cmbxPadre.Items.IndexOf(aspectoEditar.ParentName);
+            }
             txtTitulo.Text = aspectoEditar.Title;
             txtDescripcion.Text = aspectoEditar.Description;
         }
 
         private async void tlstripEliminar_Click(object sender, EventArgs e)
         {
-            List<GroupMember> groupMembers = await GruposStatic.ObtenerMiembrosGrupoAdministradorModelos();
-            if (!(groupMembers.Find(x => x.Id == PersonasStatic.PersonaAutenticada.Id) is null))
+            FLoading fPrincipalLoading = new FLoading();
+            try
             {
-                FLoading fPrincipalLoading = new FLoading();
-                fPrincipalLoading.Show();
-                await AspectosPersonalizadosStatic.EliminarAspectoPersonalizado(modelo.Name,
-                    dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
-                fPrincipalLoading.Close();
-                MessageBox.Show("El aspecto ha sido eliminado");
-                await PoblarDtgv();
-                dtgviewDatos.Refresh();
+                List<GroupMember> groupMembers = await GruposStatic.ObtenerMiembrosGrupoAdministradorModelos();
+                if (!(groupMembers.Find(x => x.Id == PersonasStatic.PersonaAutenticada.Id) is null))
+                {
+                    fPrincipalLoading.Show();
+                    await AspectosPersonalizadosStatic.EliminarAspectoPersonalizado(modelo.Name,
+                        dtgviewDatos.SelectedRows[0].Cells[0].Value.ToString());
+                    fPrincipalLoading.Close();
+                    MessageBox.Show("El aspecto ha sido eliminado");
+                    await PoblarDtgv();
+                    dtgviewDatos.Refresh();
+                }
+                else
+                {
+                    MessageBox.Show("No tiene los permisos suficientes para realizar esta acción. Usted no pertenece al grupo ALFRESCO_MODEL_ADMINISTRATORS.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-            else
+            catch (AspectException exception)
             {
-                MessageBox.Show("No tiene los permisos suficientes para realizar esta acción. Usted no pertenece al grupo ALFRESCO_MODEL_ADMINISTRATORS.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                fPrincipalLoading.Close();
+                if (exception.Codigo == 409)
+                {
+                    MessageBox.Show("El aspecto debe estar inactivo para poder eliminarse", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Transacción abortada, hubo un error.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
 
         }
@@ -167,52 +193,93 @@ namespace TrabajoTitulacion.IU
 
         private async void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtNombre.Text) || cmbxPadre.SelectedItem == null)
+            if (string.IsNullOrEmpty(txtNombre.Text))
             {
-                MessageBox.Show("Es obligatorio llenar el campo: Nombre y Seleccionar una opción en Padre", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Es obligatorio llenar el campo: Nombre", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {
                 FLoading fPrincipalLoading = new FLoading();
                 try
                 {
+
                     if (btnAceptar.Text == "Crear")
                     {
-                        Aspect aspectoCrear = new Aspect();
-                        aspectoCrear.Name = txtNombre.Text;
-                        aspectoCrear.ParentName = cmbxPadre.SelectedItem.ToString();
-                        aspectoCrear.Description = txtDescripcion.Text;
-                        aspectoCrear.Title = txtTitulo.Text;
-                        aspectoCrear.ModeloPerteneciente.Name = modelo.Name;
-                        await AspectosPersonalizadosStatic.CrearAspectoPersonalizado(aspectoCrear);
-                        MessageBox.Show("Aspecto creado exitosamente");
-                        await PoblarDtgv();
+                        try
+                        {
+                            Aspect aspectoCrear = new Aspect();
+                            aspectoCrear.Name = txtNombre.Text;
+                            if (cmbxPadre.SelectedItem is null)
+                            {
+                                aspectoCrear.ParentName = "";
+                            }
+                            else
+                            {
+                                aspectoCrear.ParentName = cmbxPadre.SelectedItem.ToString();
+                            }
+                            aspectoCrear.Description = txtDescripcion.Text;
+                            aspectoCrear.Title = txtTitulo.Text;
+                            aspectoCrear.ModeloPerteneciente.Name = modelo.Name;
+                            await AspectosPersonalizadosStatic.CrearAspectoPersonalizado(aspectoCrear);
+                            MessageBox.Show("Aspecto creado exitosamente", "Creado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            await PoblarDtgv();
+                        }
+                        catch (AspectException exception)
+                        {
+                            fPrincipalLoading.Close();
+                            NuevaPlantilla();
+                            if (exception.Codigo == 409)
+                            {
+                                MessageBox.Show("Uno de los nombres especificados ya se está utilizando", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Transacción abortada, hubo un error.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
                     }
                     else if (btnAceptar.Text == "Editar")
                     {
-                        Aspect aspectoActualizar = new Aspect();
-                        aspectoActualizar.Name = txtNombre.Text;
-                        aspectoActualizar.ParentName = cmbxPadre.SelectedItem.ToString();
-                        aspectoActualizar.Description = txtDescripcion.Text;
-                        aspectoActualizar.Title = txtTitulo.Text;
-                        aspectoActualizar.ModeloPerteneciente.Name = modelo.Name;
-                        await AspectosPersonalizadosStatic.ActualizarAspectoPersonalizado(aspectoActualizar);
-                        MessageBox.Show("Aspecto actualizado exitosamente");
-                        await PoblarDtgv();
-                        NuevaPlantilla();
+                        try
+                        {
+                            Aspect aspectoActualizar = new Aspect();
+                            aspectoActualizar.Name = txtNombre.Text;
+                            aspectoActualizar.ParentName = cmbxPadre.SelectedItem.ToString();
+                            aspectoActualizar.Description = txtDescripcion.Text;
+                            aspectoActualizar.Title = txtTitulo.Text;
+                            aspectoActualizar.ModeloPerteneciente.Name = modelo.Name;
+                            await AspectosPersonalizadosStatic.ActualizarAspectoPersonalizado(aspectoActualizar);
+                            MessageBox.Show("Aspecto editado exitosamente", "Editado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            await PoblarDtgv();
+                            NuevaPlantilla();
+                        }
+                        catch (AspectException exception)
+                        {
+                            fPrincipalLoading.Close();
+                            NuevaPlantilla();
+                            if (exception.Codigo == 409)
+                            {
+                                MessageBox.Show("No se puede cambiar el padre de un Aspecto activo que se está utilizando.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Transacción abortada, hubo un error.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+
                     }
-                }
+                    }
                 catch (AspectException exception)
                 {
-                    if (exception.Codigo == 409)
-                    {
-                        MessageBox.Show("Uno de los nombres especificados ya se está utlizando", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        fPrincipalLoading.Close();
-                    }
-                    else if (exception.Codigo == 403)
+                    fPrincipalLoading.Close();
+                    NuevaPlantilla();
+                    if (exception.Codigo == 403)
                     {
                         MessageBox.Show("Permisos insuficientes", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        fPrincipalLoading.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Transacción abortada, hubo un error.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

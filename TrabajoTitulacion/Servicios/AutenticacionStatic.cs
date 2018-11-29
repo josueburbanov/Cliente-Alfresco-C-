@@ -9,7 +9,6 @@ namespace TrabajoTitulacion.Servicios
 {
     class AutenticacionStatic
     {
-
         public static string Ticket { get; set; }
         private static AutenticacionServicio servicioAuth = new AutenticacionServicio();
 
@@ -34,8 +33,9 @@ namespace TrabajoTitulacion.Servicios
         /// <returns></returns>
         public async static Task<string> CerrarSesion(string nombreUsuario)
         {
+            string respuesta = await servicioAuth.CerrarSesion(nombreUsuario);
             Ticket = "";
-            return await servicioAuth.CerrarSesion(nombreUsuario);
+            return respuesta;
         }
     }
 }

@@ -76,5 +76,23 @@ namespace TrabajoTitulacion.IU
             tblpanelContenedor.Controls.Add(fpropiedades);
 
         }
+
+        private void pictureBox2_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip ToolTip1 = new ToolTip();
+            ToolTip1.SetToolTip((PictureBox)sender, "Para navegar sobre los modelos o submodelos utilice los menús contextuales (click derecho sobre la tabla o fuera de ella)");
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            ToolTip ToolTip1 = new ToolTip();
+            ToolTip1.SetToolTip((PictureBox)sender, "Para navegar sobre los modelos o submodelos utilice los menús contextuales (click derecho sobre la tabla o fuera de ella)");
+        }
+
+        private void pictureBox2_MouseEnter(object sender, EventArgs e)
+        {
+            ToolTip ToolTip1 = new ToolTip();
+            ToolTip1.SetToolTip((PictureBox)sender, "Para navegar sobre los modelos o submodelos utilice los menús contextuales (click derecho sobre la tabla o fuera de ella)");
+        }
     }
 }

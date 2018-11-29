@@ -151,6 +151,7 @@
             // 
             // flwlypanelNodosHijos
             // 
+            this.flwlypanelNodosHijos.AllowDrop = true;
             this.flwlypanelNodosHijos.AutoScroll = true;
             this.flwlypanelNodosHijos.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("flwlypanelNodosHijos.BackgroundImage")));
             this.flwlypanelNodosHijos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
@@ -162,6 +163,8 @@
             this.flwlypanelNodosHijos.Size = new System.Drawing.Size(649, 344);
             this.flwlypanelNodosHijos.TabIndex = 0;
             this.flwlypanelNodosHijos.WrapContents = false;
+            this.flwlypanelNodosHijos.DragDrop += new System.Windows.Forms.DragEventHandler(this.flwlypanelNodosHijos_DragDrop);
+            this.flwlypanelNodosHijos.DragEnter += new System.Windows.Forms.DragEventHandler(this.flwlypanelNodosHijos_DragEnter);
             // 
             // tableLayoutPanel6
             // 

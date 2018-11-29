@@ -42,6 +42,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnAgregarAspecto = new System.Windows.Forms.Button();
+            this.btnCambiarTipo = new System.Windows.Forms.Button();
             this.cmbxAspectos = new System.Windows.Forms.ComboBox();
             this.cmbxTipos = new System.Windows.Forms.ComboBox();
             this.btnEliminarAspecto = new System.Windows.Forms.Button();
@@ -52,8 +54,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.flwypanelPropiedades = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnCambiarTipo = new System.Windows.Forms.Button();
-            this.btnAgregarAspecto = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -74,13 +74,13 @@
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(20, 20, 0, 0);
+            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.10979F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.591886F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 65.63245F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.665871F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 450);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(702, 600);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // flowLayoutPanel2
@@ -89,9 +89,9 @@
             this.flowLayoutPanel2.Controls.Add(this.btnCancelar);
             this.flowLayoutPanel2.Controls.Add(this.btnEditarPropiedades);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(23, 410);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(23, 543);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(774, 37);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(676, 54);
             this.flowLayoutPanel2.TabIndex = 11;
             // 
             // btnAceptar
@@ -132,15 +132,16 @@
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.LightYellow;
             this.flowLayoutPanel1.Controls.Add(this.pctboxTipoContenido);
             this.flowLayoutPanel1.Controls.Add(this.lnklblNombre);
             this.flowLayoutPanel1.Controls.Add(this.lblVersion);
             this.flowLayoutPanel1.Controls.Add(this.lblModificado);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(23, 92);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(23, 99);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(774, 30);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(676, 45);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // pctboxTipoContenido
@@ -196,9 +197,9 @@
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(23, 23);
+            this.pictureBox1.Location = new System.Drawing.Point(23, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(774, 63);
+            this.pictureBox1.Size = new System.Drawing.Size(676, 90);
             this.pictureBox1.TabIndex = 12;
             this.pictureBox1.TabStop = false;
             // 
@@ -209,12 +210,12 @@
             this.tableLayoutPanel2.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.flwypanelPropiedades, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(23, 128);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(23, 150);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(774, 276);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(676, 387);
             this.tableLayoutPanel2.TabIndex = 13;
             // 
             // panel1
@@ -234,8 +235,30 @@
             this.panel1.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(768, 132);
+            this.panel1.Size = new System.Drawing.Size(670, 187);
             this.panel1.TabIndex = 0;
+            // 
+            // btnAgregarAspecto
+            // 
+            this.btnAgregarAspecto.Location = new System.Drawing.Point(569, 57);
+            this.btnAgregarAspecto.Name = "btnAgregarAspecto";
+            this.btnAgregarAspecto.Size = new System.Drawing.Size(91, 23);
+            this.btnAgregarAspecto.TabIndex = 8;
+            this.btnAgregarAspecto.Text = "Agregar Aspecto";
+            this.btnAgregarAspecto.UseVisualStyleBackColor = true;
+            this.btnAgregarAspecto.Visible = false;
+            this.btnAgregarAspecto.Click += new System.EventHandler(this.btnAgregarAspecto_Click);
+            // 
+            // btnCambiarTipo
+            // 
+            this.btnCambiarTipo.Location = new System.Drawing.Point(569, 16);
+            this.btnCambiarTipo.Name = "btnCambiarTipo";
+            this.btnCambiarTipo.Size = new System.Drawing.Size(91, 23);
+            this.btnCambiarTipo.TabIndex = 8;
+            this.btnCambiarTipo.Text = "Cambiar Tipo";
+            this.btnCambiarTipo.UseVisualStyleBackColor = true;
+            this.btnCambiarTipo.Visible = false;
+            this.btnCambiarTipo.Click += new System.EventHandler(this.btnCambiarTipo_Click);
             // 
             // cmbxAspectos
             // 
@@ -330,42 +353,19 @@
             this.flwypanelPropiedades.AutoScroll = true;
             this.flwypanelPropiedades.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flwypanelPropiedades.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flwypanelPropiedades.Location = new System.Drawing.Point(3, 141);
+            this.flwypanelPropiedades.Location = new System.Drawing.Point(3, 196);
             this.flwypanelPropiedades.Name = "flwypanelPropiedades";
-            this.flwypanelPropiedades.Size = new System.Drawing.Size(768, 132);
+            this.flwypanelPropiedades.Size = new System.Drawing.Size(670, 188);
             this.flwypanelPropiedades.TabIndex = 13;
             this.flwypanelPropiedades.WrapContents = false;
-            // 
-            // btnCambiarTipo
-            // 
-            this.btnCambiarTipo.Location = new System.Drawing.Point(569, 16);
-            this.btnCambiarTipo.Name = "btnCambiarTipo";
-            this.btnCambiarTipo.Size = new System.Drawing.Size(91, 23);
-            this.btnCambiarTipo.TabIndex = 8;
-            this.btnCambiarTipo.Text = "Cambiar Tipo";
-            this.btnCambiarTipo.UseVisualStyleBackColor = true;
-            this.btnCambiarTipo.Visible = false;
-            this.btnCambiarTipo.Click += new System.EventHandler(this.btnCambiarTipo_Click);
-            // 
-            // btnAgregarAspecto
-            // 
-            this.btnAgregarAspecto.Location = new System.Drawing.Point(569, 57);
-            this.btnAgregarAspecto.Name = "btnAgregarAspecto";
-            this.btnAgregarAspecto.Size = new System.Drawing.Size(91, 23);
-            this.btnAgregarAspecto.TabIndex = 8;
-            this.btnAgregarAspecto.Text = "Agregar Aspecto";
-            this.btnAgregarAspecto.UseVisualStyleBackColor = true;
-            this.btnAgregarAspecto.Visible = false;
-            this.btnAgregarAspecto.Click += new System.EventHandler(this.btnAgregarAspecto_Click);
             // 
             // FDetallesContenido
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(702, 600);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FDetallesContenido";
             this.Load += new System.EventHandler(this.FDetallesContenido_Load);
